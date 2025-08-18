@@ -22,3 +22,4 @@ db/data/
 
 # Misc
 .DS_Store
+orchestrator/logs/
