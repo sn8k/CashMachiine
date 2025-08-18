@@ -1,4 +1,4 @@
-# Changelog v0.4.0
+# Changelog v0.5.0
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -14,3 +14,4 @@
 - Introduced admin/db_check.php for schema validation.
 - Added install_db.sh and remove_db.sh scripts.
 - Documented database setup in user manuals.
+- Added FastAPI API gateway with JWT auth, role checks, version header, install scripts, tests, and updated requirements.
