@@ -1,5 +1,5 @@
 <?php
-// db_check.php v0.1.0
+// db_check.php v0.1.1
 $expectedVersion = 'v0.1.0';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
@@ -11,6 +11,7 @@ $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily','backtests'
 ];
+$priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
 try {
     $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 } catch (Exception $e) {
@@ -21,6 +22,14 @@ foreach ($requiredTables as $tbl) {
     $stmt = $pdo->query("SELECT to_regclass('public.$tbl')");
     if (!$stmt->fetchColumn()) {
         echo "Missing table: $tbl\n";
+        exit(1);
+    }
+}
+$stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='prices'");
+$cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+foreach ($priceColumns as $col) {
+    if (!in_array($col, $cols)) {
+        echo "Missing column in prices: $col\n";
         exit(1);
     }
 }
