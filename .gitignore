@@ -24,3 +24,4 @@ db/data/
 .DS_Store
 orchestrator/logs/
 data-ingestion/logs/
+risk-engine/logs/

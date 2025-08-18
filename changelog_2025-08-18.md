@@ -1,4 +1,4 @@
-# Changelog v0.5.3
+# Changelog v0.5.4
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -30,3 +30,8 @@
 - Introduced example `CoreStrategy` and `SatelliteStrategy` with unit-test stubs.
 - Updated strategy-engine install/remove scripts to v0.3.0.
 - Bumped requirements.txt to v0.2.4.
+- Implemented risk-engine utilities for volatility targeting, VaR/ES limits, and Kelly caps with REST endpoint.
+- Added strategy-engine client for risk service and tests for risk calculations.
+- Updated risk-engine install/remove scripts to v0.3.0 and added log directories with script updates.
+- Added numpy dependency and bumped requirements to v0.2.5.
+- Expanded user manual with risk-engine usage and bumped to v0.5.4.

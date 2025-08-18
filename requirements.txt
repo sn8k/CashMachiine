@@ -1,4 +1,4 @@
-# requirements.txt v0.2.4
+# requirements.txt v0.2.5
 
 # Runtime dependencies
 requests>=2.31.0
@@ -9,6 +9,7 @@ apscheduler>=3.10.4
 yfinance>=0.2.40
 ccxt>=4.0.0
 psycopg2-binary>=2.9.9
+numpy>=1.26.0
 
 # Development dependencies
 pytest>=8.2.0
