@@ -1,4 +1,4 @@
-# Changelog v0.5.4
+# Changelog v0.5.5
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -34,3 +34,8 @@
 - Updated risk-engine install/remove scripts to v0.3.0 and added log directories with script updates.
 - Added numpy dependency and bumped requirements to v0.2.5.
 - Expanded user manual with risk-engine usage and bumped to v0.5.4.
+- Introduced broker-agnostic order handler with pluggable IBKR and Binance adapters.
+- Logged orders in structured JSON and added execution-engine log directory.
+- Updated log creation scripts and execution-engine install/remove to v0.3.0.
+- Added execution-engine logs to .gitignore.
+- Expanded user manual with execution-engine order handling and bumped to v0.5.5.

@@ -1,4 +1,4 @@
-# User Manual v0.5.4
+# User Manual v0.5.5
 
 Date: 2025-08-18
 
@@ -54,6 +54,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Provides volatility targeting, Value-at-Risk/Expected Shortfall checks, and Kelly fraction caps.
 - REST endpoint `/adjust` consumed by `strategy-engine` via `risk_client`.
 - Logs stored in `risk-engine/logs`.
+
+## Execution Engine
+- Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).
+- Structured JSON order logs written to `execution-engine/logs/orders.log`.
+- Install with `execution-engine/install.sh` and remove with `execution-engine/remove.sh` (v0.3.0).
 
 ## Architecture
 - See README for initial specification.

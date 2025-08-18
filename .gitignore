@@ -25,3 +25,4 @@ db/data/
 orchestrator/logs/
 data-ingestion/logs/
 risk-engine/logs/
+execution-engine/logs/
