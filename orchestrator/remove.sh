@@ -1,3 +1,3 @@
 #!/bin/bash
-# orchestrator removal v0.2.0
+# orchestrator removal v0.3.0
 echo "Removing orchestrator service..."

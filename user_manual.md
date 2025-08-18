@@ -1,4 +1,4 @@
-# User Manual v0.5.0
+# User Manual v0.5.1
 
 Date: 2025-08-18
 
@@ -32,6 +32,12 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - FastAPI service exposing `/goals` for users and `/actions` for admins.
 - Authenticate requests with JWT tokens containing a `role` claim.
 - All responses include header `X-API-Version: v0.2.0`.
+
+## Orchestrator
+- Uses APScheduler to trigger daily jobs at 08:00 Europe/Paris.
+- Start with `python orchestrator/main.py`.
+- Flags: `--install` to install, `--remove` to uninstall, `--log-path` to customize log file.
+- Default log file `orchestrator/logs/orchestrator.log`.
 
 ## Architecture
 - See README for initial specification.

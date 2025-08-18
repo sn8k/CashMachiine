@@ -1,10 +1,11 @@
-# requirements.txt v0.2.1
+# requirements.txt v0.2.2
 
 # Runtime dependencies
 requests>=2.31.0
 fastapi>=0.110.0
 uvicorn>=0.29.0
 python-jose[cryptography]>=3.3.0
+apscheduler>=3.10.4
 
 # Development dependencies
 pytest>=8.2.0
