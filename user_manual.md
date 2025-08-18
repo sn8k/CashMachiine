@@ -1,4 +1,4 @@
-# User Manual v0.5.1
+# User Manual v0.5.2
 
 Date: 2025-08-18
 
@@ -38,6 +38,13 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start with `python orchestrator/main.py`.
 - Flags: `--install` to install, `--remove` to uninstall, `--log-path` to customize log file.
 - Default log file `orchestrator/logs/orchestrator.log`.
+
+## Data Ingestion
+- Modular fetchers for Yahoo equities and Binance crypto.
+- Example usage:
+  - `from data_ingestion.fetchers.equities_yahoo import YahooEquityFetcher`
+  - `YahooEquityFetcher().save(YahooEquityFetcher().fetch("AAPL"))`
+- Logs stored in `data-ingestion/logs`.
 
 ## Architecture
 - See README for initial specification.

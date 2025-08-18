@@ -1,4 +1,4 @@
-# Changelog v0.5.1
+# Changelog v0.5.2
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -21,3 +21,8 @@
 - Updated user manual with scheduling details.
 - Added APScheduler dependency to requirements.
 - Updated orchestrator install/remove scripts to v0.3.0.
+- Introduced modular Yahoo equities and Binance crypto fetchers with normalized OHLCV and DB storage.
+- Added yfinance, ccxt and psycopg2-binary dependencies with installer updates.
+- Extended log creation scripts and .gitignore for data-ingestion logs.
+- Enhanced admin/db_check.php to validate `prices` table columns.
+- Expanded user manual with data-ingestion fetcher usage.
