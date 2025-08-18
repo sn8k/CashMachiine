@@ -1,4 +1,4 @@
-# User Manual v0.5.2
+# User Manual v0.5.3
 
 Date: 2025-08-18
 
@@ -45,6 +45,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - `from data_ingestion.fetchers.equities_yahoo import YahooEquityFetcher`
   - `YahooEquityFetcher().save(YahooEquityFetcher().fetch("AAPL"))`
 - Logs stored in `data-ingestion/logs`.
+
+## Strategy Engine
+- Base `Strategy` interface exposing `signals()` and `target_weights()`.
+- Example implementations: `CoreStrategy` and `SatelliteStrategy`.
 
 ## Architecture
 - See README for initial specification.
