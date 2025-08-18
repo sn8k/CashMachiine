@@ -1,4 +1,4 @@
-# User Manual v0.3.0
+# User Manual v0.4.0
 
 Date: 2025-08-18
 
@@ -10,6 +10,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Installation
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
+
+## Database Setup
+- Run `./install_db.sh` to create tables.
+- Run `./remove_db.sh` to drop tables.
+- Verify with `php admin/db_check.php`.
 
 ## Usage
 - Pending implementation.

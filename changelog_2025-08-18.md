@@ -1,4 +1,4 @@
-# Changelog v0.3.0
+# Changelog v0.4.0
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -11,3 +11,7 @@
 - Added requirements.txt with runtime and development dependencies.
 - Introduced setup_env and remove_env scripts for Linux/Mac and Windows.
 - Documented installer usage in user manuals.
+- Added initial database schema migrations.
+- Introduced admin/db_check.php for schema validation.
+- Added install_db.sh and remove_db.sh scripts.
+- Documented database setup in user manuals.
