@@ -1,4 +1,4 @@
-# Changelog v0.5.5
+# Changelog v0.5.6
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -39,3 +39,5 @@
 - Updated log creation scripts and execution-engine install/remove to v0.3.0.
 - Added execution-engine logs to .gitignore.
 - Expanded user manual with execution-engine order handling and bumped to v0.5.5.
+- Added backtester CLI for HTML reports with install/remove commands, tests, and report directories.
+- Updated user manual and log creation scripts; ignored report outputs.

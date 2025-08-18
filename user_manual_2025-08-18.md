@@ -1,4 +1,4 @@
-# User Manual v0.5.5
+# User Manual v0.5.6
 
 Date: 2025-08-18
 
@@ -48,6 +48,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).
 - Structured JSON order logs written to `execution-engine/logs/orders.log`.
 - Install with `execution-engine/install.sh` and remove with `execution-engine/remove.sh` (v0.3.0).
+
+## Backtester
+- Run `python backtester/cli.py --config config.json --start-date 2024-01-01 --end-date 2024-06-01`.
+- Use `--install` to create `backtester/reports` and `--remove` to delete it.
 
 ## Architecture
 - See README for initial specification.
