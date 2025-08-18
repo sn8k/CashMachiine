@@ -1,4 +1,4 @@
-# requirements.txt v0.2.3
+# requirements.txt v0.2.4
 
 # Runtime dependencies
 requests>=2.31.0

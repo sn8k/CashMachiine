@@ -1,4 +1,4 @@
-# Changelog v0.5.2
+# Changelog v0.5.3
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -26,3 +26,7 @@
 - Extended log creation scripts and .gitignore for data-ingestion logs.
 - Enhanced admin/db_check.php to validate `prices` table columns.
 - Expanded user manual with data-ingestion fetcher usage.
+- Added base Strategy interface with `signals()` and `target_weights()` methods.
+- Introduced example `CoreStrategy` and `SatelliteStrategy` with unit-test stubs.
+- Updated strategy-engine install/remove scripts to v0.3.0.
+- Bumped requirements.txt to v0.2.4.
