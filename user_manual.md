@@ -1,4 +1,4 @@
-# User Manual v0.5.3
+# User Manual v0.5.4
 
 Date: 2025-08-18
 
@@ -21,7 +21,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Installation
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
-- Each service includes install.sh and remove.sh scripts (v0.2.1).
+- Each service includes install.sh and remove.sh scripts (v0.3.0).
 
 ## Database Setup
 - Run `./install_db.sh` to create tables.
@@ -49,6 +49,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Strategy Engine
 - Base `Strategy` interface exposing `signals()` and `target_weights()`.
 - Example implementations: `CoreStrategy` and `SatelliteStrategy`.
+
+## Risk Engine
+- Provides volatility targeting, Value-at-Risk/Expected Shortfall checks, and Kelly fraction caps.
+- REST endpoint `/adjust` consumed by `strategy-engine` via `risk_client`.
+- Logs stored in `risk-engine/logs`.
 
 ## Architecture
 - See README for initial specification.
