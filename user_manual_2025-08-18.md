@@ -1,4 +1,4 @@
-# User Manual v0.2.0
+# User Manual v0.3.0
 
 Date: 2025-08-18
 
@@ -8,7 +8,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Goal-based investment platform with daily actionable recommendations.
 
 ## Installation
-- Pending implementation.
+- Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
+- Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 
 ## Usage
 - Pending implementation.

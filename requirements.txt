@@ -1,0 +1,7 @@
+# requirements.txt v0.1.0
+
+# Runtime dependencies
+requests>=2.31.0
+
+# Development dependencies
+pytest>=8.2.0
