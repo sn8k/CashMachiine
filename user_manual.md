@@ -7,16 +7,6 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Overview
 - Goal-based investment platform with daily actionable recommendations.
 
-## Installation
-- Pending implementation.
-
-## Usage
-- Pending implementation.
-
-## Architecture
-- See README for initial specification.
-
-
 ## Services Overview
 - api-gateway
 - orchestrator
@@ -27,3 +17,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - backtester
 - ui
 - db
+
+## Installation
+- Each service includes install.sh and remove.sh scripts (v0.2.0).
+
+## Architecture
+- See README for initial specification.

@@ -4,7 +4,6 @@
 - Added initial development tasks outline.
 - Initialized user manual skeleton.
 - Created first changelog entry.
-
 - Scaffolded service directories with versioned bootstraps and scripts.
 - Added .gitignore for build artifacts and volatile paths.
 - Expanded user manual with service overview.
