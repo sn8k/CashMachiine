@@ -1,8 +1,11 @@
-# User Manual v0.6.9
+# User Manual v0.6.10
 
 Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
+
+## Development Roadmap
+- Refer to [development_tasks.md](development_tasks.md) for the latest task status.
 
 ## Installation
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB` and `RATE_LIMIT_PER_MINUTE`.

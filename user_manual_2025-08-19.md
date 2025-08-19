@@ -1,4 +1,4 @@
-# User Manual v0.6.6
+# User Manual v0.6.7
 
 Date: 2025-08-19
 
@@ -7,6 +7,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Overview
 - Goal-based investment platform with daily actionable recommendations.
 - Redis cache infrastructure provides shared helpers for services.
+- See [development_tasks.md](development_tasks.md) for the current roadmap and task status.
 
 ## Services Overview
 - api-gateway
