@@ -1,4 +1,4 @@
-# .gitignore v0.2.7 (2025-08-19)
+# .gitignore v0.2.9 (2025-08-19)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -17,6 +17,14 @@ dist/
 
 # Node modules
 ui/node_modules/
+ui/.next/
+
+# Binary assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+ui/public/images/
 
 # Database data
 db/data/

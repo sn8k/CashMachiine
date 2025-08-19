@@ -1,4 +1,4 @@
-# User Manual v0.5.7
+# User Manual v0.5.9
 
 Date: 2025-08-19
 
@@ -74,3 +74,12 @@ This document will evolve into a comprehensive encyclopedia for the project.
 
 ## Architecture
 - See README for initial specification.
+
+## UI
+- Next.js frontend with Tailwind CSS.
+- `/goals` page submits new goals to the API Gateway `/goals` endpoint.
+- `/daily-actions` page displays recommendations fetched from `/actions`.
+- Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.2.0).
+- Screenshots:
+  - Goal creation page (screenshot omitted)
+  - Daily actions page (screenshot omitted)

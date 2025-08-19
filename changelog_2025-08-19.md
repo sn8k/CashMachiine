@@ -1,4 +1,4 @@
-# Changelog v0.5.7
+# Changelog v0.5.9
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -7,6 +7,8 @@
 - Updated log creation scripts and `.gitignore` for new log paths.
 - Documented monitoring setup in user manual.
 - Added Prometheus and OpenTelemetry dependencies.
+- Initialized Next.js UI with Tailwind pages for goal creation and daily actions referencing api-gateway.
+- Removed binary UI screenshots and ignored image assets to comply with repository policy.
 
 ## 2025-08-18
 - Added initial development tasks outline.
