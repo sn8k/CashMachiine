@@ -1,4 +1,4 @@
-# User Manual v0.6.35
+# User Manual v0.6.36
 
 Date: 2025-08-19
 
@@ -42,6 +42,11 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Verify with `php admin/db_check.php`.
 - Create backups with `tools/db_backup.sh --retention <days>` (default 7) storing dumps in `backups/`.
 - Restore a dump via `tools/db_restore.sh <dump_file>`.
+
+## Infrastructure Deployment
+- Define infrastructure modules under `infra/terraform/` for database, cache, message bus and services.
+- Run `./setup_tf.sh` to initialize, plan and apply Terraform; logs and state reside in `infra/terraform/logs/`.
+- Use `./teardown_tf.sh` to destroy resources, writing output to the same log directory.
 
 ## Monitoring
 - Shared JSON logging writes to `logs/` with optional remote sink via `REMOTE_LOG_URL`.

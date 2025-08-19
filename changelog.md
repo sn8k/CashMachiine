@@ -1,4 +1,4 @@
-# Changelog v0.6.35
+# Changelog v0.6.36
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -77,6 +77,11 @@
 - Order handler now stores orders and executions in the database with Redis caching.
 - Updated log creation scripts and `.gitignore` for execution-engine order logs.
 - Added unit tests for adapters and order handler using mocked requests and fakeredis.
+
+- Introduced Terraform infrastructure modules for database, cache, message bus and services.
+- Added `setup_tf.sh` and `teardown_tf.sh` with state and plan logs stored under `infra/terraform/logs/`.
+- Extended log creation scripts and `.gitignore` for Terraform logs.
+- Documented deployment procedure in user manuals.
 
 - Added action checkboxes with status updates and feedback on the UI daily actions page.
 - Rendered Chart.js metrics on the analytics dashboard with localized strings.

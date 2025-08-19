@@ -1,4 +1,4 @@
-# .gitignore v0.2.19 (2025-08-19)
+# .gitignore v0.2.20 (2025-08-19)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -35,6 +35,9 @@ ui/public/locales/
 
 # Database data
 db/data/
+
+# Terraform logs
+infra/terraform/logs/
 
 # Misc
 .DS_Store

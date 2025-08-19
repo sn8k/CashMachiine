@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.15 (2025-08-19)
+# log directory creator v0.6.16 (2025-08-19)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -9,6 +9,7 @@ mkdir -p tests/e2e/reports
 mkdir -p ui/.next
 mkdir -p perf
 mkdir -p execution-engine/logs
+mkdir -p infra/terraform/logs
 mkdir -p logs/notification-service
 mkdir -p logs/strategy-marketplace
 mkdir -p logs/mobile
