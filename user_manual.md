@@ -1,4 +1,4 @@
-# User Manual v0.6.5
+# User Manual v0.6.6
 
 Date: 2025-08-19
 
@@ -27,8 +27,14 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The `ci.yml` workflow runs lint, tests and builds service images on each push or pull request.
 - Badges in the README display the latest status for `lint`, `test` and `build` jobs.
 
+## Security Policies
+- The CI pipeline scans Python code with Bandit and frontend dependencies with `npm audit`.
+- Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
+- Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
+
 ## Troubleshooting
 - If dependencies are missing, rerun `./setup_env.sh`.
 - Verify database connectivity with `php admin/db_check.php`.
 - Check service logs under the `logs/` directory for error details.
 - Ensure required variables are set in `.env`.
+

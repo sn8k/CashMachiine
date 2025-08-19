@@ -1,4 +1,4 @@
-# User Manual v0.6.4
+# User Manual v0.6.5
 
 Date: 2025-08-19
 
@@ -43,6 +43,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Continuous Integration
 - GitHub Actions `ci.yml` workflow runs lint, tests and builds service images.
 - Status badges in the README show the latest pipeline results.
+
+## Security Policies
+- The CI pipeline scans Python code with Bandit and frontend dependencies with `npm audit`.
+- Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
+- Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
 
 ## API Gateway
 - FastAPI service exposing `/goals` for users and `/actions` for admins.
@@ -94,7 +99,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Next.js frontend with Tailwind CSS.
 - `/goals` page submits new goals to the API Gateway `/goals` endpoint.
 - `/daily-actions` page displays recommendations fetched from `/actions`.
-- Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.2.0).
+- Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.3.0).
 - Screenshots:
   - Goal creation page (screenshot omitted)
   - Daily actions page (screenshot omitted)
+

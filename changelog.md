@@ -1,4 +1,4 @@
-# Changelog v0.6.5
+# Changelog v0.6.6
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -32,6 +32,9 @@
 - Introduced root docker-compose.yml wiring services, database, cache and message bus.
 - Updated setup/remove scripts to invoke `docker-compose up` and `docker-compose down`.
 - Extended log creation scripts to include container log directories.
+- Added Bandit and `npm audit` security scans to CI with automatic dependency alerts.
+- Added Bandit dependency and UI `audit` script.
+- Documented security policies in user manuals.
 
 ## 2025-08-18
 - Added initial development tasks outline.
@@ -74,3 +77,4 @@
 - Expanded user manual with execution-engine order handling and bumped to v0.5.5.
 - Added backtester CLI for HTML reports with install/remove commands, tests, and report directories.
 - Updated user manual and log creation scripts; ignored report outputs.
+
