@@ -1,4 +1,4 @@
-# Changelog v0.6.28
+# Changelog v0.6.29
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -88,6 +88,8 @@
 
 - Scaffolded `notification-service` with `/notify/email` and `/notify/webhook` endpoints, RabbitMQ consumer,
   log directory, installer scripts and `notifications` table migration with schema checks.
+
+- Made notification-service bind host configurable via environment variables to satisfy Bandit.
 
 ## 2025-08-18
 - Added initial development tasks outline.

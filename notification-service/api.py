@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""notification-service FastAPI app v0.3.0 (2025-08-19)"""
+"""notification-service FastAPI app v0.3.1 (2025-08-19)"""
 from __future__ import annotations
 
+import os
 import threading
 from typing import Any
 
@@ -14,7 +15,7 @@ from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 from messaging import EventConsumer
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 logger = setup_logging(
     "notification-service",
@@ -101,4 +102,6 @@ def startup() -> None:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("notification-service.api:app", host="0.0.0.0", port=8000)
+    host = os.getenv("NOTIFICATION_HOST", "127.0.0.1")
+    port = int(os.getenv("NOTIFICATION_PORT", "8000"))
+    uvicorn.run("notification-service.api:app", host=host, port=port)

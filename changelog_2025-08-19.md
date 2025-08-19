@@ -1,4 +1,4 @@
-# Changelog v0.6.24
+# Changelog v0.6.25
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -66,6 +66,8 @@
 - Added historical and hypothetical stress test endpoint `/risk/stress` with persistence, migrations and documentation.
 - Scaffolded `notification-service` with `/notify/email` and `/notify/webhook` endpoints, RabbitMQ consumer,
   log directory, installer scripts and `notifications` table migration with schema checks.
+
+- Made notification-service bind host configurable via environment variables to satisfy Bandit.
 
 ## 2025-08-18
 - Added initial development tasks outline.

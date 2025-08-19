@@ -1,4 +1,4 @@
-# User Manual v0.6.19
+# User Manual v0.6.20
 
 Date: 2025-08-19
 
@@ -98,7 +98,8 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - FastAPI service exposing `/notify/email` and `/notify/webhook`.
 - Consumes RabbitMQ `notifications` queue.
 - Logs stored in `logs/notification-service/notification.log`.
-- Install with `notification-service/install.sh` and remove with `notification-service/remove.sh` (v0.3.0).
+- Install with `notification-service/install.sh` and remove with `notification-service/remove.sh` (v0.3.1).
+- Configure bind address via `NOTIFICATION_HOST` (default `127.0.0.1`) and `NOTIFICATION_PORT`.
 
 ## Backtester
 - Generate HTML performance reports from strategy configs.
