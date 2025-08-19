@@ -1,4 +1,4 @@
-# User Manual v0.6.36
+# User Manual v0.6.37
 
 Date: 2025-08-19
 
@@ -37,6 +37,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Mobile Application
 - React Native app initialized under `mobile/` with a simple entry point.
 - Use `mobile/build.sh` to generate mobile build logs in `logs/mobile/`.
+
+## Data Warehouse
+- Nightly ETL scripts load operational data into an analytical `warehouse` schema.
+- Logs reside in `logs/data-warehouse/etl.log`.
+- Install with `data-warehouse/install.sh` and remove with `data-warehouse/remove.sh` (v0.1.0).
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`. Requests are scoped by the `tenant_id` embedded in JWT tokens.

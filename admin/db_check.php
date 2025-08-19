@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.8 (2025-08-19)
-$expectedVersion = 'v0.1.5';
+// db_check.php v0.1.9 (2025-08-19)
+$expectedVersion = 'v0.1.6';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -12,6 +12,7 @@ $requiredTables = [
     'executions','prices','signals','actions','risk_limits','metrics_daily',
     'backtests','risk_stress_results','notifications','strategies','strategy_reviews'
 ];
+$warehouseTables = ['dw_orders','dw_positions'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
 try {
     $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -23,6 +24,13 @@ foreach ($requiredTables as $tbl) {
     $stmt = $pdo->query("SELECT to_regclass('public.$tbl')");
     if (!$stmt->fetchColumn()) {
         echo "Missing table: $tbl\n";
+        exit(1);
+    }
+}
+foreach ($warehouseTables as $tbl) {
+    $stmt = $pdo->query("SELECT to_regclass('warehouse.$tbl')");
+    if (!$stmt->fetchColumn()) {
+        echo "Missing warehouse table: $tbl\n";
         exit(1);
     }
 }

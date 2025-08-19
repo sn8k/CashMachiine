@@ -1,4 +1,4 @@
-# Changelog v0.6.36
+# Changelog v0.6.37
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -38,6 +38,10 @@
 - Added Dockerfiles for all services with version headers.
 - Introduced root docker-compose.yml wiring services, database, cache and message bus.
 - Updated setup/remove scripts to invoke `docker-compose up` and `docker-compose down`.
+- Added data-warehouse module with nightly ETL and warehouse schema migrations.
+- Logged ETL runs under `logs/data-warehouse/` and updated log creation scripts.
+- Created warehouse migrations and updated `admin/db_check.php` for new tables.
+- Updated root requirements with SQLAlchemy and refreshed documentation.
 - Extended log creation scripts to include container log directories.
 - Added Bandit and `npm audit` security scans to CI with automatic dependency alerts.
 - Added Bandit dependency and UI `audit` script.
