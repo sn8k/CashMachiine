@@ -1,4 +1,4 @@
-# requirements.txt v0.3.7 (2025-08-19)
+# requirements.txt v0.3.8 (2025-08-19)
 
 # Runtime dependencies
 requests>=2.31.0

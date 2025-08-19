@@ -1,4 +1,4 @@
-# User Manual v0.6.39
+# User Manual v0.6.40
 
 Date: 2025-08-19
 
@@ -16,6 +16,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - data-warehouse
 - messaging
 - notification-service
+- fx-service
 - strategy-marketplace
 - strategy-engine
 - risk-engine
@@ -36,6 +37,12 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Mobile dependencies install with `mobile/install.sh` and remove with `mobile/remove.sh`; build logs are stored under `logs/mobile/`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
+
+## fx-service
+- Offers currency conversion via the European Central Bank rates.
+- POST `/convert` with JSON `{ "from_currency": "USD", "to_currency": "EUR", "amount": 1.23 }`.
+- Returns the converted amount and rate.
+- Install with `fx-service/install.sh` and remove with `fx-service/remove.sh`.
 
 ## Database Setup
 - Run `./install_db.sh` to create tables.

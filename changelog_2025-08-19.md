@@ -1,4 +1,4 @@
-# Changelog v0.6.36
+# Changelog v0.6.37
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -83,6 +83,11 @@
 - Updated log creation scripts, `.gitignore` and documentation for the new service and installer scripts.
 - Reconciled `development_tasks` with dated logs, adding deliverables for feasibility calculator documentation and backtester benchmarking.
 - Updated user manual with notes on feasibility calculator integration and backtester performance plans.
+
+- Added fx-service for ECB-based FX conversions with `/convert` endpoint.
+- Introduced `currency` columns on `accounts`, `orders`, `positions` and `executions` with migration and schema checks.
+- Registered fx-service in docker-compose and log scripts.
+- Documented currency conversion usage and bumped requirements.
 
 ## 2025-08-18
 - Added initial development tasks outline.
