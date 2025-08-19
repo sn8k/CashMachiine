@@ -1,6 +1,6 @@
-# User Manual v0.6.8
+# User Manual v0.6.9
 
-Date: 2025-08-20
+Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -20,6 +20,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Data ingestion consumes events from the scheduler via RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
+- Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.

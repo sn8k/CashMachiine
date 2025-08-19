@@ -2,7 +2,8 @@
   "home": {
     "title": "CashMachiine UI",
     "createGoal": "Create Goal",
-    "dailyActions": "Daily Actions"
+    "dailyActions": "Daily Actions",
+    "analytics": "Analytics"
   },
   "goals": {
     "title": "Create Goal",
@@ -13,5 +14,9 @@
   },
   "daily": {
     "title": "Daily Actions"
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "loading": "Loading metrics..."
   }
 }

@@ -1,8 +1,10 @@
-"""FastAPI app exposing goals and actions endpoints with JWT auth v0.2.4 (2025-08-19)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.5 (2025-08-19)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
 from jose import JWTError, jwt
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 from common.monitoring import (
     setup_logging,
@@ -54,7 +56,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.4"
+    response.headers["X-API-Version"] = "v0.2.5"
     return response
 
 
@@ -83,3 +85,25 @@ def get_goals(_: dict = Depends(role_checker("user"))):
 @app.get("/actions")
 def get_actions(_: dict = Depends(role_checker("admin"))):
     return {"actions": []}
+
+
+@app.get("/analytics")
+def get_analytics(_: dict = Depends(role_checker("admin"))):
+    db_metrics: list[dict] = []
+    try:
+        with psycopg2.connect(
+            host=settings.db_host,
+            port=settings.db_port,
+            dbname=settings.db_name,
+            user=settings.db_user,
+            password=settings.db_pass,
+        ) as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
+                cur.execute(
+                    "SELECT date, requests, errors FROM metrics_daily ORDER BY date DESC LIMIT 7"
+                )
+                db_metrics = [dict(row) for row in cur.fetchall()]
+    except Exception:
+        db_metrics = []
+    observability = {"requests": REQUEST_COUNT._value.get()}
+    return {"db_metrics": db_metrics, "observability": observability}

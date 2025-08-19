@@ -1,5 +1,5 @@
 <?php
-// db_check.php v0.1.1
+// db_check.php v0.1.2 (2025-08-19)
 $expectedVersion = 'v0.1.0';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
@@ -30,6 +30,16 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
 foreach ($priceColumns as $col) {
     if (!in_array($col, $cols)) {
         echo "Missing column in prices: $col\n";
+        exit(1);
+    }
+}
+
+$metricsColumns = ['date','requests','errors'];
+$stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='metrics_daily'");
+$cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+foreach ($metricsColumns as $col) {
+    if (!in_array($col, $cols)) {
+        echo "Missing column in metrics_daily: $col\n";
         exit(1);
     }
 }

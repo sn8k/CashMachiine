@@ -1,4 +1,4 @@
-/** Home page v0.2.1 (2025-08-20) */
+/** Home page v0.2.2 (2025-08-19) */
 import Link from 'next/link';
 import { useTranslation } from '../lib/useTranslation';
 
@@ -10,6 +10,7 @@ export default function Home() {
       <ul className="list-disc ml-5">
         <li><Link href="/goals">{t('home.createGoal')}</Link></li>
         <li><Link href="/daily-actions">{t('home.dailyActions')}</Link></li>
+        <li><Link href="/analytics">{t('home.analytics')}</Link></li>
       </ul>
     </div>
   );
