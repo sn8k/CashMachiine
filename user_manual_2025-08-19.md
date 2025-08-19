@@ -1,4 +1,4 @@
-# User Manual v0.6.18
+# User Manual v0.6.19
 
 Date: 2025-08-19
 
@@ -14,6 +14,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - orchestrator
 - data-ingestion
 - messaging
+- notification-service
 - strategy-engine
 - risk-engine
 - execution-engine
@@ -92,6 +93,12 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).
 - Structured JSON order logs written to `logs/execution-engine.log`.
 - Install with `execution-engine/install.sh` and remove with `execution-engine/remove.sh` (v0.4.3).
+
+## Notification Service
+- FastAPI service exposing `/notify/email` and `/notify/webhook`.
+- Consumes RabbitMQ `notifications` queue.
+- Logs stored in `logs/notification-service/notification.log`.
+- Install with `notification-service/install.sh` and remove with `notification-service/remove.sh` (v0.3.0).
 
 ## Backtester
 - Generate HTML performance reports from strategy configs.

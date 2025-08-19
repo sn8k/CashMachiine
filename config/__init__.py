@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.5 (2025-08-19)"""
+"""Configuration loader v0.1.6 (2025-08-19)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -14,6 +14,7 @@ class Settings:
     execution_engine_metrics_port: int = int(os.getenv("EXECUTION_ENGINE_METRICS_PORT", "9003"))
     data_ingestion_metrics_port: int = int(os.getenv("DATA_INGESTION_METRICS_PORT", "9004"))
     backtester_metrics_port: int = int(os.getenv("BACKTESTER_METRICS_PORT", "9005"))
+    notification_service_metrics_port: int = int(os.getenv("NOTIFICATION_SERVICE_METRICS_PORT", "9006"))
     db_host: str = os.getenv("DB_HOST", "localhost")
     db_port: int = int(os.getenv("DB_PORT", "5432"))
     db_name: str = os.getenv("DB_NAME", "cashmachiine")
