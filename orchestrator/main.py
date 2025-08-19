@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.3 (2025-08-19)"""
+"""orchestrator scheduler v0.5.4 (2025-08-19)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -33,6 +33,14 @@ def run_pipeline(producer: EventProducer):
         logger.info("Pipeline events emitted")
 
 
+def run_db_backup():
+    """Trigger database backup script."""
+    with tracer.start_as_current_span("run_db_backup"):
+        script = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "tools", "db_backup.sh"))
+        subprocess.run([script], check=True)  # nosec B603
+        logger.info("Database backup completed")
+
+
 def install_service():
     script_path = os.path.join(os.path.dirname(__file__), "install.sh")
     subprocess.run([script_path], check=True)  # nosec B603
@@ -44,7 +52,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.3")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.4")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")
@@ -65,6 +73,7 @@ def main():
     producer = EventProducer(settings.rabbitmq_url)
     scheduler = BackgroundScheduler(timezone=ZoneInfo("Europe/Paris"))
     scheduler.add_job(run_pipeline, "cron", hour=8, minute=0, args=[producer])
+    scheduler.add_job(run_db_backup, "cron", hour=2, minute=0)
     scheduler.start()
     logger.info("Scheduler started, waiting for jobs")
     try:

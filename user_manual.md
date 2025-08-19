@@ -1,4 +1,4 @@
-# User Manual v0.6.30
+# User Manual v0.6.31
 
 Date: 2025-08-19
 
@@ -18,6 +18,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 - Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
+- Create PostgreSQL dumps with `tools/db_backup.sh --retention <days>` (default 7) which stores files under `backups/` and prunes old ones.
+- Restore a dump via `tools/db_restore.sh <dump_file>`.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
 
 ## Usage
@@ -26,6 +28,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
+ - A daily 02:00 backup job invokes `tools/db_backup.sh`.
  - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
