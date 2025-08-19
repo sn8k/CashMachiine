@@ -1,4 +1,4 @@
-# User Manual v0.6.10
+# User Manual v0.6.11
 
 Date: 2025-08-20
 
@@ -21,6 +21,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Data ingestion consumes events from the scheduler via RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
+- The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
 
 ### Strategy Engine
 - `strategy-engine` includes `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
