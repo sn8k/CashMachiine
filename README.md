@@ -1,6 +1,8 @@
-# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.0
+# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.1
 
-*Date : 2025-08-19*
+*Date : 2025-02-14*
+
+Consultez le [manuel utilisateur](user_manual_2025-02-14.md) pour l'installation, l'utilisation, l'architecture et le dépannage.
 
 ## 1) Vision & cas d’usage
 
@@ -66,6 +68,8 @@ Construire un logiciel qui, à partir d’un **capital initial**, d’un **objec
 ---
 
 ## 6) Architecture technique
+
+Voir aussi la section [Architecture](user_manual_2025-02-14.md#architecture) du manuel utilisateur.
 
 **Monorepo** avec services conteneurisés (Docker) :
 
