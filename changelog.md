@@ -1,4 +1,4 @@
-# Changelog v0.6.21
+# Changelog v0.6.22
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -70,6 +70,12 @@
 - Order handler now stores orders and executions in the database with Redis caching.
 - Updated log creation scripts and `.gitignore` for execution-engine order logs.
 - Added unit tests for adapters and order handler using mocked requests and fakeredis.
+
+- Added action checkboxes with status updates and feedback on the UI daily actions page.
+- Rendered Chart.js metrics on the analytics dashboard with localized strings.
+- Introduced Chart.js dependency and locale management scripts in `package.json`.
+- Bumped locale installer scripts for updated translation assets.
+- Documented new UI features and scripts in user manual.
 
 ## 2025-08-18
 - Added initial development tasks outline.
