@@ -1,4 +1,4 @@
-# User Manual v0.6.7
+# User Manual v0.6.8
 
 Date: 2025-08-19
 
@@ -51,9 +51,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
 
 ## API Gateway
-- FastAPI service exposing `/goals` for users, `/actions` for admins and `/analytics` for aggregated metrics.
-- Authenticate requests with JWT tokens containing a `role` claim.
-- All responses include header `X-API-Version: v0.2.5`.
+- FastAPI service exposing `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check`, `/orders/preview` and `/analytics`.
+- Authenticate requests with JWT tokens containing a `role` claim; POST routes require the `admin` role.
+- All responses include header `X-API-Version: v0.2.6`.
 - Rate limiting enforced per IP using Redis; defaults to 100 requests/minute configurable via `RATE_LIMIT_PER_MINUTE`.
 - Metrics default to port `9001`.
 - Configuration values read from `config` package.
@@ -99,7 +99,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## UI
 - Next.js frontend with Tailwind CSS.
 - `/goals` page submits new goals to the API Gateway `/goals` endpoint.
-- `/daily-actions` page displays recommendations fetched from `/actions`.
+ - `/daily-actions` page displays recommendations fetched from `/actions/today`.
 - Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.3.0).
 - Screenshots:
   - Goal creation page (screenshot omitted)

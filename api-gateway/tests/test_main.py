@@ -1,4 +1,4 @@
-"""Unit tests for api-gateway main application v0.2.5 (2025-08-19)"""
+"""Unit tests for api-gateway main application v0.2.6 (2025-08-19)"""
 from fastapi.testclient import TestClient
 from jose import jwt
 import importlib.util
@@ -32,7 +32,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
-    assert response.headers["X-API-Version"] == "v0.2.5"
+    assert response.headers["X-API-Version"] == "v0.2.6"
     assert response.json() == {"goals": []}
 
 
@@ -45,6 +45,45 @@ def test_actions_requires_admin_role():
     response = client.get("/actions", headers={"Authorization": f"Bearer {admin_token}"})
     assert response.status_code == 200
     assert response.json() == {"actions": []}
+
+
+def test_post_goal_requires_admin_role():
+    token = create_token("user")
+    response = client.post("/goals", json={}, headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 403
+
+    admin_token = create_token("admin")
+    response = client.post("/goals", json={"user_id": 1, "name": "x"}, headers={"Authorization": f"Bearer {admin_token}"})
+    assert response.status_code == 200
+    assert response.json() == {"goal": {}}
+
+
+def test_goal_status_endpoint():
+    token = create_token("user")
+    response = client.get("/goals/1/status", headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 200
+    assert response.json() == {"goal_id": 1, "done": 0, "pending": 0}
+
+
+def test_actions_today_and_check():
+    token = create_token("user")
+    response = client.get("/actions/today", headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 200
+    assert response.json() == {"actions": []}
+
+    user_response = client.post("/actions/1/check", headers={"Authorization": f"Bearer {token}"})
+    assert user_response.status_code == 403
+
+    admin_token = create_token("admin")
+    admin_response = client.post("/actions/1/check", headers={"Authorization": f"Bearer {admin_token}"})
+    assert admin_response.status_code == 404
+
+
+def test_orders_preview_endpoint():
+    token = create_token("user")
+    response = client.get("/orders/preview", headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 200
+    assert response.json() == {"orders": []}
 
 
 def test_rate_limiting_triggers_after_threshold():

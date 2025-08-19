@@ -1,4 +1,4 @@
-# User Manual v0.6.10
+# User Manual v0.6.11
 
 Date: 2025-08-19
 
@@ -17,7 +17,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 
 ## Usage
-- Authenticate and interact with the API Gateway at `/goals` and `/actions`.
+- Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`.
+- POST endpoints require the `admin` role.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.
 - Data ingestion consumes events from the scheduler via RabbitMQ.

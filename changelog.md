@@ -1,4 +1,4 @@
-# Changelog v0.6.10
+# Changelog v0.6.11
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -47,6 +47,8 @@
  Documented benchmarking and metrics in user manual.
  Added `pytest-benchmark` dependency and ignored `perf/` artifacts.
 - Marked development tasks as completed and linked documentation in user manuals.
+
+- Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
 
 ## 2025-08-18
 - Added initial development tasks outline.
