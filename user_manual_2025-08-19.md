@@ -1,4 +1,4 @@
-# User Manual v0.6.23
+# User Manual v0.6.35
 
 Date: 2025-08-19
 
@@ -32,6 +32,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service includes install.sh and remove.sh scripts.
+- Mobile dependencies install with `mobile/install.sh` and remove with `mobile/remove.sh`; build logs are stored under `logs/mobile/`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 
@@ -58,6 +59,13 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
 - Tests use `# nosec` to bypass false positives and subprocess calls are validated.
 - The UI is pinned to Next.js 14.2.32 following security advisories.
+
+## Progressive Web App
+- The Next.js UI registers a service worker via `next-pwa` and caches assets for offline use.
+- A manifest is provided at `ui/public/manifest.json`.
+
+## Mobile Application
+- React Native app located under `mobile/` with `mobile/build.sh` logging to `logs/mobile/`.
 
 ## API Gateway
 - FastAPI service exposing `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check`, `/orders/preview` and `/analytics`.

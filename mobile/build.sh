@@ -1,0 +1,5 @@
+#!/bin/bash
+# mobile build v0.1.0 (2025-08-19)
+set -e
+cd "$(dirname "$0")"
+npm run build:log

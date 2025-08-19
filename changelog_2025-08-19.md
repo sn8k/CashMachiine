@@ -1,4 +1,4 @@
-# Changelog v0.6.28
+# Changelog v0.6.35
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -37,6 +37,10 @@
 - Updated documentation and README for analytics features.
 - Reconciled development_tasks with repository state, marking tasks complete and cross-linking with user manual.
 - Updated development tasks with new deliverables from the README and bumped README to v0.1.5 with current date linkage.
+- Initialized React Native mobile app with install/remove scripts and build logging.
+- Enabled PWA support in Next.js UI with service worker, manifest and offline cache.
+- Added `logs/mobile/` path to log creation scripts for mobile build artifacts.
+- Documented mobile and PWA features in user manuals.
 
 - Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
 

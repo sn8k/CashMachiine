@@ -1,4 +1,4 @@
-# Changelog v0.6.34
+# Changelog v0.6.35
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -105,6 +105,11 @@
 - Added `strategies` and `strategy_reviews` tables with migrations and schema checks.
 - Stored uploaded strategy files under `strategy-marketplace/assets/` with dedicated log directory.
 - Updated log creation scripts, `.gitignore` and documentation for the new service and installer scripts.
+
+- Initialized React Native mobile app with install/remove scripts and build logging.
+- Enabled PWA support in Next.js UI with service worker, manifest and offline cache.
+- Added `logs/mobile/` path to log creation scripts for mobile build artifacts.
+- Documented mobile and PWA features in user manuals.
 
 ## 2025-08-18
 - Added initial development tasks outline.

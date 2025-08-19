@@ -1,4 +1,4 @@
-# .gitignore v0.2.18 (2025-01-14)
+# .gitignore v0.2.19 (2025-08-19)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -16,8 +16,14 @@ dist/
 */dist/
 
 # Node modules
+node_modules/
 ui/node_modules/
 ui/.next/
+mobile/node_modules/
+
+# Mobile build artifacts
+mobile/android/
+mobile/ios/
 
 # Binary assets
 *.png
