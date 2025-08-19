@@ -1,5 +1,5 @@
 <?php
-// db_check.php v0.1.3 (2025-08-19)
+// db_check.php v0.1.4 (2025-08-19)
 $expectedVersion = 'v0.1.1';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
@@ -50,6 +50,16 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
 foreach ($metricsColumns as $col) {
     if (!in_array($col, $cols)) {
         echo "Missing column in metrics_daily: $col\n";
+        exit(1);
+    }
+}
+
+$backtestColumns = ['id','cfg_json','start','end','kpis_json','report_path'];
+$stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='backtests'");
+$cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+foreach ($backtestColumns as $col) {
+    if (!in_array($col, $cols)) {
+        echo "Missing column in backtests: $col\n";
         exit(1);
     }
 }
