@@ -68,7 +68,11 @@ def test_order_persistence(monkeypatch):
     handler.adapters["binance"] = DummyAdapter()
 
     order_id = handler.place_order("binance", {"symbol": "BTC", "qty": 1})
-    assert order_id == "abc"
-    assert redis_client.get("order:abc") is not None
-    assert any("INSERT INTO orders" in sql for sql, _ in executed)
-    assert any("INSERT INTO executions" in sql for sql, _ in executed)
+    if order_id != "abc":
+        raise AssertionError("unexpected order_id")
+    if redis_client.get("order:abc") is None:
+        raise AssertionError("order not cached")
+    if not any("INSERT INTO orders" in sql for sql, _ in executed):
+        raise AssertionError("order not persisted")
+    if not any("INSERT INTO executions" in sql for sql, _ in executed):
+        raise AssertionError("execution not persisted")
