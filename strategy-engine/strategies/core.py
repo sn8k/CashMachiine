@@ -1,9 +1,10 @@
-"""Core strategy example v0.1.2 (2025-08-20)"""
+"""Core strategy example v0.1.3 (2025-08-19)"""
 from strategy_engine.interface import Strategy
 from strategy_engine.risk_client import adjust_risk
+from strategy_engine.ml_forecast import forecast_prices
 from common.monitoring import setup_performance_metrics
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 SIGNAL_LATENCY = setup_performance_metrics("strategy-engine-core")
 
@@ -16,10 +17,12 @@ class CoreStrategy(Strategy):
 
     def signals(self, market_data):
         with SIGNAL_LATENCY.time():
-            price = market_data.get("SPY", {}).get("close", 0)
-            prev = market_data.get("SPY", {}).get("prev_close", price)
-            ret = (price - prev) / prev if prev else 0.0
-            return {"SPY": ret}
+            symbol = "SPY"
+            price = market_data.get(symbol, {}).get("close", 0)
+            history = market_data.get(symbol, {}).get("history", [])
+            forecast = forecast_prices(symbol, history + [price])
+            ret = (forecast - price) / price if price else 0.0
+            return {symbol: ret}
 
     def target_weights(self, signals):
         raw = 1.0 if signals.get("SPY", 0) > 0 else 0.0

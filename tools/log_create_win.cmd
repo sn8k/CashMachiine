@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.10 (2025-08-19)
+REM log directory creator v0.6.11 (2025-08-19)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -8,6 +8,7 @@ mkdir ui\.next 2>nul
 mkdir perf 2>nul
 mkdir execution-engine\logs 2>nul
 mkdir logs\notification-service 2>nul
+mkdir strategy-engine\models 2>nul
 type nul > logs\orchestrator.log
 type nul > logs\data-ingestion.log
 type nul > logs\strategy-engine.log

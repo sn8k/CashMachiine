@@ -1,11 +1,11 @@
 # nosec
-"""Unit test stubs for strategy interface v0.1.2 (2025-08-20)"""
+"""Unit test stubs for strategy interface v0.1.3 (2025-08-19)"""
 import importlib.util
 import sys
 from pathlib import Path
 import types
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 ENGINE_DIR = Path(__file__).resolve().parents[1]
 
@@ -30,8 +30,9 @@ def test_core_strategy_interface(monkeypatch):
     monkeypatch.setattr(
         core, "adjust_risk", lambda **_: {"weights": [1.0], "explanation": "stub"}
     )
+    monkeypatch.setattr(core, "forecast_prices", lambda *_, **__: 101.0)
     strategy = core.CoreStrategy()
-    sigs = strategy.signals({"SPY": {"close": 101, "prev_close": 100}})
+    sigs = strategy.signals({"SPY": {"close": 101, "history": [100, 101]}})
     weights = strategy.target_weights(sigs)
     assert isinstance(sigs, dict)  # nosec
     assert isinstance(weights, dict)  # nosec
@@ -42,8 +43,9 @@ def test_satellite_strategy_interface(monkeypatch):
     monkeypatch.setattr(
         satellite, "adjust_risk", lambda **_: {"weights": [0.1], "explanation": "stub"}
     )
+    monkeypatch.setattr(satellite, "forecast_prices", lambda *_, **__: 101.0)
     strategy = satellite.SatelliteStrategy()
-    sigs = strategy.signals({"BTC": {"close": 101, "prev_close": 100}})
+    sigs = strategy.signals({"BTC": {"close": 101, "history": [100, 101]}})
     weights = strategy.target_weights(sigs)
     assert isinstance(sigs, dict)  # nosec
     assert isinstance(weights, dict)  # nosec

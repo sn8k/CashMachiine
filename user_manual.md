@@ -1,4 +1,4 @@
-# User Manual v0.6.29
+# User Manual v0.6.30
 
 Date: 2025-08-19
 
@@ -44,6 +44,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ### Strategy Engine
 - `strategy-engine` now provides `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
 - Core and satellite strategies consume market data, call the risk engine for adjustments, and expose `explain()` for weight justification.
+- `ml_forecast.py` supplies `forecast_prices()` using RandomForest models stored in `strategy-engine/models/`.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.
