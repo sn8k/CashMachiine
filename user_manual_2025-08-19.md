@@ -1,4 +1,4 @@
-# User Manual v0.6.0
+# User Manual v0.6.1
 
 Date: 2025-08-19
 
@@ -19,6 +19,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - db
 
 ## Installation
+- Copy `.env.example` to `.env` and adjust values as needed.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service includes install.sh and remove.sh scripts (v0.3.0).
@@ -40,8 +41,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## API Gateway
 - FastAPI service exposing `/goals` for users and `/actions` for admins.
 - Authenticate requests with JWT tokens containing a `role` claim.
-- All responses include header `X-API-Version: v0.2.1`.
+- All responses include header `X-API-Version: v0.2.2`.
 - Metrics default to port `9001`.
+ - Configuration values read from `config` package.
 
 ## Orchestrator
 - Uses APScheduler to trigger daily jobs at 08:00 Europe/Paris.
@@ -64,6 +66,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Provides volatility targeting, Value-at-Risk/Expected Shortfall checks, and Kelly fraction caps.
 - REST endpoint `/adjust` consumed by `strategy-engine` via `risk_client`.
 - Logs stored in `logs/risk-engine.log` and metrics default to port `9002`.
+ - Configuration values read from `config` package.
 
 ## Execution Engine
 - Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).

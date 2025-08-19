@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.3.1 (2025-08-19)"""
+"""orchestrator scheduler v0.3.2 (2025-08-19)"""
 import argparse
 import os
 import subprocess
@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 from apscheduler.schedulers.background import BackgroundScheduler
 
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
+from config import settings
 
 
 tracer = setup_tracer("orchestrator")
@@ -31,7 +32,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.3.1")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.3.2")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")
@@ -46,7 +47,7 @@ def main():
         return
 
     global logger, JOB_COUNTER
-    logger = setup_logging("orchestrator", log_path=args.log_path, remote_url=os.environ.get("REMOTE_LOG_URL"))
+    logger = setup_logging("orchestrator", log_path=args.log_path, remote_url=settings.remote_log_url)
     JOB_COUNTER = setup_metrics("orchestrator", port=args.metrics_port)
 
     scheduler = BackgroundScheduler(timezone=ZoneInfo("Europe/Paris"))

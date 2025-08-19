@@ -1,10 +1,11 @@
-"""Abstract OHLCV fetcher base v0.1.0"""
+"""Abstract OHLCV fetcher base v0.1.1 (2025-08-19)"""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
-import os
 from typing import List
 import psycopg2
+
+from config import settings
 
 @dataclass
 class OHLCV:
@@ -29,11 +30,11 @@ class OHLCVFetcher(ABC):
         if not records:
             return
         conn = psycopg2.connect(
-            host=os.getenv("DB_HOST", "localhost"),
-            port=os.getenv("DB_PORT", "5432"),
-            dbname=os.getenv("DB_NAME", "cashmachiine"),
-            user=os.getenv("DB_USER", "postgres"),
-            password=os.getenv("DB_PASS", "")
+            host=settings.db_host,
+            port=settings.db_port,
+            dbname=settings.db_name,
+            user=settings.db_user,
+            password=settings.db_pass,
         )
         with conn, conn.cursor() as cur:
             for r in records:
