@@ -1,11 +1,11 @@
-# User Manual v0.6.37
+# User Manual v0.6.38
 
 Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
 ## Development Roadmap
-- Refer to [development_tasks.md](development_tasks.md) for the latest task status.
+- Refer to [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md) for the latest task status.
 
 ## Installation
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET` and `IBKR_API_KEY`.
@@ -60,6 +60,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Mark tasks complete on the daily actions page; checkboxes send POST requests to `/actions/{id}/check` and show feedback messages.
+- The daily actions checklist also allows exporting orders for external processing.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page, which renders charts with Chart.js.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
 - It now binds to `127.0.0.1` by default for improved security.

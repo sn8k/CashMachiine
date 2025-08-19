@@ -1,4 +1,4 @@
-# Changelog v0.6.37
+# Changelog v0.6.38
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -119,6 +119,7 @@
 - Enabled PWA support in Next.js UI with service worker, manifest and offline cache.
 - Added `logs/mobile/` path to log creation scripts for mobile build artifacts.
 - Documented mobile and PWA features in user manuals.
+- Reviewed development tasks, marking feasibility calculator, action UI export and backtester HTML reports as complete with cross-references in user manuals.
 
 ## 2025-08-18
 - Added initial development tasks outline.

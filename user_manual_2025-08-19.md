@@ -1,4 +1,4 @@
-# User Manual v0.6.37
+# User Manual v0.6.38
 
 Date: 2025-08-19
 
@@ -7,7 +7,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Overview
 - Goal-based investment platform with daily actionable recommendations.
 - Redis cache infrastructure provides shared helpers for services.
-- See [development_tasks.md](development_tasks.md) for the current roadmap and task status.
+- See [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md) for the current roadmap and task status.
 
 ## Services Overview
 - api-gateway
@@ -126,6 +126,12 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Install with `notification-service/install.sh` and remove with `notification-service/remove.sh` (v0.3.1).
 - Configure bind address via `NOTIFICATION_HOST` (default `127.0.0.1`) and `NOTIFICATION_PORT`.
 
+## Feasibility Calculator
+- FastAPI service exposing `/feasibility` endpoint for CAGR, daily returns and probability-of-hitting calculations.
+- Registered in `docker-compose.yml` with logs stored in `logs/feasibility-calculator.log`.
+- Install with `feasibility-calculator/install.sh` and remove with `feasibility-calculator/remove.sh` (v0.1.0).
+- See [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md#mvp-deliverables) for planned enhancements.
+
 ## Backtester
 - Generate HTML performance reports from strategy configs.
 - Run `python backtester/cli.py --config config.json --start-date 2024-01-01 --end-date 2024-06-01`.
@@ -139,7 +145,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 ## UI
 - Next.js frontend with Tailwind CSS.
 - `/goals` page submits new goals to the API Gateway `/goals` endpoint.
- - `/daily-actions` page displays recommendations fetched from `/actions/today`.
+ - `/daily-actions` page displays recommendations fetched from `/actions/today` and allows order export via a checklist.
 - Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.3.2).
 - Screenshots:
   - Goal creation page (screenshot omitted)
