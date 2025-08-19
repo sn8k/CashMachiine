@@ -1,4 +1,4 @@
-# User Manual v0.6.11
+# User Manual v0.6.12
 
 Date: 2025-08-19
 
@@ -21,7 +21,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - POST endpoints require the `admin` role.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.
-- Data ingestion consumes events from the scheduler via RabbitMQ.
+ - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
+ - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.

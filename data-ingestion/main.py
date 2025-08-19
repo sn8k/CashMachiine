@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""data-ingestion consumer v0.4.0 (2025-08-19)"""
+"""data-ingestion consumer v0.5.0 (2025-08-19)"""
 import argparse
 import os
 import subprocess
@@ -22,15 +22,15 @@ def remove_service():
 
 def handle_event(message: dict) -> None:
     event = message.get("event")
-    if event == "fetch_equities":
+    if event == "data_fetch":
         symbol = message.get("payload", {}).get("symbol", "AAPL")
         fetcher = YahooEquityFetcher()
         fetcher.save(fetcher.fetch(symbol))
-        logger.info("Fetched equities for %s", symbol)
+        logger.info("Fetched data for %s", symbol)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.4.0")
+    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.0")
     parser.add_argument("--install", action="store_true", help="Install data-ingestion service")
     parser.add_argument("--remove", action="store_true", help="Remove data-ingestion service")
     parser.add_argument("--log-path", default=os.path.join("logs", "data-ingestion.log"), help="Path to log file")

@@ -1,4 +1,4 @@
-# Changelog v0.6.11
+# Changelog v0.6.12
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -49,6 +49,12 @@
 - Marked development tasks as completed and linked documentation in user manuals.
 
 - Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
+
+- Scheduled orchestrator pipeline dispatching `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
+- Added EventConsumer entrypoints for strategy-engine, risk-engine and execution-engine.
+- Renamed data-ingestion handler to `data_fetch`.
+- Extended log creation scripts for new service log files.
+- Bumped service versions and updated user manual for the event-driven workflow.
 
 ## 2025-08-18
 - Added initial development tasks outline.
