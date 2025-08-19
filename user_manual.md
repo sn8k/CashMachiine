@@ -1,6 +1,6 @@
-# User Manual v0.6.34
+# User Manual v0.6.35
 
-Date: 2025-01-14
+Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -15,6 +15,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Each service now ships with its own `requirements.txt` for Docker builds.
 - Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.
 - UI translation assets install with `ui/install_locales.sh` or `npm run locales:install` and remove with `ui/remove_locales.sh` or `npm run locales:remove`.
+- Mobile dependencies install with `mobile/install.sh` and remove with `mobile/remove.sh`; build logs output to `logs/mobile/`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 - Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
@@ -23,6 +24,14 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
 - Install Playwright browsers with `npm run install:e2e` and remove them with `npm run remove:e2e`.
 - Execute end-to-end tests via `npm run test:e2e`; reports are written to `tests/e2e/reports/`.
+
+## Progressive Web App
+- The Next.js UI registers a service worker and offline cache via `next-pwa`.
+- A web app manifest lives at `ui/public/manifest.json`.
+
+## Mobile Application
+- React Native app initialized under `mobile/` with a simple entry point.
+- Use `mobile/build.sh` to generate mobile build logs in `logs/mobile/`.
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`. Requests are scoped by the `tenant_id` embedded in JWT tokens.
