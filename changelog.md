@@ -109,4 +109,5 @@
 - Added Next.js internationalization with French default and English fallback locales.
 - Externalized UI strings to translation files with locale install/remove scripts.
 - Documented localization setup in user manuals.
+- Added `requirements.txt` for backtester and bumped service to v0.3.2 fixing Docker builds.
 

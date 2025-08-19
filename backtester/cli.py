@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""backtester CLI v0.3.1 (2025-08-19)"""
+"""backtester CLI v0.3.2 (2025-08-20)"""
 import argparse
 import json
 import os
@@ -45,7 +45,7 @@ def run_backtest(config_path: str, start_date: str, end_date: str, output_path: 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Backtester controller v0.3.1")
+    parser = argparse.ArgumentParser(description="Backtester controller v0.3.2")
     parser.add_argument("--install", action="store_true", help="Install backtester service")
     parser.add_argument("--remove", action="store_true", help="Remove backtester service")
     parser.add_argument("--config", help="Path to strategy config JSON")

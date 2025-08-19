@@ -1,4 +1,4 @@
-# User Manual v0.6.8
+# User Manual v0.6.9
 
 Date: 2025-08-20
 
@@ -9,6 +9,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
+- Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.
 - UI translation assets install with `ui/install_locales.sh` and remove with `ui/remove_locales.sh`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.

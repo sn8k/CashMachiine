@@ -1,6 +1,6 @@
-# User Manual v0.6.16
+# User Manual v0.6.17
 
-Date: 2025-08-19
+Date: 2025-08-20
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -13,6 +13,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
+- Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.
 - UI translation assets install with `ui/install_locales.sh` and remove with `ui/remove_locales.sh`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
