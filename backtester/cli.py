@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""backtester CLI v0.4.0 (2025-08-19)"""
+"""backtester CLI v0.4.1 (2025-08-19)"""
 import argparse
 import base64
 import json
@@ -18,9 +18,18 @@ import pandas as pd
 import psycopg2
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 
 REPORT_DIR = os.path.join(os.path.dirname(__file__), "reports")
+
+logger = setup_logging(
+    "backtester",
+    log_path=os.path.join("logs", "backtester.log"),
+    remote_url=settings.remote_log_url,
+)
+REQUEST_COUNT = setup_metrics("backtester", port=settings.backtester_metrics_port)
+tracer = setup_tracer("backtester")
 
 
 def install_service():
@@ -36,8 +45,9 @@ def remove_service():
 
 
 def run_backtest(config_path: str, start_date: str, end_date: str, output_path: str | None) -> None:
-    with open(config_path, "r", encoding="utf-8") as f:
-        config = json.load(f)
+    with tracer.start_as_current_span("run_backtest"):
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
 
     symbols = config.get("symbols")
     if not symbols:
@@ -106,6 +116,8 @@ def run_backtest(config_path: str, start_date: str, end_date: str, output_path: 
     with open(output_path, "w", encoding="utf-8") as out:
         out.write(html)
     print(f"Report generated at {output_path}")
+    logger.info("Report generated at %s", output_path)
+    REQUEST_COUNT.inc()
 
     with conn.cursor() as cur:
         cur.execute(
@@ -117,7 +129,7 @@ def run_backtest(config_path: str, start_date: str, end_date: str, output_path: 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Backtester controller v0.4.0")
+    parser = argparse.ArgumentParser(description="Backtester controller v0.4.1")
     parser.add_argument("--install", action="store_true", help="Install backtester service")
     parser.add_argument("--remove", action="store_true", help="Remove backtester service")
     parser.add_argument("--config", help="Path to strategy config JSON")
