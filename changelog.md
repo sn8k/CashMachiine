@@ -1,4 +1,4 @@
-# Changelog v0.6.38
+# Changelog v0.6.39
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -120,6 +120,8 @@
 - Added `logs/mobile/` path to log creation scripts for mobile build artifacts.
 - Documented mobile and PWA features in user manuals.
 - Reviewed development tasks, marking feasibility calculator, action UI export and backtester HTML reports as complete with cross-references in user manuals.
+- Reconciled `development_tasks` with dated logs, adding deliverables for feasibility calculator documentation and backtester benchmarking.
+- Updated user manuals with notes on feasibility calculator integration and backtester performance plans.
 
 ## 2025-08-18
 - Added initial development tasks outline.

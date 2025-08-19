@@ -1,4 +1,4 @@
-# User Manual v0.6.38
+# User Manual v0.6.39
 
 Date: 2025-08-19
 
@@ -64,7 +64,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page, which renders charts with Chart.js.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
 - It now binds to `127.0.0.1` by default for improved security.
+- Work in progress: integrate results into the UI overview, document the workflow and add automated tests.
 - The backtester CLI loads prices from the database, simulates equal-weight portfolios, computes KPIs (CAGR, Sharpe, max drawdown), embeds equity charts in HTML reports and records metrics in the `backtests` table.
+- Planned: add performance benchmarking for simulations.
 - Risk engine additionally offers `/risk/stress` for historical and hypothetical scenario analysis with stored results.
 
 ### Strategy Engine

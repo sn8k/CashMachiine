@@ -1,4 +1,4 @@
-# Development Tasks v0.1.2
+# Development Tasks v0.1.3
 
 Date: 2025-08-19
 
@@ -26,8 +26,12 @@ Date: 2025-08-19
 - [x] Maintain `changelog` for every update with version and date.
 
 ## MVP Deliverables
-- [ ] Implement `feasibility-calculator` service (API + UI) for goal feasibility calculations.
-- [ ] Extend `actions` UI with checklist and export of orders.
-- [ ] Generate HTML reports in `backtester` CLI.
+- [x] Implement `feasibility-calculator` service (API + UI) for goal feasibility calculations. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
+- [x] Extend `actions` UI with checklist and export of orders. See [UI](user_manual_2025-08-19.md#ui).
+- [x] Generate HTML reports in `backtester` CLI. See [Backtester](user_manual_2025-08-19.md#backtester).
+- [ ] Integrate `feasibility-calculator` results into the UI overview. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
+- [ ] Implement automated tests for `feasibility-calculator` service. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
+- [ ] Document feasibility calculator integration workflow in `user_manual`. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
+- [ ] Add performance benchmarking for `backtester` simulations. See [Backtester](user_manual_2025-08-19.md#backtester).
 
 Refer to [user_manual_2025-08-19.md](user_manual_2025-08-19.md) for installation and usage details.

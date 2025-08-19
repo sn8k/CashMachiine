@@ -1,4 +1,4 @@
-# User Manual v0.6.38
+# User Manual v0.6.39
 
 Date: 2025-08-19
 
@@ -131,6 +131,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Registered in `docker-compose.yml` with logs stored in `logs/feasibility-calculator.log`.
 - Install with `feasibility-calculator/install.sh` and remove with `feasibility-calculator/remove.sh` (v0.1.0).
 - See [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md#mvp-deliverables) for planned enhancements.
+- Upcoming: integrate results into the UI overview, document the workflow and add automated tests.
 
 ## Backtester
 - Generate HTML performance reports from strategy configs.
@@ -138,6 +139,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Use `--output` to specify report path; defaults to `backtester/reports`.
 - Flags: `--install` to prepare report directory, `--remove` to clean it`.
 - The CLI now pulls prices from the database, simulates equal-weight portfolios, outputs KPIs (CAGR, Sharpe, max drawdown) with embedded charts and writes metrics to the `backtests` table.
+- Planned: add performance benchmarking for simulations.
 
 ## Architecture
 - See README for initial specification.
