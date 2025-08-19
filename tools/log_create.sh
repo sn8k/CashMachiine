@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.11 (2025-08-19)
+# log directory creator v0.6.12 (2025-08-19)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -10,6 +10,7 @@ mkdir -p perf
 mkdir -p execution-engine/logs
 mkdir -p logs/notification-service
 mkdir -p strategy-engine/models
+mkdir -p backups
 touch logs/orchestrator.log
 touch logs/data-ingestion.log
 touch logs/strategy-engine.log

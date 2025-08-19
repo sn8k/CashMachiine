@@ -1,4 +1,4 @@
-# Changelog v0.6.30
+# Changelog v0.6.31
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -87,9 +87,12 @@
 - Added historical and hypothetical stress test endpoint `/risk/stress` with persistence, migrations and documentation.
 
 - Scaffolded `notification-service` with `/notify/email` and `/notify/webhook` endpoints, RabbitMQ consumer,
-  log directory, installer scripts and `notifications` table migration with schema checks.
+ log directory, installer scripts and `notifications` table migration with schema checks.
 
 - Made notification-service bind host configurable via environment variables to satisfy Bandit.
+- Added database backup and restore scripts with configurable retention policy.
+- Scheduled daily 02:00 backups via orchestrator and documented usage.
+- Created `backups/` directory with log scripts and `.gitignore` updates.
 
 ## 2025-08-18
 - Added initial development tasks outline.

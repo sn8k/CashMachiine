@@ -1,4 +1,4 @@
-# User Manual v0.6.21
+# User Manual v0.6.22
 
 Date: 2025-08-19
 
@@ -38,6 +38,8 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Run `./install_db.sh` to create tables.
 - Run `./remove_db.sh` to drop tables.
 - Verify with `php admin/db_check.php`.
+- Create backups with `tools/db_backup.sh --retention <days>` (default 7) storing dumps in `backups/`.
+- Restore a dump via `tools/db_restore.sh <dump_file>`.
 
 ## Monitoring
 - Shared JSON logging writes to `logs/` with optional remote sink via `REMOTE_LOG_URL`.
@@ -69,6 +71,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Start with `python orchestrator/main.py`.
 - Flags: `--install` to install, `--remove` to uninstall, `--log-path` to customize log file, `--metrics-port` for metrics.
 - Default log file `logs/orchestrator.log`.
+- Runs a daily 02:00 database backup.
 
 ## Data Ingestion
 - Modular fetchers for Yahoo equities and Binance crypto.

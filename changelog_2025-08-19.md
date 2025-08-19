@@ -1,4 +1,4 @@
-# Changelog v0.6.26
+# Changelog v0.6.27
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -68,6 +68,9 @@
   log directory, installer scripts and `notifications` table migration with schema checks.
 
 - Made notification-service bind host configurable via environment variables to satisfy Bandit.
+- Added database backup and restore scripts with configurable retention policy.
+- Scheduled daily 02:00 backups via orchestrator and documented usage.
+- Created `backups/` directory with log scripts and `.gitignore` updates.
 - Introduced RandomForest-based price forecasting with model storage under `strategy-engine/models/` and scikit-learn dependency.
 
 ## 2025-08-18
