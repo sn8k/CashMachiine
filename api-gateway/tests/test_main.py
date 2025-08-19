@@ -1,4 +1,4 @@
-"""Unit tests for api-gateway main application v0.2.3 (2025-08-19)"""
+"""Unit tests for api-gateway main application v0.2.4 (2025-08-19)"""
 from fastapi.testclient import TestClient
 from jose import jwt
 import importlib.util
@@ -32,7 +32,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
-    assert response.headers["X-API-Version"] == "v0.2.3"
+    assert response.headers["X-API-Version"] == "v0.2.4"
     assert response.json() == {"goals": []}
 
 

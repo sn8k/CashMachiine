@@ -1,4 +1,4 @@
-# Changelog v0.6.6
+# Changelog v0.6.7
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -35,6 +35,12 @@
 - Added Bandit and `npm audit` security scans to CI with automatic dependency alerts.
 - Added Bandit dependency and UI `audit` script.
 - Documented security policies in user manuals.
+
+- Introduced pytest-benchmark scripts for api-gateway and strategy-engine.
+- Stored benchmark results under `perf/` and updated log creation scripts.
+- Added Prometheus latency metrics via `setup_performance_metrics`.
+- Documented benchmarking and metrics in user manual.
+- Added `pytest-benchmark` dependency and ignored `perf/` artifacts.
 
 ## 2025-08-18
 - Added initial development tasks outline.

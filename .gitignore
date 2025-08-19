@@ -1,4 +1,4 @@
-# .gitignore v0.2.9 (2025-08-19)
+# .gitignore v0.2.10 (2025-08-19)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -33,3 +33,4 @@ db/data/
 .DS_Store
 logs/
 backtester/reports/
+perf/
