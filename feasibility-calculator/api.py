@@ -1,4 +1,4 @@
-"""FastAPI endpoint for feasibility analysis v0.1.0 (2025-08-20)"""
+"""FastAPI endpoint for feasibility analysis v0.1.1 (2025-08-19)"""
 from __future__ import annotations
 
 from datetime import datetime, date
@@ -10,7 +10,7 @@ from pydantic import BaseModel
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 app = FastAPI(title="feasibility-calculator", version=__version__)
 logger = setup_logging("feasibility-calculator", remote_url=settings.remote_log_url)
@@ -64,4 +64,4 @@ def calculate(payload: FeasibilityRequest) -> FeasibilityResponse:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("feasibility-calculator.api:app", host="0.0.0.0", port=8000)
+    uvicorn.run("feasibility-calculator.api:app", host="127.0.0.1", port=8000)

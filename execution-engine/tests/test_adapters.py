@@ -39,13 +39,16 @@ def test_binance_adapter_success(monkeypatch):
     adapter = BinanceAdapter()
 
     def fake_post(url, headers, json, timeout):
-        assert "X-MBX-APIKEY" in headers
+        if "X-MBX-APIKEY" not in headers:
+            raise AssertionError("missing API key")
         return DummyResponse({"orderId": "1", "executedQty": "1", "fills": [{"price": "10"}]})
 
     monkeypatch.setattr(binance_mod.requests, "post", fake_post)
     result = adapter.place_order({"symbol": "BTCUSDT"})
-    assert result["order_id"] == "1"
-    assert result["price"] == "10"
+    if result["order_id"] != "1":
+        raise AssertionError("unexpected order_id")
+    if result["price"] != "10":
+        raise AssertionError("unexpected price")
 
 
 def test_ibkr_adapter_error(monkeypatch):
