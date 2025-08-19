@@ -1,4 +1,4 @@
-# User Manual v0.6.22
+# User Manual v0.6.23
 
 Date: 2025-08-19
 
@@ -15,6 +15,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - data-ingestion
 - messaging
 - notification-service
+- strategy-marketplace
 - strategy-engine
 - risk-engine
 - execution-engine

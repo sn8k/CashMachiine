@@ -1,4 +1,4 @@
-# .gitignore v0.2.15 (2025-08-19)
+# .gitignore v0.2.16 (2025-08-19)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -40,3 +40,5 @@ perf/
 execution-engine/logs/
 strategy-engine/models/*
 !strategy-engine/models/.gitkeep
+strategy-marketplace/assets/*
+!strategy-marketplace/assets/.gitkeep

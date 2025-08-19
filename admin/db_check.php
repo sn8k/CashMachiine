@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.7 (2025-08-20)
-$expectedVersion = 'v0.1.4';
+// db_check.php v0.1.8 (2025-08-19)
+$expectedVersion = 'v0.1.5';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -9,7 +9,8 @@ $user = getenv('DB_USER') ?: 'postgres';
 $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
-    'executions','prices','signals','actions','risk_limits','metrics_daily','backtests','risk_stress_results','notifications'
+    'executions','prices','signals','actions','risk_limits','metrics_daily',
+    'backtests','risk_stress_results','notifications','strategies','strategy_reviews'
 ];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
 try {
@@ -87,6 +88,24 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
   foreach ($notificationColumns as $col) {
       if (!in_array($col, $cols)) {
           echo "Missing column in notifications: $col\n";
+          exit(1);
+      }
+  }
+  $strategyColumns = ['id','name','description','file_path','uploaded_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='strategies'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($strategyColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in strategies: $col\n";
+          exit(1);
+      }
+  }
+  $reviewColumns = ['id','strategy_id','rating','comment','created_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='strategy_reviews'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($reviewColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in strategy_reviews: $col\n";
           exit(1);
       }
   }

@@ -1,4 +1,4 @@
-# Changelog v0.6.32
+# Changelog v0.6.33
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -93,6 +93,11 @@
 - Added database backup and restore scripts with configurable retention policy.
 - Scheduled daily 02:00 backups via orchestrator and documented usage.
 - Created `backups/` directory with log scripts and `.gitignore` updates.
+
+- Scaffolded `strategy-marketplace` service with CRUD endpoints for uploaded strategies.
+- Added `strategies` and `strategy_reviews` tables with migrations and schema checks.
+- Stored uploaded strategy files under `strategy-marketplace/assets/` with dedicated log directory.
+- Updated log creation scripts, `.gitignore` and documentation for the new service and installer scripts.
 
 ## 2025-08-18
 - Added initial development tasks outline.
