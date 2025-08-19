@@ -1,4 +1,4 @@
-# Changelog v0.6.17
+# Changelog v0.6.18
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -38,6 +38,11 @@
 - Reconciled development_tasks with repository state, marking tasks complete and cross-linking with user manual.
 
 - Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
+
+- Implemented real broker adapters using config-driven API keys and robust error handling.
+- Order handler now stores orders and executions in the database with Redis caching.
+- Updated log creation scripts and `.gitignore` for execution-engine order logs.
+- Added unit tests for adapters and order handler using mocked requests and fakeredis.
 
 - Fixed service consumer imports by dropping hyphenated module paths.
 - Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
