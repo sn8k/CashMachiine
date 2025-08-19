@@ -1,4 +1,4 @@
-# Changelog v0.6.27
+# Changelog v0.6.28
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -72,6 +72,11 @@
 - Scheduled daily 02:00 backups via orchestrator and documented usage.
 - Created `backups/` directory with log scripts and `.gitignore` updates.
 - Introduced RandomForest-based price forecasting with model storage under `strategy-engine/models/` and scikit-learn dependency.
+
+- Scaffolded `strategy-marketplace` service with CRUD endpoints for uploaded strategies.
+- Added `strategies` and `strategy_reviews` tables with migrations and schema checks.
+- Stored uploaded strategy files under `strategy-marketplace/assets/` with dedicated log directory.
+- Updated log creation scripts, `.gitignore` and documentation for the new service and installer scripts.
 
 ## 2025-08-18
 - Added initial development tasks outline.

@@ -1,0 +1,8 @@
+# requirements.txt v0.1.0 (2025-08-19)
+requests>=2.31.0
+fastapi>=0.110.0
+uvicorn>=0.29.0
+psycopg2-binary>=2.9.9
+prometheus-client>=0.20.0
+opentelemetry-sdk>=1.24.0
+python-dotenv>=1.0.1

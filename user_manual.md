@@ -1,6 +1,6 @@
-# User Manual v0.6.32
+# User Manual v0.6.33
 
-Date: 2025-08-20
+Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -32,6 +32,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
  - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
+- The strategy-marketplace service exposes CRUD endpoints at `/strategies` and stores uploads under `strategy-marketplace/assets/`.
 - Configure its binding via `NOTIFICATION_HOST` (default `127.0.0.1`) and `NOTIFICATION_PORT`.
 - Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`). Orders
   are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.

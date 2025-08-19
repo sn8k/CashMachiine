@@ -15,6 +15,7 @@ class Settings:
     data_ingestion_metrics_port: int = int(os.getenv("DATA_INGESTION_METRICS_PORT", "9004"))
     backtester_metrics_port: int = int(os.getenv("BACKTESTER_METRICS_PORT", "9005"))
     notification_service_metrics_port: int = int(os.getenv("NOTIFICATION_SERVICE_METRICS_PORT", "9006"))
+    strategy_marketplace_metrics_port: int = int(os.getenv("STRATEGY_MARKETPLACE_METRICS_PORT", "9007"))
     db_host: str = os.getenv("DB_HOST", "localhost")
     db_port: int = int(os.getenv("DB_PORT", "5432"))
     db_name: str = os.getenv("DB_NAME", "cashmachiine")
