@@ -1,4 +1,4 @@
-# User Manual v0.6.35
+# User Manual v0.6.36
 
 Date: 2025-08-19
 
@@ -24,6 +24,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
 - Install Playwright browsers with `npm run install:e2e` and remove them with `npm run remove:e2e`.
 - Execute end-to-end tests via `npm run test:e2e`; reports are written to `tests/e2e/reports/`.
+
+## Infrastructure Deployment
+- Modules for database, cache, message bus and services live under `infra/terraform/`.
+- Execute `./setup_tf.sh` to initialize, plan and apply Terraform, storing state and plan logs in `infra/terraform/logs/`.
+- Use `./teardown_tf.sh` to destroy deployed resources, writing output to the same log directory.
 
 ## Progressive Web App
 - The Next.js UI registers a service worker and offline cache via `next-pwa`.
