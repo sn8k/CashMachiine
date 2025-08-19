@@ -1,10 +1,11 @@
-# User Manual v0.6.1
+# User Manual v0.6.2
 
 Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
 ## Installation
+- Copy `.env.example` to `.env` and adjust values as needed.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
@@ -26,3 +27,4 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - If dependencies are missing, rerun `./setup_env.sh`.
 - Verify database connectivity with `php admin/db_check.php`.
 - Check service logs under the `logs/` directory for error details.
+- Ensure required variables are set in `.env`.

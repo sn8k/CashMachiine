@@ -1,7 +1,9 @@
-"""Risk-engine REST client v0.1.0 (2025-08-18)"""
+"""Risk-engine REST client v0.1.1 (2025-08-19)"""
 import requests
 
-__version__ = "0.1.0"
+from config import settings
+
+__version__ = "0.1.1"
 
 
 def adjust_risk(
@@ -15,7 +17,7 @@ def adjust_risk(
     edge,
     variance,
     kelly_cap,
-    url="http://localhost:8000"
+    url: str = settings.risk_engine_url
 ):
     """Call risk-engine `/adjust` endpoint and return JSON response."""
     payload = {

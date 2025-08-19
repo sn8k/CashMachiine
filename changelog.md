@@ -1,4 +1,4 @@
-# Changelog v0.6.1
+# Changelog v0.6.2
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -17,6 +17,10 @@
 - Introduced GitHub Actions workflow running lint, tests and service image builds.
 - Added CI status badges to README.
 - Documented CI usage in user manuals.
+- Introduced centralized configuration package loading `.env` files and environment variables.
+- Added `.env.example` and referenced it in environment setup scripts.
+- Updated services to consume `config` values instead of hard-coded constants.
+- Added `python-dotenv` dependency.
 
 ## 2025-08-18
 - Added initial development tasks outline.
