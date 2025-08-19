@@ -1,4 +1,4 @@
-# .gitignore v0.2.12 (2025-08-19)
+# .gitignore v0.2.14 (2025-08-19)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -36,3 +36,5 @@ logs/
 backtester/reports/
 perf/
 execution-engine/logs/
+strategy-engine/models/*
+!strategy-engine/models/.gitkeep

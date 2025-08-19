@@ -1,4 +1,4 @@
-# Changelog v0.6.29
+# Changelog v0.6.30
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -136,6 +136,7 @@
 - Implemented database-driven price loading and portfolio simulation in backtester CLI with KPI charts.
 - Stored backtest metrics in the `backtests` table and expanded schema checks.
 - Added pandas and matplotlib dependencies with version bumps and updated tests and user manual.
+- Introduced RandomForest-based price forecasting with model storage under `strategy-engine/models/` and scikit-learn dependency.
 
 ## 2025-08-20
 - Added Next.js internationalization with French default and English fallback locales.

@@ -1,4 +1,4 @@
-# User Manual v0.6.20
+# User Manual v0.6.21
 
 Date: 2025-08-19
 
@@ -81,6 +81,8 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 ## Strategy Engine
 - Base `Strategy` interface exposing `signals()` and `target_weights()`.
 - Example implementations: `CoreStrategy` and `SatelliteStrategy`.
+- `forecast_prices()` uses RandomForest models trained on historical data.
+- Models are stored under `strategy-engine/models/` (created by log scripts).
 
 ## Risk Engine
 - Provides volatility targeting, Value-at-Risk/Expected Shortfall checks, and Kelly fraction caps.
