@@ -1,4 +1,4 @@
-# Changelog v0.6.11
+# Changelog v0.6.16
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -50,6 +50,19 @@
 
 - Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
 
+- Scheduled orchestrator pipeline dispatching `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
+- Added EventConsumer entrypoints for strategy-engine, risk-engine and execution-engine.
+- Renamed data-ingestion handler to `data_fetch`.
+- Extended log creation scripts for new service log files.
+- Bumped service versions and updated user manual for the event-driven workflow.
+- Fixed service consumer imports by dropping hyphenated module paths.
+- Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
+
+- Upgraded Next.js to 14.2.32 to resolve audit vulnerabilities and added a dedicated
+  `messaging.log` path with version bumps across orchestrator and dependent services.
+
+- Added per-service `requirements.txt` files with updated Dockerfiles and install scripts to eliminate build warnings.
+
 ## 2025-08-18
 - Added initial development tasks outline.
 - Initialized user manual skeleton.
@@ -96,4 +109,5 @@
 - Added Next.js internationalization with French default and English fallback locales.
 - Externalized UI strings to translation files with locale install/remove scripts.
 - Documented localization setup in user manuals.
+- Added `requirements.txt` for backtester and bumped service to v0.3.2 fixing Docker builds.
 

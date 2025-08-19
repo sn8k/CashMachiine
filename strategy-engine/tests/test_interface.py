@@ -1,9 +1,10 @@
-"""Unit test stubs for strategy interface v0.1.0 (2025-08-18)"""
+# nosec
+"""Unit test stubs for strategy interface v0.1.1 (2025-08-19)"""
 import importlib.util
 import sys
 from pathlib import Path
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 ENGINE_DIR = Path(__file__).resolve().parents[1]
 
@@ -25,13 +26,13 @@ def test_core_strategy_interface():
     strategy = core.CoreStrategy()
     sigs = strategy.signals({})
     weights = strategy.target_weights(sigs)
-    assert isinstance(sigs, dict)
-    assert isinstance(weights, dict)
+    assert isinstance(sigs, dict)  # nosec
+    assert isinstance(weights, dict)  # nosec
 
 
 def test_satellite_strategy_interface():
     strategy = satellite.SatelliteStrategy()
     sigs = strategy.signals({})
     weights = strategy.target_weights(sigs)
-    assert isinstance(sigs, dict)
-    assert isinstance(weights, dict)
+    assert isinstance(sigs, dict)  # nosec
+    assert isinstance(weights, dict)  # nosec

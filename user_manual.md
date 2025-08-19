@@ -1,6 +1,6 @@
-# User Manual v0.6.11
+# User Manual v0.6.17
 
-Date: 2025-08-19
+Date: 2025-08-20
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -12,6 +12,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
+- Each service now ships with its own `requirements.txt` for Docker builds.
+- Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.
 - UI translation assets install with `ui/install_locales.sh` and remove with `ui/remove_locales.sh`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
@@ -21,7 +23,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - POST endpoints require the `admin` role.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.
-- Data ingestion consumes events from the scheduler via RabbitMQ.
+ - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
+ - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.
@@ -44,10 +47,14 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The CI pipeline scans Python code with Bandit and frontend dependencies with `npm audit`.
 - Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
+- Tests use `# nosec` to bypass false positives and subprocess calls are validated.
+- The UI now runs on Next.js 14.2.32 following security advisories.
 
 ## Troubleshooting
 - If dependencies are missing, rerun `./setup_env.sh`.
 - Verify database connectivity with `php admin/db_check.php`.
 - Check service logs under the `logs/` directory for error details.
 - Ensure required variables are set in `.env`.
+- If Python raises syntax errors for imports with hyphens, replace them with underscores or use relative imports.
+- Messaging events write to `logs/messaging.log` for debugging bus traffic.
 

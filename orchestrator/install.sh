@@ -1,4 +1,4 @@
 #!/bin/bash
-# orchestrator installer v0.4.0
+# orchestrator installer v0.5.3
 echo "Installing orchestrator service..."
-pip install pika >/dev/null
+pip install --no-cache-dir --disable-pip-version-check --root-user-action=ignore -r requirements.txt >/dev/null

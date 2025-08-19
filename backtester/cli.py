@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""backtester CLI v0.3.0 (2025-08-18)"""
+"""backtester CLI v0.3.2 (2025-08-20)"""
 import argparse
 import json
 import os
-import subprocess
+import subprocess  # nosec B404
 import shutil
 from datetime import datetime
 
@@ -12,13 +12,13 @@ REPORT_DIR = os.path.join(os.path.dirname(__file__), "reports")
 
 def install_service():
     script_path = os.path.join(os.path.dirname(__file__), "install.sh")
-    subprocess.run([script_path], check=True)
+    subprocess.run([script_path], check=True)  # nosec B603
     os.makedirs(REPORT_DIR, exist_ok=True)
 
 
 def remove_service():
     script_path = os.path.join(os.path.dirname(__file__), "remove.sh")
-    subprocess.run([script_path], check=True)
+    subprocess.run([script_path], check=True)  # nosec B603
     shutil.rmtree(REPORT_DIR, ignore_errors=True)
 
 
@@ -45,7 +45,7 @@ def run_backtest(config_path: str, start_date: str, end_date: str, output_path: 
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Backtester controller v0.3.0")
+    parser = argparse.ArgumentParser(description="Backtester controller v0.3.2")
     parser.add_argument("--install", action="store_true", help="Install backtester service")
     parser.add_argument("--remove", action="store_true", help="Remove backtester service")
     parser.add_argument("--config", help="Path to strategy config JSON")

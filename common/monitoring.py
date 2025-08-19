@@ -1,4 +1,4 @@
-"""Shared monitoring utilities v0.1.1 (2025-08-19)"""
+"""Shared monitoring utilities v0.1.2 (2025-08-19)"""
 from __future__ import annotations
 
 import json
@@ -39,7 +39,7 @@ class RemoteLogHandler(logging.Handler):
         try:
             requests.post(self.url, json=json.loads(self.format(record)), timeout=1)
         except Exception:
-            pass
+            logging.getLogger(__name__).exception("Remote log failed")
 
 
 def setup_logging(service_name: str, log_path: Optional[str] = None, remote_url: Optional[str] = None) -> logging.Logger:

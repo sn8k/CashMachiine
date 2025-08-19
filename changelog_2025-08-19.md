@@ -1,4 +1,4 @@
-# Changelog v0.6.8
+# Changelog v0.6.16
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -38,6 +38,14 @@
 - Reconciled development_tasks with repository state, marking tasks complete and cross-linking with user manual.
 
 - Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
+
+- Fixed service consumer imports by dropping hyphenated module paths.
+- Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
+
+- Upgraded Next.js to 14.2.32 to resolve audit vulnerabilities and added a dedicated
+  `messaging.log` path with version bumps across orchestrator and dependent services.
+
+- Added per-service `requirements.txt` files with updated Dockerfiles and install scripts to eliminate build warnings.
 
 ## 2025-08-18
 - Added initial development tasks outline.

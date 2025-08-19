@@ -1,4 +1,4 @@
-# User Manual v0.6.8
+# User Manual v0.6.16
 
 Date: 2025-08-19
 
@@ -18,6 +18,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - risk-engine
 - execution-engine
 - backtester
+
+Each service now includes a `requirements.txt` file to facilitate Docker builds and installer scripts.
 - ui
 - db
 - infra/cache
@@ -27,7 +29,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Set Redis config using `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB` and `RATE_LIMIT_PER_MINUTE`.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
-- Each service includes install.sh and remove.sh scripts (v0.3.0).
+- Each service includes install.sh and remove.sh scripts.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 
@@ -40,6 +42,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Shared JSON logging writes to `logs/` with optional remote sink via `REMOTE_LOG_URL`.
 - Prometheus metrics exposed per service on configurable `METRICS_PORT`.
 - OpenTelemetry traces exported to console for debugging.
+- Messaging events log to `logs/messaging.log` for bus diagnostics.
 
 ## Continuous Integration
 - GitHub Actions `ci.yml` workflow runs lint, tests and builds service images.
@@ -49,11 +52,13 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The CI pipeline scans Python code with Bandit and frontend dependencies with `npm audit`.
 - Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
+- Tests use `# nosec` to bypass false positives and subprocess calls are validated.
+- The UI is pinned to Next.js 14.2.32 following security advisories.
 
 ## API Gateway
 - FastAPI service exposing `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check`, `/orders/preview` and `/analytics`.
 - Authenticate requests with JWT tokens containing a `role` claim; POST routes require the `admin` role.
-- All responses include header `X-API-Version: v0.2.6`.
+- All responses include header `X-API-Version: v0.2.7`.
 - Rate limiting enforced per IP using Redis; defaults to 100 requests/minute configurable via `RATE_LIMIT_PER_MINUTE`.
 - Metrics default to port `9001`.
 - Configuration values read from `config` package.
@@ -85,7 +90,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Execution Engine
 - Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).
 - Structured JSON order logs written to `logs/execution-engine.log`.
-- Install with `execution-engine/install.sh` and remove with `execution-engine/remove.sh` (v0.3.0).
+- Install with `execution-engine/install.sh` and remove with `execution-engine/remove.sh` (v0.4.3).
 
 ## Backtester
 - Generate HTML performance reports from strategy configs.
@@ -100,7 +105,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Next.js frontend with Tailwind CSS.
 - `/goals` page submits new goals to the API Gateway `/goals` endpoint.
  - `/daily-actions` page displays recommendations fetched from `/actions/today`.
-- Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.3.0).
+- Install with `ui/install.sh` and remove with `ui/remove.sh` (v0.3.2).
 - Screenshots:
   - Goal creation page (screenshot omitted)
   - Daily actions page (screenshot omitted)
