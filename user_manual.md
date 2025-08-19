@@ -1,4 +1,4 @@
-# User Manual v0.6.6
+# User Manual v0.6.7
 
 Date: 2025-08-19
 
@@ -18,6 +18,12 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start the scheduler with `python orchestrator/main.py`.
 - Data ingestion consumes events from the scheduler via RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
+
+## Performance
+- Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.
+- Benchmark tests cover `api-gateway` and `strategy-engine`.
+- Prometheus exposes latency metrics on each service's metrics port.
+- Benchmark results are stored under `perf/`.
 
 ## Architecture
 - Services communicate via structured logs, metrics, and traces.

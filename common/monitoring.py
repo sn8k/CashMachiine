@@ -1,14 +1,15 @@
-"""Shared monitoring utilities v0.1.0 (2025-08-19)"""
+"""Shared monitoring utilities v0.1.1 (2025-08-19)"""
 from __future__ import annotations
 
 import json
 import logging
 import os
 from logging.handlers import RotatingFileHandler
+from functools import lru_cache
 from typing import Optional
 
 import requests
-from prometheus_client import Counter, start_http_server
+from prometheus_client import Counter, Summary, start_http_server, REGISTRY
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
@@ -71,8 +72,27 @@ def setup_logging(service_name: str, log_path: Optional[str] = None, remote_url:
 
 def setup_metrics(service_name: str, port: int = 8000) -> Counter:
     """Start Prometheus metrics server and return request counter."""
-    start_http_server(port)
+    try:
+        start_http_server(port)
+    except OSError:
+        pass
+    if "service_requests_total" in REGISTRY._names_to_collectors:
+        counter = REGISTRY._names_to_collectors["service_requests_total"]
+        return counter.labels(service=service_name)
     return Counter("service_requests_total", "Total requests", ["service"]).labels(service=service_name)
+
+
+@lru_cache
+def setup_performance_metrics(service_name: str) -> Summary:
+    """Create and return a Prometheus summary for latency measurements."""
+    if "service_latency_seconds" in REGISTRY._names_to_collectors:
+        summary = REGISTRY._names_to_collectors["service_latency_seconds"]
+        return summary.labels(service=service_name)
+    return Summary(
+        "service_latency_seconds",
+        "Service latency in seconds",
+        ["service"],
+    ).labels(service=service_name)
 
 
 def setup_tracer(service_name: str):

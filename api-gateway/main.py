@@ -1,10 +1,15 @@
-"""FastAPI app exposing goals and actions endpoints with JWT auth v0.2.3 (2025-08-19)"""
+"""FastAPI app exposing goals and actions endpoints with JWT auth v0.2.4 (2025-08-19)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
 from jose import JWTError, jwt
 
-from common.monitoring import setup_logging, setup_metrics, setup_tracer
+from common.monitoring import (
+    setup_logging,
+    setup_metrics,
+    setup_performance_metrics,
+    setup_tracer,
+)
 from config import settings
 from infra.cache import get_redis_client
 
@@ -17,6 +22,7 @@ app = FastAPI()
 
 logger = setup_logging("api-gateway", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("api-gateway", port=settings.api_gateway_metrics_port)
+REQUEST_LATENCY = setup_performance_metrics("api-gateway")
 tracer = setup_tracer("api-gateway")
 redis_client = get_redis_client()
 RATE_LIMIT = settings.rate_limit_per_minute
@@ -37,11 +43,18 @@ async def rate_limiter(request: Request, call_next):
 
 
 @app.middleware("http")
+async def measure_latency(request: Request, call_next):
+    with REQUEST_LATENCY.time():
+        response = await call_next(request)
+    return response
+
+
+@app.middleware("http")
 async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.3"
+    response.headers["X-API-Version"] = "v0.2.4"
     return response
 
 
