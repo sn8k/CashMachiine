@@ -1,4 +1,4 @@
-# Changelog v0.6.16
+# Changelog v0.6.17
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -88,4 +88,8 @@
 - Expanded user manual with execution-engine order handling and bumped to v0.5.5.
 - Added backtester CLI for HTML reports with install/remove commands, tests, and report directories.
 - Updated user manual and log creation scripts; ignored report outputs.
+
+- Added Alpha Vantage bond and commodity fetchers with message bus integration.
+- Enabled TimescaleDB extension and converted `prices` to a hypertable with migration and schema checks.
+- Updated install script and documentation for TimescaleDB.
 

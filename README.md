@@ -1,4 +1,4 @@
-# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.3
+# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.4
 
 [![Lint](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=lint)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 [![Tests](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=test)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
@@ -64,6 +64,7 @@ Construire un logiciel qui, à partir d’un **capital initial**, d’un **objec
 ## 5) Données & connecteurs (modulaires)
 
 * **Prix & fondamentaux** : actions/ETF (Euronext/US), obligations, matières premières, FX, crypto.
+* Fetchers Alpha Vantage pour obligations et matières premières via le bus de messages.
 * **Flux crypto** : CEX (Binance/Kraken/Bybit), DEX (via indexeurs), funding, open interest (si autorisé).
 * **Macro/news/sentiment** (optionnels, pondérés faiblement par défaut).
 * **Courtiers / exécution** : IBKR, Degiro, Binance, Kraken… (clé API, sandbox d’abord).

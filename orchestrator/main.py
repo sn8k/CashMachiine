@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.2 (2025-08-19)"""
+"""orchestrator scheduler v0.5.3 (2025-08-19)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -21,7 +21,9 @@ def run_pipeline(producer: EventProducer):
     with tracer.start_as_current_span("run_pipeline"):
         JOB_COUNTER.inc()
         logger.info("Starting pipeline dispatch")
-        producer.publish("data_fetch", {"symbol": "AAPL"})
+        producer.publish("data_fetch", {"symbol": "AAPL", "asset_class": "equity"})
+        producer.publish("data_fetch", {"symbol": "US10Y", "asset_class": "bond"})
+        producer.publish("data_fetch", {"symbol": "GC=F", "asset_class": "commodity"})
         producer.publish("strategy_compute", {})
         producer.publish("risk_adjust", {"weights": [1.0], "current_vol": 0.05, "target_vol": 0.1})
         producer.publish(
@@ -42,7 +44,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.2")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.3")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")

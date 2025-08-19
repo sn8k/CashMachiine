@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.2 (2025-08-19)
-$expectedVersion = 'v0.1.0';
+// db_check.php v0.1.3 (2025-08-19)
+$expectedVersion = 'v0.1.1';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -24,6 +24,16 @@ foreach ($requiredTables as $tbl) {
         echo "Missing table: $tbl\n";
         exit(1);
     }
+}
+$stmt = $pdo->query("SELECT extname FROM pg_extension WHERE extname='timescaledb'");
+if (!$stmt->fetchColumn()) {
+    echo "Missing extension: timescaledb\n";
+    exit(1);
+}
+$stmt = $pdo->query("SELECT 1 FROM timescaledb_information.hypertables WHERE hypertable_name='prices'");
+if (!$stmt->fetchColumn()) {
+    echo "prices table is not a hypertable\n";
+    exit(1);
 }
 $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='prices'");
 $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);

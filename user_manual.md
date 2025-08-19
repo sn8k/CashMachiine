@@ -1,6 +1,6 @@
-# User Manual v0.6.19
+# User Manual v0.6.20
 
-Date: 2025-08-20
+Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -8,7 +8,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Refer to [development_tasks.md](development_tasks.md) for the latest task status.
 
 ## Installation
-- Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB` and `RATE_LIMIT_PER_MINUTE`.
+- Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE` and `ALPHA_VANTAGE_KEY`.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
@@ -17,6 +17,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - UI translation assets install with `ui/install_locales.sh` and remove with `ui/remove_locales.sh`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
+- Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`.
@@ -24,7 +25,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
- - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
+ - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers.
+- Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.

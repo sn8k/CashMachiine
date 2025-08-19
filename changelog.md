@@ -1,4 +1,4 @@
-# Changelog v0.6.18
+# Changelog v0.6.19
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -62,6 +62,9 @@
   `messaging.log` path with version bumps across orchestrator and dependent services.
 
 - Added per-service `requirements.txt` files with updated Dockerfiles and install scripts to eliminate build warnings.
+ - Added Alpha Vantage bond and commodity fetchers with message bus integration.
+ - Enabled TimescaleDB extension and converted `prices` to a hypertable with migration and schema checks.
+ - Updated install script and documentation for TimescaleDB.
 
 ## 2025-08-18
 - Added initial development tasks outline.
