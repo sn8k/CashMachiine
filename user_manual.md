@@ -1,4 +1,4 @@
-# User Manual v0.6.39
+# User Manual v0.6.40
 
 Date: 2025-08-19
 
@@ -101,6 +101,12 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
 - Tests use `# nosec` to bypass false positives and subprocess calls are validated.
 - The UI now runs on Next.js 14.2.32 following security advisories.
+
+## fx-service
+- Provides currency conversions using European Central Bank rates.
+- POST `/convert` with JSON `{ "from_currency": "USD", "to_currency": "EUR", "amount": 1.23 }`.
+- Returns converted amount and rate.
+- Install with `fx-service/install.sh` and remove with `fx-service/remove.sh`.
 
 ## Troubleshooting
 - If dependencies are missing, rerun `./setup_env.sh`.

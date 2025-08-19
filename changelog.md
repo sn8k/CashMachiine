@@ -1,4 +1,4 @@
-# Changelog v0.6.39
+# Changelog v0.6.40
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -169,6 +169,11 @@
 - Stored backtest metrics in the `backtests` table and expanded schema checks.
 - Added pandas and matplotlib dependencies with version bumps and updated tests and user manual.
 - Introduced RandomForest-based price forecasting with model storage under `strategy-engine/models/` and scikit-learn dependency.
+
+- Added fx-service for ECB-based FX conversions with `/convert` endpoint.
+- Introduced `currency` columns on `accounts`, `orders`, `positions` and `executions` with migration and schema checks.
+- Registered fx-service in docker-compose and log scripts.
+- Documented currency conversion usage and bumped requirements.
 
 ## 2025-08-20
 - Added Next.js internationalization with French default and English fallback locales.
