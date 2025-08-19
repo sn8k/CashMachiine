@@ -1,4 +1,4 @@
-# Changelog v0.6.3
+# Changelog v0.6.4
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -25,6 +25,9 @@
 - Added Redis-backed rate limiting middleware to api-gateway.
 - Updated configuration, environment samples and documentation for Redis settings.
 - Added `redis` and `fakeredis` dependencies.
+- Added RabbitMQ-based messaging package with producers and consumers.
+- Orchestrator now publishes events to the bus; data-ingestion consumes them.
+- Added broker installer scripts and `pika` dependency with configuration.
 
 ## 2025-08-18
 - Added initial development tasks outline.

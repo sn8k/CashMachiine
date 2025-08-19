@@ -1,4 +1,4 @@
-# User Manual v0.6.3
+# User Manual v0.6.4
 
 Date: 2025-08-19
 
@@ -9,11 +9,13 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
+- Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals` and `/actions`.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.
+- Data ingestion consumes events from the scheduler via RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 
 ## Architecture
