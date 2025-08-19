@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.0 (2025-08-19)"""
+"""Configuration loader v0.1.1 (2025-08-19)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -17,6 +17,10 @@ class Settings:
     db_user: str = os.getenv("DB_USER", "postgres")
     db_pass: str = os.getenv("DB_PASS", "")
     risk_engine_url: str = os.getenv("RISK_ENGINE_URL", "http://localhost:8000")
+    redis_host: str = os.getenv("REDIS_HOST", "localhost")
+    redis_port: int = int(os.getenv("REDIS_PORT", "6379"))
+    redis_db: int = int(os.getenv("REDIS_DB", "0"))
+    rate_limit_per_minute: int = int(os.getenv("RATE_LIMIT_PER_MINUTE", "100"))
 
 
 settings = Settings()

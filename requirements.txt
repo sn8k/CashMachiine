@@ -1,4 +1,4 @@
-# requirements.txt v0.2.7 (2025-08-19)
+# requirements.txt v0.2.8 (2025-08-19)
 
 # Runtime dependencies
 requests>=2.31.0
@@ -13,7 +13,9 @@ numpy>=1.26.0
 prometheus-client>=0.20.0
 opentelemetry-sdk>=1.24.0
 python-dotenv>=1.0.1
+redis>=5.0.0
 
 # Development dependencies
 pytest>=8.2.0
 httpx>=0.27.0
+fakeredis>=2.21.0

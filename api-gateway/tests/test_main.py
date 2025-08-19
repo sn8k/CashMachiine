@@ -1,4 +1,4 @@
-"""Unit tests for api-gateway main application v0.2.2 (2025-08-19)"""
+"""Unit tests for api-gateway main application v0.2.3 (2025-08-19)"""
 from fastapi.testclient import TestClient
 from jose import jwt
 import importlib.util
@@ -32,7 +32,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
-    assert response.headers["X-API-Version"] == "v0.2.2"
+    assert response.headers["X-API-Version"] == "v0.2.3"
     assert response.json() == {"goals": []}
 
 
@@ -45,3 +45,16 @@ def test_actions_requires_admin_role():
     response = client.get("/actions", headers={"Authorization": f"Bearer {admin_token}"})
     assert response.status_code == 200
     assert response.json() == {"actions": []}
+
+
+def test_rate_limiting_triggers_after_threshold():
+    token = create_token("user")
+    from infra.cache import get_redis_client
+
+    client_ip = "testclient"
+    redis_client = get_redis_client()
+    redis_client.delete(f"rl:{client_ip}")
+    for _ in range(main.RATE_LIMIT):
+        assert client.get("/goals", headers={"Authorization": f"Bearer {token}"}).status_code == 200
+    response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 429
