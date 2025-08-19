@@ -1,4 +1,4 @@
-# Changelog v0.6.19
+# Changelog v0.6.20
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -65,6 +65,11 @@
  - Added Alpha Vantage bond and commodity fetchers with message bus integration.
  - Enabled TimescaleDB extension and converted `prices` to a hypertable with migration and schema checks.
  - Updated install script and documentation for TimescaleDB.
+
+- Implemented real broker adapters using config-driven API keys and robust error handling.
+- Order handler now stores orders and executions in the database with Redis caching.
+- Updated log creation scripts and `.gitignore` for execution-engine order logs.
+- Added unit tests for adapters and order handler using mocked requests and fakeredis.
 
 ## 2025-08-18
 - Added initial development tasks outline.

@@ -1,4 +1,4 @@
-# User Manual v0.6.20
+# User Manual v0.6.21
 
 Date: 2025-08-19
 
@@ -8,7 +8,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Refer to [development_tasks.md](development_tasks.md) for the latest task status.
 
 ## Installation
-- Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE` and `ALPHA_VANTAGE_KEY`.
+- Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET` and `IBKR_API_KEY`.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service provides `install.sh` and `remove.sh` scripts.
@@ -27,6 +27,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
+- Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`). Orders
+  are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.
