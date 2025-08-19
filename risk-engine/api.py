@@ -1,12 +1,15 @@
-"""FastAPI endpoint for risk adjustments v0.3.0 (2025-08-18)"""
+"""FastAPI endpoint for risk adjustments v0.3.1 (2025-08-19)"""
 from __future__ import annotations
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
+import os
 from typing import List
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
+
+from common.monitoring import setup_logging, setup_metrics, setup_tracer
 
 try:  # local import when executed as module
     from .engine import volatility_target, var_es, kelly_fraction
@@ -35,6 +38,17 @@ class RiskResponse(BaseModel):
 
 
 app = FastAPI(title="risk-engine", version=__version__)
+logger = setup_logging("risk-engine", remote_url=os.environ.get("REMOTE_LOG_URL"))
+REQUEST_COUNT = setup_metrics("risk-engine", port=int(os.environ.get("METRICS_PORT", "9002")))
+tracer = setup_tracer("risk-engine")
+
+
+@app.middleware("http")
+async def observability_middleware(request: Request, call_next):
+    with tracer.start_as_current_span(request.url.path):
+        response = await call_next(request)
+    REQUEST_COUNT.inc()
+    return response
 
 
 @app.post("/adjust", response_model=RiskResponse)
