@@ -1,7 +1,7 @@
-"""FastAPI endpoint for risk adjustments v0.4.0 (2025-08-19)"""
+"""FastAPI endpoint for risk adjustments v0.4.1 (2025-08-19)"""
 from __future__ import annotations
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 from typing import List
 

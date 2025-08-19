@@ -1,4 +1,4 @@
-# Changelog v0.6.8
+# Changelog v0.6.9
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -38,6 +38,8 @@
 - Reconciled development_tasks with repository state, marking tasks complete and cross-linking with user manual.
 
 - Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
+
+- Fixed service consumer imports by dropping hyphenated module paths.
 
 ## 2025-08-18
 - Added initial development tasks outline.

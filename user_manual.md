@@ -1,4 +1,4 @@
-# User Manual v0.6.12
+# User Manual v0.6.13
 
 Date: 2025-08-19
 
@@ -51,4 +51,5 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Verify database connectivity with `php admin/db_check.php`.
 - Check service logs under the `logs/` directory for error details.
 - Ensure required variables are set in `.env`.
+- If Python raises syntax errors for imports with hyphens, replace them with underscores or use relative imports.
 

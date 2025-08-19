@@ -1,4 +1,4 @@
-# Changelog v0.6.12
+# Changelog v0.6.13
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -55,6 +55,7 @@
 - Renamed data-ingestion handler to `data_fetch`.
 - Extended log creation scripts for new service log files.
 - Bumped service versions and updated user manual for the event-driven workflow.
+- Fixed service consumer imports by dropping hyphenated module paths.
 
 ## 2025-08-18
 - Added initial development tasks outline.

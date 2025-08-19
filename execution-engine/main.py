@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""execution-engine consumer v0.4.0 (2025-08-19)"""
+"""execution-engine consumer v0.4.1 (2025-08-19)"""
 import argparse
 import os
 import subprocess
@@ -7,7 +7,7 @@ import subprocess
 from common.monitoring import setup_logging
 from config import settings
 from messaging import EventConsumer
-from execution-engine.order_handler import OrderHandler
+from order_handler import OrderHandler
 
 
 def install_service():
@@ -31,7 +31,7 @@ def handle_event(message: dict) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="execution-engine consumer v0.4.0")
+    parser = argparse.ArgumentParser(description="execution-engine consumer v0.4.1")
     parser.add_argument("--install", action="store_true", help="Install execution-engine service")
     parser.add_argument("--remove", action="store_true", help="Remove execution-engine service")
     parser.add_argument("--log-path", default=os.path.join("logs", "execution-engine.log"), help="Path to log file")
