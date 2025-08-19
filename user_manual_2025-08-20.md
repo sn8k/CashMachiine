@@ -1,4 +1,4 @@
-# User Manual v0.6.9
+# User Manual v0.6.10
 
 Date: 2025-08-20
 
@@ -21,6 +21,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Data ingestion consumes events from the scheduler via RabbitMQ.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
+
+### Strategy Engine
+- `strategy-engine` includes `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
+- Core and satellite strategies now consume market data, adjust risk via the risk engine, and explain target weights through `explain()`.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.

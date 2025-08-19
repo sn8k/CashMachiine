@@ -1,4 +1,4 @@
-# User Manual v0.6.17
+# User Manual v0.6.18
 
 Date: 2025-08-20
 
@@ -28,6 +28,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.
+
+### Strategy Engine
+- `strategy-engine` now provides `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
+- Core and satellite strategies consume market data, call the risk engine for adjustments, and expose `explain()` for weight justification.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.

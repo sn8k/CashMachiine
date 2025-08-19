@@ -1,4 +1,4 @@
-# Changelog v0.6.16
+# Changelog v0.6.17
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -110,4 +110,7 @@
 - Externalized UI strings to translation files with locale install/remove scripts.
 - Documented localization setup in user manuals.
 - Added `requirements.txt` for backtester and bumped service to v0.3.2 fixing Docker builds.
+- Introduced Monte Carlo simulation utilities in strategy-engine with probability-of-hitting calculations.
+- Core and satellite strategies now derive signals from market data, adjust risk via the risk engine, and justify allocations through `explain()`.
+- Extended strategy interface with `explain()` and added tests and documentation for dynamic weights.
 

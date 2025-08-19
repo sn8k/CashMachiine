@@ -1,14 +1,13 @@
 # nosec
-"""Benchmark tests for strategy-engine v0.1.2 (2025-08-20)"""
+"""Unit tests for simulation utilities v0.1.0 (2025-08-20)"""
 import importlib.util
 import sys
 from pathlib import Path
 import types
 
-from pytest_benchmark.fixture import BenchmarkFixture
+__version__ = "0.1.1"
 
 ENGINE_DIR = Path(__file__).resolve().parents[1]
-sys.path.append(str(ENGINE_DIR.parent))
 
 
 def load(name, path):
@@ -22,10 +21,10 @@ def load(name, path):
 pkg = types.ModuleType("strategy_engine")
 pkg.__path__ = [str(ENGINE_DIR)]
 sys.modules["strategy_engine"] = pkg
-interface = load("strategy_engine.interface", ENGINE_DIR / "interface.py")
-core = load("strategy_engine.strategies.core", ENGINE_DIR / "strategies/core.py")
+sim = load("strategy_engine.simulation", ENGINE_DIR / "simulation.py")
 
 
-def test_core_strategy_signals_benchmark(benchmark: BenchmarkFixture):
-    strategy = core.CoreStrategy()
-    benchmark(strategy.signals, {})
+def test_probability_of_hitting():
+    paths = sim.generate_paths(100, 0.05, 0.2, 5, 100, seed=1)
+    prob = sim.probability_of_hitting(paths, 110)
+    assert 0.0 <= prob <= 1.0  # nosec

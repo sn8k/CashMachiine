@@ -1,7 +1,7 @@
-"""Strategy interface for strategy-engine v0.1.0 (2025-08-18)"""
+"""Strategy interface for strategy-engine v0.1.1 (2025-08-20)"""
 from abc import ABC, abstractmethod
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 
 class Strategy(ABC):
@@ -15,4 +15,9 @@ class Strategy(ABC):
     @abstractmethod
     def target_weights(self, signals):
         """Return target portfolio weights based on signals."""
+        raise NotImplementedError
+
+    @abstractmethod
+    def explain(self) -> str:
+        """Return human-readable justification for the latest weights."""
         raise NotImplementedError
