@@ -1,23 +1,48 @@
-/** Daily actions page v0.2.1 (2025-08-20) */
+/** Daily actions page v0.3.0 (2025-08-19) */
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../lib/useTranslation';
 
 export default function DailyActions() {
   const t = useTranslation();
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
   const [actions, setActions] = useState([]);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000'}/actions`)
+    fetch(`${base}/actions`)
       .then(res => res.json())
       .then(data => setActions(data.actions || []))
       .catch(() => setActions([]));
-  }, []);
+  }, [base]);
+
+  const check = id => {
+    fetch(`${base}/actions/${id}/check`, { method: 'POST' })
+      .then(res => {
+        if (!res.ok) throw new Error('failed');
+        setActions(as => as.map(a => a.id === id ? { ...a, done: true } : a));
+        setMessage(t('daily.checked'));
+      })
+      .catch(() => setMessage(t('daily.error')));
+  };
 
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">{t('daily.title')}</h1>
-      <ul className="list-disc ml-5">
-        {actions.map((a, i) => <li key={i}>{a}</li>)}
+      {message && <p className="mb-2 text-sm text-green-600">{message}</p>}
+      <ul className="ml-5">
+        {actions.map(a => (
+          <li key={a.id || a} className="mb-1">
+            <label className="inline-flex items-center">
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={a.done}
+                onChange={() => check(a.id)}
+              />
+              {a.description || a.name || a}
+            </label>
+          </li>
+        ))}
       </ul>
     </div>
   );

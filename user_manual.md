@@ -1,4 +1,4 @@
-# User Manual v0.6.22
+# User Manual v0.6.23
 
 Date: 2025-08-19
 
@@ -14,7 +14,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
 - Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.
-- UI translation assets install with `ui/install_locales.sh` and remove with `ui/remove_locales.sh`.
+- UI translation assets install with `ui/install_locales.sh` or `npm run locales:install` and remove with `ui/remove_locales.sh` or `npm run locales:remove`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 - Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
@@ -31,7 +31,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
   are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
-- Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page.
+- Mark tasks complete on the daily actions page; checkboxes send POST requests to `/actions/{id}/check` and show feedback messages.
+- Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page, which renders charts with Chart.js.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
 - The backtester CLI loads prices from the database, simulates equal-weight portfolios, computes KPIs (CAGR, Sharpe, max drawdown), embeds equity charts in HTML reports and records metrics in the `backtests` table.
 

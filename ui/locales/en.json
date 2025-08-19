@@ -13,10 +13,14 @@
     "error": "Error creating goal"
   },
   "daily": {
-    "title": "Daily Actions"
+    "title": "Daily Actions",
+    "checked": "Action checked!",
+    "error": "Update failed"
   },
   "analytics": {
     "title": "Analytics Dashboard",
-    "loading": "Loading metrics..."
+    "loading": "Loading metrics...",
+    "error": "Metrics unavailable",
+    "metrics": "Metrics"
   }
 }
