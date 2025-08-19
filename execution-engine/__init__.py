@@ -1,6 +1,6 @@
-"""execution-engine service v0.4.4 (2025-08-19)"""
+"""execution-engine service v0.4.5 (2025-08-20)"""
 
-__version__ = "0.4.4"
+__version__ = "0.4.5"
 
 from .order_handler import OrderHandler
 

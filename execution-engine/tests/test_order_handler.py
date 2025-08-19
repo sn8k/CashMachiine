@@ -1,3 +1,5 @@
+"""Tests for order handler v0.2.2 (2025-08-20)"""
+
 import importlib
 import importlib.util
 from pathlib import Path
@@ -67,7 +69,7 @@ def test_order_persistence(monkeypatch):
     handler = OrderHandler(redis_client=redis_client)
     handler.adapters["binance"] = DummyAdapter()
 
-    order_id = handler.place_order("binance", {"symbol": "BTC", "qty": 1})
+    order_id = handler.place_order("binance", {"symbol": "BTC", "qty": 1, "tenant_id": 1})
     if order_id != "abc":
         raise AssertionError("unexpected order_id")
     if redis_client.get("order:abc") is None:

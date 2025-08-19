@@ -1,6 +1,6 @@
-# User Manual v0.6.31
+# User Manual v0.6.32
 
-Date: 2025-08-19
+Date: 2025-08-20
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -23,7 +23,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
 
 ## Usage
-- Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`.
+- Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`. Requests are scoped by the `tenant_id` embedded in JWT tokens.
 - POST endpoints require the `admin` role.
 - Rate limiting is enforced per IP via Redis; defaults to 100 requests per minute.
 - Start the scheduler with `python orchestrator/main.py`.

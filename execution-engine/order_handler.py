@@ -1,4 +1,4 @@
-"""Order handler v0.2.1 (2025-08-19)"""
+"""Order handler v0.2.2 (2025-08-20)"""
 
 import json
 from pathlib import Path
@@ -53,8 +53,8 @@ class OrderHandler:
                     with conn.cursor() as cur:
                         cur.execute(
                             """
-                            INSERT INTO orders (account_id, symbol, side, qty, type, limit_price, status, reason, sl, tp)
-                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                            INSERT INTO orders (account_id, symbol, side, qty, type, limit_price, status, reason, sl, tp, tenant_id)
+                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                             RETURNING id
                             """,
                             (
@@ -68,6 +68,7 @@ class OrderHandler:
                                 order.get("reason"),
                                 order.get("sl"),
                                 order.get("tp"),
+                                order.get("tenant_id"),
                             ),
                         )
                         db_order_id = cur.fetchone()[0]
