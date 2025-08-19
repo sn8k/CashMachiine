@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.5 (2025-08-19)
-$expectedVersion = 'v0.1.2';
+// db_check.php v0.1.6 (2025-08-19)
+$expectedVersion = 'v0.1.3';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -9,7 +9,7 @@ $user = getenv('DB_USER') ?: 'postgres';
 $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
-    'executions','prices','signals','actions','risk_limits','metrics_daily','backtests','risk_stress_results'
+    'executions','prices','signals','actions','risk_limits','metrics_daily','backtests','risk_stress_results','notifications'
 ];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
 try {
@@ -57,21 +57,30 @@ foreach ($metricsColumns as $col) {
 $backtestColumns = ['id','cfg_json','start','end','kpis_json','report_path'];
 $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='backtests'");
 $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
-foreach ($backtestColumns as $col) {
-    if (!in_array($col, $cols)) {
-        echo "Missing column in backtests: $col\n";
-        exit(1);
-    }
-}
-$stressColumns = ['id','scenario','metric','created_at'];
-$stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='risk_stress_results'");
-$cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
-foreach ($stressColumns as $col) {
-    if (!in_array($col, $cols)) {
-        echo "Missing column in risk_stress_results: $col\n";
-        exit(1);
-    }
-}
+  foreach ($backtestColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in backtests: $col\n";
+          exit(1);
+      }
+  }
+  $stressColumns = ['id','scenario','metric','created_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='risk_stress_results'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($stressColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in risk_stress_results: $col\n";
+          exit(1);
+      }
+  }
+  $notificationColumns = ['id','user_id','channel','payload','created_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='notifications'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($notificationColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in notifications: $col\n";
+          exit(1);
+      }
+  }
 $schemaVersion = getenv('DB_SCHEMA_VERSION') ?: 'unknown';
 if ($schemaVersion !== $expectedVersion) {
     echo "Schema version mismatch: expected $expectedVersion, got $schemaVersion\n";

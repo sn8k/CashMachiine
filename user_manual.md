@@ -1,4 +1,4 @@
-# User Manual v0.6.27
+# User Manual v0.6.29
 
 Date: 2025-08-19
 
@@ -28,6 +28,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
+- The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
+- Configure its binding via `NOTIFICATION_HOST` (default `127.0.0.1`) and `NOTIFICATION_PORT`.
 - Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`). Orders
   are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.

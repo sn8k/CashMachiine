@@ -1,4 +1,4 @@
-# docker-compose.yml v0.1.1 (2025-08-20)
+# docker-compose.yml v0.1.2 (2025-08-19)
 version: '3.8'
 services:
   db:
@@ -74,20 +74,30 @@ services:
       - db
       - cache
       - rabbitmq
-  feasibility-calculator:
-    build:
-      context: .
-      dockerfile: feasibility-calculator/Dockerfile
-    depends_on:
-      - db
-      - cache
-      - rabbitmq
-    ports:
-      - "8100:8000"
-  ui:
-    build:
-      context: ui
-    ports:
-      - "3000:3000"
+    feasibility-calculator:
+      build:
+        context: .
+        dockerfile: feasibility-calculator/Dockerfile
+      depends_on:
+        - db
+        - cache
+        - rabbitmq
+      ports:
+        - "8100:8000"
+    notification-service:
+      build:
+        context: .
+        dockerfile: notification-service/Dockerfile
+      depends_on:
+        - db
+        - cache
+        - rabbitmq
+      ports:
+        - "8200:8000"
+    ui:
+      build:
+        context: ui
+      ports:
+        - "3000:3000"
     depends_on:
       - api-gateway
