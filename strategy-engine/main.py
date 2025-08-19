@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""strategy-engine consumer v0.4.2 (2025-08-19)"""
+"""strategy-engine consumer v0.4.3 (2025-08-19)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -29,7 +29,7 @@ def handle_event(message: dict) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="strategy-engine consumer v0.4.2")
+    parser = argparse.ArgumentParser(description="strategy-engine consumer v0.4.3")
     parser.add_argument("--install", action="store_true", help="Install strategy-engine service")
     parser.add_argument("--remove", action="store_true", help="Remove strategy-engine service")
     parser.add_argument("--log-path", default=os.path.join("logs", "strategy-engine.log"), help="Path to log file")

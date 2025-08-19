@@ -1,4 +1,4 @@
-# Changelog v0.6.14
+# Changelog v0.6.15
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -57,6 +57,9 @@
 - Bumped service versions and updated user manual for the event-driven workflow.
 - Fixed service consumer imports by dropping hyphenated module paths.
 - Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
+
+- Upgraded Next.js to 14.2.32 to resolve audit vulnerabilities and added a dedicated
+  `messaging.log` path with version bumps across orchestrator and dependent services.
 
 ## 2025-08-18
 - Added initial development tasks outline.

@@ -1,4 +1,4 @@
-# User Manual v0.6.14
+# User Manual v0.6.15
 
 Date: 2025-08-19
 
@@ -46,6 +46,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
 - Tests use `# nosec` to bypass false positives and subprocess calls are validated.
+- The UI now runs on Next.js 14.2.32 following security advisories.
 
 ## Troubleshooting
 - If dependencies are missing, rerun `./setup_env.sh`.
@@ -53,4 +54,5 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Check service logs under the `logs/` directory for error details.
 - Ensure required variables are set in `.env`.
 - If Python raises syntax errors for imports with hyphens, replace them with underscores or use relative imports.
+- Messaging events write to `logs/messaging.log` for debugging bus traffic.
 

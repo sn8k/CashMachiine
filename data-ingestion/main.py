@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""data-ingestion consumer v0.5.2 (2025-08-19)"""
+"""data-ingestion consumer v0.5.3 (2025-08-19)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -30,7 +30,7 @@ def handle_event(message: dict) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.2")
+    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.3")
     parser.add_argument("--install", action="store_true", help="Install data-ingestion service")
     parser.add_argument("--remove", action="store_true", help="Remove data-ingestion service")
     parser.add_argument("--log-path", default=os.path.join("logs", "data-ingestion.log"), help="Path to log file")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.1 (2025-08-19)"""
+"""orchestrator scheduler v0.5.2 (2025-08-19)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -42,7 +42,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.1")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.2")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")
