@@ -1,8 +1,12 @@
-# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.1
+# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.2
 
-*Date : 2025-02-14*
+[![Lint](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=lint)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
+[![Tests](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=test)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
+[![Build](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=build)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 
-Consultez le [manuel utilisateur](user_manual_2025-02-14.md) pour l'installation, l'utilisation, l'architecture et le dépannage.
+*Date : 2025-08-19*
+
+Consultez le [manuel utilisateur](user_manual_2025-08-19.md) pour l'installation, l'utilisation, l'architecture et le dépannage.
 
 ## 1) Vision & cas d’usage
 
@@ -69,7 +73,7 @@ Construire un logiciel qui, à partir d’un **capital initial**, d’un **objec
 
 ## 6) Architecture technique
 
-Voir aussi la section [Architecture](user_manual_2025-02-14.md#architecture) du manuel utilisateur.
+Voir aussi la section [Architecture](user_manual_2025-08-19.md#architecture) du manuel utilisateur.
 
 **Monorepo** avec services conteneurisés (Docker) :
 
