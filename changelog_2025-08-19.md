@@ -1,4 +1,4 @@
-# Changelog v0.6.18
+# Changelog v0.6.19
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -51,6 +51,9 @@
   `messaging.log` path with version bumps across orchestrator and dependent services.
 
 - Added per-service `requirements.txt` files with updated Dockerfiles and install scripts to eliminate build warnings.
+
+- Implemented database-driven price loading and portfolio simulation in backtester CLI with KPI charts and metrics storage.
+- Expanded `admin/db_check.php` to validate `backtests` columns and updated documentation with new dependencies.
 
 ## 2025-08-18
 - Added initial development tasks outline.

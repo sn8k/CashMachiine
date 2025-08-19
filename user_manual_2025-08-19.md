@@ -1,4 +1,4 @@
-# User Manual v0.6.16
+# User Manual v0.6.17
 
 Date: 2025-08-19
 
@@ -97,6 +97,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - Run `python backtester/cli.py --config config.json --start-date 2024-01-01 --end-date 2024-06-01`.
 - Use `--output` to specify report path; defaults to `backtester/reports`.
 - Flags: `--install` to prepare report directory, `--remove` to clean it`.
+- The CLI now pulls prices from the database, simulates equal-weight portfolios, outputs KPIs (CAGR, Sharpe, max drawdown) with embedded charts and writes metrics to the `backtests` table.
 
 ## Architecture
 - See README for initial specification.

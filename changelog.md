@@ -1,4 +1,4 @@
-# Changelog v0.6.20
+# Changelog v0.6.21
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -113,6 +113,10 @@
 - Added backtester CLI for HTML reports with install/remove commands, tests, and report directories.
 - Updated user manual and log creation scripts; ignored report outputs.
 
+- Implemented database-driven price loading and portfolio simulation in backtester CLI with KPI charts.
+- Stored backtest metrics in the `backtests` table and expanded schema checks.
+- Added pandas and matplotlib dependencies with version bumps and updated tests and user manual.
+
 ## 2025-08-20
 - Added Next.js internationalization with French default and English fallback locales.
 - Externalized UI strings to translation files with locale install/remove scripts.
@@ -123,4 +127,5 @@
 - Introduced Monte Carlo simulation utilities in strategy-engine with probability-of-hitting calculations.
 - Core and satellite strategies now derive signals from market data, adjust risk via the risk engine, and justify allocations through `explain()`.
 - Extended strategy interface with `explain()` and added tests and documentation for dynamic weights.
+
 
