@@ -1,4 +1,9 @@
-# Changelog v0.5.9
+# Changelog v0.6.0
+
+## 2025-02-14
+- Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
+- Cross-linked README and user manual.
+- Bumped README to v0.1.1 and user manual/changelog to v0.6.0.
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
