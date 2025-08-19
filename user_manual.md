@@ -1,6 +1,6 @@
-# User Manual v0.6.33
+# User Manual v0.6.34
 
-Date: 2025-08-19
+Date: 2025-01-14
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -21,6 +21,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Create PostgreSQL dumps with `tools/db_backup.sh --retention <days>` (default 7) which stores files under `backups/` and prunes old ones.
 - Restore a dump via `tools/db_restore.sh <dump_file>`.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
+- Install Playwright browsers with `npm run install:e2e` and remove them with `npm run remove:e2e`.
+- Execute end-to-end tests via `npm run test:e2e`; reports are written to `tests/e2e/reports/`.
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`. Requests are scoped by the `tenant_id` embedded in JWT tokens.
@@ -69,6 +71,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Continuous Integration
 - The `ci.yml` workflow runs lint, tests and builds service images on each push or pull request.
 - Badges in the README display the latest status for `lint`, `test` and `build` jobs.
+- A dedicated job executes Playwright end-to-end tests and stores HTML reports under `tests/e2e/reports/`.
 
 ## Security Policies
 - The CI pipeline scans Python code with Bandit and frontend dependencies with `npm audit`.

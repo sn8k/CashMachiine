@@ -1,0 +1,13 @@
+{
+  "name": "cashmachiine-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.41.1"
+  },
+  "scripts": {
+    "test:e2e": "playwright test",
+    "install:e2e": "playwright install --with-deps",
+    "remove:e2e": "playwright uninstall"
+  }
+}

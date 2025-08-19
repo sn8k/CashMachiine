@@ -1,9 +1,10 @@
 @echo off
-REM log directory creator v0.6.13 (2025-08-19)
+REM log directory creator v0.6.14 (2025-01-14)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
 mkdir backtester\reports 2>nul
+mkdir tests\e2e\reports 2>nul
 mkdir ui\.next 2>nul
 mkdir perf 2>nul
 mkdir execution-engine\logs 2>nul
