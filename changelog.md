@@ -1,4 +1,4 @@
-# Changelog v0.6.22
+# Changelog v0.6.23
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -76,6 +76,8 @@
 - Introduced Chart.js dependency and locale management scripts in `package.json`.
 - Bumped locale installer scripts for updated translation assets.
 - Documented new UI features and scripts in user manual.
+- Silenced npm http-proxy warning in UI tests via `.npmrc` loglevel setting.
+
 
 ## 2025-08-18
 - Added initial development tasks outline.

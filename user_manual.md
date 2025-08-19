@@ -1,4 +1,4 @@
-# User Manual v0.6.23
+# User Manual v0.6.24
 
 Date: 2025-08-19
 
@@ -18,6 +18,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 - Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
+- `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`.
