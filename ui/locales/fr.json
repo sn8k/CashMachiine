@@ -1,0 +1,17 @@
+{
+  "home": {
+    "title": "Interface CashMachiine",
+    "createGoal": "Créer un Objectif",
+    "dailyActions": "Actions Quotidiennes"
+  },
+  "goals": {
+    "title": "Créer un Objectif",
+    "placeholder": "Nom de l’objectif",
+    "submit": "Créer",
+    "success": "Objectif créé !",
+    "error": "Erreur lors de la création de l'objectif"
+  },
+  "daily": {
+    "title": "Actions Quotidiennes"
+  }
+}

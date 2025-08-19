@@ -1,4 +1,4 @@
-# .gitignore v0.2.10 (2025-08-19)
+# .gitignore v0.2.11 (2025-08-20)
 # Python artifacts
 __pycache__/
 *.py[cod]
@@ -25,6 +25,7 @@ ui/.next/
 *.jpeg
 *.gif
 ui/public/images/
+ui/public/locales/
 
 # Database data
 db/data/

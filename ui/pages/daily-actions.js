@@ -1,7 +1,9 @@
-/** Daily actions page v0.2.0 (2025-08-19) */
+/** Daily actions page v0.2.1 (2025-08-20) */
 import { useEffect, useState } from 'react';
+import { useTranslation } from '../lib/useTranslation';
 
 export default function DailyActions() {
+  const t = useTranslation();
   const [actions, setActions] = useState([]);
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function DailyActions() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Daily Actions</h1>
+      <h1 className="text-2xl font-bold mb-4">{t('daily.title')}</h1>
       <ul className="list-disc ml-5">
         {actions.map((a, i) => <li key={i}>{a}</li>)}
       </ul>

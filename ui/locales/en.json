@@ -1,0 +1,17 @@
+{
+  "home": {
+    "title": "CashMachiine UI",
+    "createGoal": "Create Goal",
+    "dailyActions": "Daily Actions"
+  },
+  "goals": {
+    "title": "Create Goal",
+    "placeholder": "Goal name",
+    "submit": "Create",
+    "success": "Goal created!",
+    "error": "Error creating goal"
+  },
+  "daily": {
+    "title": "Daily Actions"
+  }
+}

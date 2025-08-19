@@ -1,6 +1,7 @@
 #!/bin/bash
-# ui removal v0.3.0 (2025-08-19)
+# ui removal v0.3.1 (2025-08-20)
 set -e
 cd "$(dirname "$0")"
 rm -rf node_modules .next
+./remove_locales.sh
 
