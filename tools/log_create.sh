@@ -1,10 +1,11 @@
 #!/bin/bash
-# log directory creator v0.6.13 (2025-08-19)
+# log directory creator v0.6.14 (2025-01-14)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
 mkdir -p logs/analytics
 mkdir -p backtester/reports
+mkdir -p tests/e2e/reports
 mkdir -p ui/.next
 mkdir -p perf
 mkdir -p execution-engine/logs

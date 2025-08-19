@@ -1,4 +1,11 @@
-# Changelog v0.6.33
+# Changelog v0.6.34
+
+## 2025-01-14
+- Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
+- Reports now output to `tests/e2e/reports/` with log scripts and `.gitignore` updated.
+- Introduced `@playwright/test` dependency and Python `playwright` entry.
+- Extended CI pipeline with an `e2e` job executing Playwright tests.
+- Documented end-to-end testing in user manuals and created `user_manual_2025-01-14.md`.
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.

@@ -1,4 +1,4 @@
-# ci.yml v0.2.0
+# ci.yml v0.2.1 (2025-01-14)
 name: CI
 
 on:
@@ -57,9 +57,25 @@ jobs:
       - name: Run tests
         run: pytest
 
-  build:
+  e2e:
     runs-on: ubuntu-latest
     needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run e2e tests
+        run: npm run test:e2e
+
+  build:
+    runs-on: ubuntu-latest
+    needs: e2e
     strategy:
       matrix:
         service: [api-gateway, orchestrator, data-ingestion, strategy-engine, risk-engine, execution-engine, backtester, ui]
