@@ -1,4 +1,4 @@
-# Changelog v0.6.3
+# Changelog v0.6.4
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -23,6 +23,10 @@
 - Added RabbitMQ-based messaging package with producers and consumers.
 - Orchestrator now publishes events to the bus; data-ingestion consumes them.
 - Added broker installer scripts and `pika` dependency with configuration.
+- Added Dockerfiles for all services with version headers.
+- Introduced root docker-compose.yml wiring services, database, cache and message bus.
+- Updated setup/remove scripts to invoke `docker-compose up` and `docker-compose down`.
+- Extended log creation scripts to include container log directories.
 
 ## 2025-08-18
 - Added initial development tasks outline.

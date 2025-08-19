@@ -1,0 +1,83 @@
+# docker-compose.yml v0.1.0
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cashmachiine
+    ports:
+      - "5432:5432"
+  cache:
+    image: redis:7
+    ports:
+      - "6379:6379"
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    depends_on:
+      - db
+      - cache
+      - rabbitmq
+    ports:
+      - "8000:8000"
+  orchestrator:
+    build:
+      context: .
+      dockerfile: orchestrator/Dockerfile
+    depends_on:
+      - db
+      - cache
+      - rabbitmq
+  data-ingestion:
+    build:
+      context: .
+      dockerfile: data-ingestion/Dockerfile
+    depends_on:
+      - db
+      - cache
+      - rabbitmq
+  risk-engine:
+    build:
+      context: .
+      dockerfile: risk-engine/Dockerfile
+    depends_on:
+      - db
+      - cache
+      - rabbitmq
+  execution-engine:
+    build:
+      context: .
+      dockerfile: execution-engine/Dockerfile
+    depends_on:
+      - db
+      - cache
+      - rabbitmq
+  backtester:
+    build:
+      context: .
+      dockerfile: backtester/Dockerfile
+    depends_on:
+      - db
+  strategy-engine:
+    build:
+      context: .
+      dockerfile: strategy-engine/Dockerfile
+    depends_on:
+      - db
+      - cache
+      - rabbitmq
+  ui:
+    build:
+      context: ui
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway

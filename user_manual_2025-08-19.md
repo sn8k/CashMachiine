@@ -1,4 +1,4 @@
-# User Manual v0.6.3
+# User Manual v0.6.4
 
 Date: 2025-08-19
 
@@ -28,6 +28,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service includes install.sh and remove.sh scripts (v0.3.0).
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
+- Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 
 ## Database Setup
 - Run `./install_db.sh` to create tables.
