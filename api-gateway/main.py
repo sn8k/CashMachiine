@@ -1,10 +1,12 @@
-"""FastAPI app exposing goals and actions endpoints with JWT auth v0.2.2 (2025-08-19)"""
+"""FastAPI app exposing goals and actions endpoints with JWT auth v0.2.3 (2025-08-19)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.responses import JSONResponse
 from jose import JWTError, jwt
 
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
+from infra.cache import get_redis_client
 
 SECRET_KEY = settings.secret_key
 ALGORITHM = "HS256"
@@ -16,6 +18,22 @@ app = FastAPI()
 logger = setup_logging("api-gateway", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("api-gateway", port=settings.api_gateway_metrics_port)
 tracer = setup_tracer("api-gateway")
+redis_client = get_redis_client()
+RATE_LIMIT = settings.rate_limit_per_minute
+
+
+@app.middleware("http")
+async def rate_limiter(request: Request, call_next):
+    client_ip = request.client.host
+    key = f"rl:{client_ip}"
+    current = redis_client.get(key)
+    if current and int(current) >= RATE_LIMIT:
+        return JSONResponse(status_code=429, content={"detail": "Too Many Requests"})
+    pipe = redis_client.pipeline()
+    pipe.incr(key, 1)
+    pipe.expire(key, 60)
+    pipe.execute()
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -23,7 +41,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.2"
+    response.headers["X-API-Version"] = "v0.2.3"
     return response
 
 

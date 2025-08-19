@@ -1,4 +1,4 @@
-# Changelog v0.6.2
+# Changelog v0.6.3
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -21,6 +21,10 @@
 - Added `.env.example` and referenced it in environment setup scripts.
 - Updated services to consume `config` values instead of hard-coded constants.
 - Added `python-dotenv` dependency.
+- Introduced Redis cache infrastructure module with helpers.
+- Added Redis-backed rate limiting middleware to api-gateway.
+- Updated configuration, environment samples and documentation for Redis settings.
+- Added `redis` and `fakeredis` dependencies.
 
 ## 2025-08-18
 - Added initial development tasks outline.

@@ -1,4 +1,4 @@
-# User Manual v0.6.1
+# User Manual v0.6.2
 
 Date: 2025-08-19
 
@@ -6,6 +6,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 
 ## Overview
 - Goal-based investment platform with daily actionable recommendations.
+- Redis cache infrastructure provides shared helpers for services.
 
 ## Services Overview
 - api-gateway
@@ -17,9 +18,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - backtester
 - ui
 - db
+- infra/cache
 
 ## Installation
 - Copy `.env.example` to `.env` and adjust values as needed.
+- Set Redis config using `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB` and `RATE_LIMIT_PER_MINUTE`.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service includes install.sh and remove.sh scripts (v0.3.0).
@@ -41,9 +44,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## API Gateway
 - FastAPI service exposing `/goals` for users and `/actions` for admins.
 - Authenticate requests with JWT tokens containing a `role` claim.
-- All responses include header `X-API-Version: v0.2.2`.
+- All responses include header `X-API-Version: v0.2.3`.
+- Rate limiting enforced per IP using Redis; defaults to 100 requests/minute configurable via `RATE_LIMIT_PER_MINUTE`.
 - Metrics default to port `9001`.
- - Configuration values read from `config` package.
+- Configuration values read from `config` package.
 
 ## Orchestrator
 - Uses APScheduler to trigger daily jobs at 08:00 Europe/Paris.
@@ -66,7 +70,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Provides volatility targeting, Value-at-Risk/Expected Shortfall checks, and Kelly fraction caps.
 - REST endpoint `/adjust` consumed by `strategy-engine` via `risk_client`.
 - Logs stored in `logs/risk-engine.log` and metrics default to port `9002`.
- - Configuration values read from `config` package.
+- Configuration values read from `config` package.
 
 ## Execution Engine
 - Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).
