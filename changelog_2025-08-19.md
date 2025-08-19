@@ -1,4 +1,4 @@
-# Changelog v0.6.7
+# Changelog v0.6.8
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -36,6 +36,8 @@
 - Extended log creation scripts for analytics logs.
 - Updated documentation and README for analytics features.
 - Reconciled development_tasks with repository state, marking tasks complete and cross-linking with user manual.
+
+- Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
 
 ## 2025-08-18
 - Added initial development tasks outline.
