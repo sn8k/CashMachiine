@@ -1,4 +1,4 @@
-# Changelog v0.6.8
+# Changelog v0.6.9
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -89,4 +89,6 @@
 - Externalized UI strings to translation files with locale install/remove scripts.
 - Documented localization setup in user manuals.
 - Added `requirements.txt` for backtester and bumped service to v0.3.2 fixing Docker builds.
+- Added feasibility-calculator FastAPI service with `/feasibility` endpoint for CAGR, daily returns and probability-of-hitting calculations.
+- Registered feasibility-calculator in docker-compose and log creation scripts and updated requirements and user manual.
 
