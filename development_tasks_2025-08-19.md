@@ -1,4 +1,4 @@
-# Development Tasks v0.1.1
+# Development Tasks v0.1.2
 
 Date: 2025-08-19
 
@@ -24,5 +24,10 @@ Date: 2025-08-19
 ## Documentation
 - [x] Expand `user_manual` with installation, usage, and architecture details.
 - [x] Maintain `changelog` for every update with version and date.
+
+## MVP Deliverables
+- [ ] Implement `feasibility-calculator` service (API + UI) for goal feasibility calculations.
+- [ ] Extend `actions` UI with checklist and export of orders.
+- [ ] Generate HTML reports in `backtester` CLI.
 
 Refer to [user_manual_2025-08-19.md](user_manual_2025-08-19.md) for installation and usage details.

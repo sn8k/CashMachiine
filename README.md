@@ -1,4 +1,4 @@
-# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.4
+# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.5
 
 [![Lint](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=lint)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 [![Tests](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=test)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
@@ -6,7 +6,7 @@
 
 *Date : 2025-08-19*
 
-Consultez le [manuel utilisateur](user_manual_2025-08-19.md) pour l'installation, l'utilisation, l'architecture et le dépannage.
+Consultez le [manuel utilisateur](user_manual_2025-08-19.md) pour l'installation, l'utilisation, l'architecture et le dépannage. Consultez aussi les [tâches de développement](development_tasks.md) pour la feuille de route.
 
 ## 1) Vision & cas d’usage
 

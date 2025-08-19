@@ -1,4 +1,4 @@
-# Changelog v0.6.24
+# Changelog v0.6.25
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -82,7 +82,7 @@
 - Added Prometheus ports `9003` (execution-engine), `9004` (data-ingestion) and `9005` (backtester) with configuration entries.
 - Extended log creation scripts for backtester logs.
 - Documented new metrics endpoints in the user manual.
-
+- Updated development tasks with new deliverables from the README and bumped README to v0.1.5 with current date linkage.
 
 ## 2025-08-18
 - Added initial development tasks outline.
