@@ -1,5 +1,5 @@
 # nosec
-"""Unit tests for api-gateway main application v0.2.7 (2025-08-19)"""
+"""Unit tests for api-gateway main application v0.2.8 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -25,7 +25,7 @@ client = TestClient(main.app)
 
 
 def create_token(role: str):
-    return jwt.encode({"role": role}, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode({"role": role, "tenant_id": 1}, SECRET_KEY, algorithm=ALGORITHM)
 
 
 def test_goals_requires_auth():
@@ -37,7 +37,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
-    assert response.headers["X-API-Version"] == "v0.2.7"  # nosec
+    assert response.headers["X-API-Version"] == "v0.2.8"  # nosec
     assert response.json() == {"goals": []}  # nosec
 
 

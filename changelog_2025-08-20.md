@@ -1,4 +1,4 @@
-# Changelog v0.6.9
+# Changelog v0.6.10
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -91,4 +91,8 @@
 - Added `requirements.txt` for backtester and bumped service to v0.3.2 fixing Docker builds.
 - Added feasibility-calculator FastAPI service with `/feasibility` endpoint for CAGR, daily returns and probability-of-hitting calculations.
 - Registered feasibility-calculator in docker-compose and log creation scripts and updated requirements and user manual.
+- Introduced multi-tenant support with `tenant_id` columns on `users`, `goals` and `orders` tables.
+- Extended JWT payloads and API gateway RBAC to enforce tenant scoping.
+- Updated services to persist and query data by `tenant_id`.
+- Documented tenant scoping in user manuals and bumped service versions.
 

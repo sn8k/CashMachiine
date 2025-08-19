@@ -1,5 +1,5 @@
 # nosec
-"""Benchmark tests for api-gateway v0.2.7 (2025-08-19)"""
+"""Benchmark tests for api-gateway v0.2.8 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -26,7 +26,7 @@ ALGORITHM = main.ALGORITHM
 
 
 def create_token(role: str):
-    return jwt.encode({"role": role}, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode({"role": role, "tenant_id": 1}, SECRET_KEY, algorithm=ALGORITHM)
 
 
 def bench_request():

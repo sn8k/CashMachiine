@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.6 (2025-08-19)
-$expectedVersion = 'v0.1.3';
+// db_check.php v0.1.7 (2025-08-20)
+$expectedVersion = 'v0.1.4';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -22,6 +22,15 @@ foreach ($requiredTables as $tbl) {
     $stmt = $pdo->query("SELECT to_regclass('public.$tbl')");
     if (!$stmt->fetchColumn()) {
         echo "Missing table: $tbl\n";
+        exit(1);
+    }
+}
+$tenantTables = ['users','goals','orders'];
+foreach ($tenantTables as $tbl) {
+    $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='$tbl'");
+    $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    if (!in_array('tenant_id', $cols)) {
+        echo "Missing column in $tbl: tenant_id\n";
         exit(1);
     }
 }

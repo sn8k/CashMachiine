@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.4 (2025-08-19)"""
+"""orchestrator scheduler v0.5.5 (2025-08-20)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -28,7 +28,7 @@ def run_pipeline(producer: EventProducer):
         producer.publish("risk_adjust", {"weights": [1.0], "current_vol": 0.05, "target_vol": 0.1})
         producer.publish(
             "order_dispatch",
-            {"broker": "ibkr", "symbol": "AAPL", "qty": 10},
+            {"broker": "ibkr", "symbol": "AAPL", "qty": 10, "tenant_id": 1},
         )
         logger.info("Pipeline events emitted")
 
@@ -52,7 +52,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.4")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.5")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")

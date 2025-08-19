@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.7 (2025-08-19)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.8 (2025-08-20)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -65,7 +65,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.7"
+    response.headers["X-API-Version"] = "v0.2.8"
     return response
 
 
@@ -75,6 +75,9 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security), 
     except JWTError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
     role = payload.get("role")
+    tenant_id = payload.get("tenant_id")
+    if tenant_id is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing tenant")
     if required_role and role != required_role:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Insufficient role")
     return payload
@@ -95,18 +98,18 @@ class GoalCreate(BaseModel):
 
 
 @app.get("/goals")
-def get_goals(_: dict = Depends(role_checker("user"))):
-    return {"goals": fetch_goals()}
+def get_goals(payload: dict = Depends(role_checker("user"))):
+    return {"goals": fetch_goals(payload["tenant_id"])}
 
 
 @app.post("/goals")
-def post_goal(goal: GoalCreate, _: dict = Depends(role_checker("admin"))):
-    return {"goal": create_goal(goal.model_dump())}
+def post_goal(goal: GoalCreate, payload: dict = Depends(role_checker("admin"))):
+    return {"goal": create_goal(goal.model_dump(), payload["tenant_id"])}
 
 
 @app.get("/goals/{goal_id}/status")
-def goal_status(goal_id: int, _: dict = Depends(role_checker("user"))):
-    return fetch_goal_status(goal_id)
+def goal_status(goal_id: int, payload: dict = Depends(role_checker("user"))):
+    return fetch_goal_status(goal_id, payload["tenant_id"])
 
 
 @app.get("/actions")
@@ -115,21 +118,21 @@ def get_actions(_: dict = Depends(role_checker("admin"))):
 
 
 @app.get("/actions/today")
-def get_actions_today(_: dict = Depends(role_checker("user"))):
-    return {"actions": fetch_actions_today()}
+def get_actions_today(payload: dict = Depends(role_checker("user"))):
+    return {"actions": fetch_actions_today(payload["tenant_id"])}
 
 
 @app.post("/actions/{action_id}/check")
-def post_check_action(action_id: int, _: dict = Depends(role_checker("admin"))):
-    result = check_action(action_id)
+def post_check_action(action_id: int, payload: dict = Depends(role_checker("admin"))):
+    result = check_action(action_id, payload["tenant_id"])
     if not result:
         raise HTTPException(status_code=404, detail="Action not found")
     return result
 
 
 @app.get("/orders/preview")
-def get_orders_preview(limit: int = 10, _: dict = Depends(role_checker("user"))):
-    return {"orders": fetch_orders_preview(limit)}
+def get_orders_preview(limit: int = 10, payload: dict = Depends(role_checker("user"))):
+    return {"orders": fetch_orders_preview(limit, payload["tenant_id"])}
 
 
 @app.get("/analytics")
