@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.2 (2025-08-19)"""
+"""Configuration loader v0.1.3 (2025-08-19)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -22,6 +22,7 @@ class Settings:
     redis_db: int = int(os.getenv("REDIS_DB", "0"))
     rate_limit_per_minute: int = int(os.getenv("RATE_LIMIT_PER_MINUTE", "100"))
     rabbitmq_url: str = os.getenv("RABBITMQ_URL", "amqp://guest:guest@localhost:5672/")
+    alpha_vantage_key: str = os.getenv("ALPHA_VANTAGE_KEY", "demo")
 
 
 settings = Settings()
