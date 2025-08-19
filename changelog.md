@@ -1,4 +1,4 @@
-# Changelog v0.6.0
+# Changelog v0.6.1
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -14,6 +14,9 @@
 - Added Prometheus and OpenTelemetry dependencies.
 - Initialized Next.js UI with Tailwind pages for goal creation and daily actions referencing api-gateway.
 - Removed binary UI screenshots and ignored image assets to comply with repository policy.
+- Introduced GitHub Actions workflow running lint, tests and service image builds.
+- Added CI status badges to README.
+- Documented CI usage in user manuals.
 
 ## 2025-08-18
 - Added initial development tasks outline.

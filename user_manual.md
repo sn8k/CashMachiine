@@ -1,6 +1,6 @@
-# User Manual v0.6.0
+# User Manual v0.6.1
 
-Date: 2025-02-14
+Date: 2025-08-19
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -17,6 +17,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Architecture
 - Services communicate via structured logs, metrics, and traces.
 - Review the [README](README.md#6-architecture-technique) for the full technical specification.
+
+## Continuous Integration
+- The `ci.yml` workflow runs lint, tests and builds service images on each push or pull request.
+- Badges in the README display the latest status for `lint`, `test` and `build` jobs.
 
 ## Troubleshooting
 - If dependencies are missing, rerun `./setup_env.sh`.

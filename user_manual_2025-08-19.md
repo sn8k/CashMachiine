@@ -1,4 +1,4 @@
-# User Manual v0.5.9
+# User Manual v0.6.0
 
 Date: 2025-08-19
 
@@ -32,6 +32,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Shared JSON logging writes to `logs/` with optional remote sink via `REMOTE_LOG_URL`.
 - Prometheus metrics exposed per service on configurable `METRICS_PORT`.
 - OpenTelemetry traces exported to console for debugging.
+
+## Continuous Integration
+- GitHub Actions `ci.yml` workflow runs lint, tests and builds service images.
+- Status badges in the README show the latest pipeline results.
 
 ## API Gateway
 - FastAPI service exposing `/goals` for users and `/actions` for admins.
