@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.16 (2025-08-19)
+REM log directory creator v0.6.17 (2025-08-19)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -12,6 +12,7 @@ mkdir infra\terraform\logs 2>nul
 mkdir logs\notification-service 2>nul
 mkdir logs\strategy-marketplace 2>nul
 mkdir logs\mobile 2>nul
+mkdir logs\data-warehouse 2>nul
 mkdir strategy-engine\models 2>nul
 mkdir strategy-marketplace\assets 2>nul
 mkdir backups 2>nul
@@ -27,3 +28,4 @@ type nul > logs\notification-service\notification.log
 type nul > logs\strategy-marketplace\marketplace.log
 type nul > execution-engine\logs\orders.log
 type nul > logs\mobile\build.log
+type nul > logs\data-warehouse\etl.log

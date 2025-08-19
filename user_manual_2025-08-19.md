@@ -1,4 +1,4 @@
-# User Manual v0.6.36
+# User Manual v0.6.37
 
 Date: 2025-08-19
 
@@ -13,6 +13,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - api-gateway
 - orchestrator
 - data-ingestion
+- data-warehouse
 - messaging
 - notification-service
 - strategy-marketplace
@@ -94,6 +95,11 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
   - `from data_ingestion.fetchers.equities_yahoo import YahooEquityFetcher`
   - `YahooEquityFetcher().save(YahooEquityFetcher().fetch("AAPL"))`
 - Logs stored in `logs/data-ingestion.log`.
+
+## Data Warehouse
+- Nightly ETL transfers operational data into the `warehouse` schema.
+- Logs stored in `logs/data-warehouse/etl.log`.
+- Install with `data-warehouse/install.sh` and remove with `data-warehouse/remove.sh` (v0.1.0).
 
 ## Strategy Engine
 - Base `Strategy` interface exposing `signals()` and `target_weights()`.
