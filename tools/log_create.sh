@@ -1,8 +1,5 @@
 #!/bin/bash
-# log directory creator v0.5.0 (2025-08-18)
+# log directory creator v0.6.0 (2025-08-19)
 set -e
-mkdir -p orchestrator/logs
-mkdir -p data-ingestion/logs
-mkdir -p risk-engine/logs
-mkdir -p execution-engine/logs
+mkdir -p logs
 mkdir -p backtester/reports
