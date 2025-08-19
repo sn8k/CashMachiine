@@ -1,4 +1,4 @@
-# Changelog v0.6.19
+# Changelog v0.6.21
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -44,6 +44,12 @@
 - Updated log creation scripts and `.gitignore` for execution-engine order logs.
 - Added unit tests for adapters and order handler using mocked requests and fakeredis.
 
+- Added action checkboxes with status updates and feedback on the UI daily actions page.
+- Rendered Chart.js metrics on the analytics dashboard with localized strings.
+- Introduced Chart.js dependency and locale management scripts in `package.json`.
+- Bumped locale installer scripts for updated translation assets.
+- Documented new UI features and scripts in user manual.
+
 - Fixed service consumer imports by dropping hyphenated module paths.
 - Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
 
@@ -54,6 +60,8 @@
 
 - Implemented database-driven price loading and portfolio simulation in backtester CLI with KPI charts and metrics storage.
 - Expanded `admin/db_check.php` to validate `backtests` columns and updated documentation with new dependencies.
+- Silenced npm http-proxy warning in UI tests via `.npmrc` loglevel setting.
+
 
 ## 2025-08-18
 - Added initial development tasks outline.
