@@ -1,4 +1,4 @@
-# Changelog v0.6.35
+# Changelog v0.6.36
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -81,6 +81,8 @@
 - Added `strategies` and `strategy_reviews` tables with migrations and schema checks.
 - Stored uploaded strategy files under `strategy-marketplace/assets/` with dedicated log directory.
 - Updated log creation scripts, `.gitignore` and documentation for the new service and installer scripts.
+- Reconciled `development_tasks` with dated logs, adding deliverables for feasibility calculator documentation and backtester benchmarking.
+- Updated user manual with notes on feasibility calculator integration and backtester performance plans.
 
 ## 2025-08-18
 - Added initial development tasks outline.

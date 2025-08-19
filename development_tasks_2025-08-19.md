@@ -1,4 +1,4 @@
-# Development Tasks v0.1.3
+# Development Tasks v0.1.4
 
 Date: 2025-08-19
 
@@ -31,5 +31,7 @@ Date: 2025-08-19
 - [x] Generate HTML reports in `backtester` CLI. See [Backtester](user_manual_2025-08-19.md#backtester).
 - [ ] Integrate feasibility calculator results into the UI overview. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
 - [ ] Implement automated tests for `feasibility-calculator` service. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
+- [ ] Document feasibility calculator integration workflow in `user_manual`. See [Feasibility Calculator](user_manual_2025-08-19.md#feasibility-calculator).
+- [ ] Add performance benchmarking for `backtester` simulations. See [Backtester](user_manual_2025-08-19.md#backtester).
 
 Refer to [user_manual_2025-08-19.md](user_manual_2025-08-19.md) for installation and usage details.
