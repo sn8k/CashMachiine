@@ -1,4 +1,4 @@
-# Changelog v0.6.2
+# Changelog v0.6.3
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -20,6 +20,9 @@
 - Added Redis-backed rate limiting middleware to api-gateway.
 - Updated configuration, environment samples and documentation for Redis settings.
 - Added `redis` and `fakeredis` dependencies.
+- Added RabbitMQ-based messaging package with producers and consumers.
+- Orchestrator now publishes events to the bus; data-ingestion consumes them.
+- Added broker installer scripts and `pika` dependency with configuration.
 
 ## 2025-08-18
 - Added initial development tasks outline.

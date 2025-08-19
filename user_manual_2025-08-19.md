@@ -1,4 +1,4 @@
-# User Manual v0.6.2
+# User Manual v0.6.3
 
 Date: 2025-08-19
 
@@ -12,6 +12,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - api-gateway
 - orchestrator
 - data-ingestion
+- messaging
 - strategy-engine
 - risk-engine
 - execution-engine
@@ -26,6 +27,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Each service includes install.sh and remove.sh scripts (v0.3.0).
+- Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 
 ## Database Setup
 - Run `./install_db.sh` to create tables.
@@ -50,13 +52,14 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Configuration values read from `config` package.
 
 ## Orchestrator
-- Uses APScheduler to trigger daily jobs at 08:00 Europe/Paris.
+- Uses APScheduler to trigger daily jobs at 08:00 Europe/Paris and publishes events to RabbitMQ.
 - Start with `python orchestrator/main.py`.
 - Flags: `--install` to install, `--remove` to uninstall, `--log-path` to customize log file, `--metrics-port` for metrics.
 - Default log file `logs/orchestrator.log`.
 
 ## Data Ingestion
 - Modular fetchers for Yahoo equities and Binance crypto.
+- Consumes RabbitMQ events and fetches data on demand.
 - Example usage:
   - `from data_ingestion.fetchers.equities_yahoo import YahooEquityFetcher`
   - `YahooEquityFetcher().save(YahooEquityFetcher().fetch("AAPL"))`
