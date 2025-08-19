@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.4 (2025-08-19)
-$expectedVersion = 'v0.1.1';
+// db_check.php v0.1.5 (2025-08-19)
+$expectedVersion = 'v0.1.2';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -9,7 +9,7 @@ $user = getenv('DB_USER') ?: 'postgres';
 $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
-    'executions','prices','signals','actions','risk_limits','metrics_daily','backtests'
+    'executions','prices','signals','actions','risk_limits','metrics_daily','backtests','risk_stress_results'
 ];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
 try {
@@ -60,6 +60,15 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
 foreach ($backtestColumns as $col) {
     if (!in_array($col, $cols)) {
         echo "Missing column in backtests: $col\n";
+        exit(1);
+    }
+}
+$stressColumns = ['id','scenario','metric','created_at'];
+$stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='risk_stress_results'");
+$cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+foreach ($stressColumns as $col) {
+    if (!in_array($col, $cols)) {
+        echo "Missing column in risk_stress_results: $col\n";
         exit(1);
     }
 }

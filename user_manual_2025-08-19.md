@@ -1,4 +1,4 @@
-# User Manual v0.6.17
+# User Manual v0.6.18
 
 Date: 2025-08-19
 
@@ -86,6 +86,7 @@ Each service now includes a `requirements.txt` file to facilitate Docker builds 
 - REST endpoint `/adjust` consumed by `strategy-engine` via `risk_client`.
 - Logs stored in `logs/risk-engine.log` and metrics default to port `9002`.
 - Configuration values read from `config` package.
+- Endpoint `/risk/stress` returns historical and hypothetical stress scenarios and persists results.
 
 ## Execution Engine
 - Broker-agnostic `OrderHandler` with pluggable adapters (`IBKR`, `Binance`).
