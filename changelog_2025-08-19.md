@@ -1,4 +1,4 @@
-# Changelog v0.6.6
+# Changelog v0.6.7
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -35,6 +35,7 @@
 - Mirrored analytics SQL checks in `admin/db_check.php`.
 - Extended log creation scripts for analytics logs.
 - Updated documentation and README for analytics features.
+- Reconciled development_tasks with repository state, marking tasks complete and cross-linking with user manual.
 
 ## 2025-08-18
 - Added initial development tasks outline.

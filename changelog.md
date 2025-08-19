@@ -1,4 +1,4 @@
-# Changelog v0.6.9
+# Changelog v0.6.10
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -46,6 +46,7 @@
  Added Prometheus latency metrics via `setup_performance_metrics`.
  Documented benchmarking and metrics in user manual.
  Added `pytest-benchmark` dependency and ignored `perf/` artifacts.
+- Marked development tasks as completed and linked documentation in user manuals.
 
 ## 2025-08-18
 - Added initial development tasks outline.
