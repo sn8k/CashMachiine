@@ -1,5 +1,5 @@
 #!/bin/bash
-# data-ingestion installer v0.5.1
+# data-ingestion installer v0.5.2
 echo "Installing data-ingestion service..."
 pip install yfinance ccxt psycopg2-binary pika >/dev/null
 mkdir -p "$(dirname "$0")/logs"

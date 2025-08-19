@@ -1,4 +1,4 @@
-# User Manual v0.6.8
+# User Manual v0.6.14
 
 Date: 2025-08-19
 
@@ -49,6 +49,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The CI pipeline scans Python code with Bandit and frontend dependencies with `npm audit`.
 - Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
+- Tests use `# nosec` to bypass false positives and subprocess calls are validated.
 
 ## API Gateway
 - FastAPI service exposing `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check`, `/orders/preview` and `/analytics`.

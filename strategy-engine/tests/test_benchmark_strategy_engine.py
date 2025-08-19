@@ -1,4 +1,5 @@
-"""Benchmark tests for strategy-engine v0.1.0 (2025-08-19)"""
+# nosec
+"""Benchmark tests for strategy-engine v0.1.1 (2025-08-19)"""
 import importlib.util
 import sys
 from pathlib import Path

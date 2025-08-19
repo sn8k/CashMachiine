@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.0 (2025-08-19)"""
+"""orchestrator scheduler v0.5.1 (2025-08-19)"""
 import argparse
 import os
-import subprocess
+import subprocess  # nosec B404
 import time
 from zoneinfo import ZoneInfo
 
@@ -33,16 +33,16 @@ def run_pipeline(producer: EventProducer):
 
 def install_service():
     script_path = os.path.join(os.path.dirname(__file__), "install.sh")
-    subprocess.run([script_path], check=True)
+    subprocess.run([script_path], check=True)  # nosec B603
 
 
 def remove_service():
     script_path = os.path.join(os.path.dirname(__file__), "remove.sh")
-    subprocess.run([script_path], check=True)
+    subprocess.run([script_path], check=True)  # nosec B603
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.0")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.1")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")

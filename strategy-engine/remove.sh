@@ -1,4 +1,4 @@
 #!/bin/bash
-# strategy-engine removal v0.4.1
+# strategy-engine removal v0.4.2
 
 echo "Removing strategy-engine service..."

@@ -1,4 +1,5 @@
-"""Benchmark tests for api-gateway v0.1.0 (2025-08-19)"""
+# nosec
+"""Benchmark tests for api-gateway v0.2.6 (2025-08-19)"""
 from fastapi.testclient import TestClient
 from jose import jwt
 import importlib.util

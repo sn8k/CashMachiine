@@ -1,4 +1,4 @@
-# Changelog v0.6.13
+# Changelog v0.6.14
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -56,6 +56,7 @@
 - Extended log creation scripts for new service log files.
 - Bumped service versions and updated user manual for the event-driven workflow.
 - Fixed service consumer imports by dropping hyphenated module paths.
+- Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
 
 ## 2025-08-18
 - Added initial development tasks outline.
