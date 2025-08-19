@@ -1,4 +1,4 @@
-# Changelog v0.6.5
+# Changelog v0.6.6
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -30,6 +30,11 @@
 - Added Bandit and `npm audit` security scans to CI with automatic dependency alerts.
 - Added Bandit dependency and UI `audit` script.
 - Documented security policies in user manuals.
+- Added analytics endpoint in api-gateway aggregating observability and database metrics.
+- Created UI analytics dashboard fetching metrics from backend.
+- Mirrored analytics SQL checks in `admin/db_check.php`.
+- Extended log creation scripts for analytics logs.
+- Updated documentation and README for analytics features.
 
 ## 2025-08-18
 - Added initial development tasks outline.

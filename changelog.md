@@ -1,4 +1,4 @@
-# Changelog v0.6.8
+# Changelog v0.6.9
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -35,6 +35,11 @@
 - Added Bandit and `npm audit` security scans to CI with automatic dependency alerts.
 - Added Bandit dependency and UI `audit` script.
 - Documented security policies in user manuals.
+- Added analytics endpoint in api-gateway aggregating observability and database metrics.
+- Created UI analytics dashboard fetching metrics from backend.
+- Mirrored analytics SQL checks in `admin/db_check.php`.
+- Extended log creation scripts for analytics logs.
+- Updated documentation and README for analytics features.
 
 - Introduced pytest-benchmark scripts for api-gateway and strategy-engine.
 - Stored benchmark results under `perf/` and updated log creation scripts.

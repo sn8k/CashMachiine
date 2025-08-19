@@ -1,4 +1,4 @@
-# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.2
+# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.3
 
 [![Lint](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=lint)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 [![Tests](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=test)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
@@ -84,7 +84,7 @@ Voir aussi la section [Architecture](user_manual_2025-08-19.md#architecture) du 
 * `risk-engine` — budget de risque, limites (VaR/ES), SL/TP, levier.
 * `execution-engine` — génération d’ordres, agrégation par broker, contrôle post-trade.
 * `backtester` — backtests/forward-tests reproductibles, rapports.
-* `ui` (Next.js/React + Tailwind) — Dashboard, Wizard d’objectifs, Daily Actionables, Historique, What‑if.
+* `ui` (Next.js/React + Tailwind) — Dashboard, Analytics, Wizard d’objectifs, Daily Actionables, Historique, What‑if.
 * `db` — Postgres (+ Timescale pour séries), Redis pour cache/queues.
 * Bus messages : NATS/RabbitMQ (événements de marché, signaux, ordres, logs).
 

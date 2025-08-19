@@ -2,7 +2,8 @@
   "home": {
     "title": "Interface CashMachiine",
     "createGoal": "Créer un Objectif",
-    "dailyActions": "Actions Quotidiennes"
+    "dailyActions": "Actions Quotidiennes",
+    "analytics": "Tableau de Bord"
   },
   "goals": {
     "title": "Créer un Objectif",
@@ -13,5 +14,9 @@
   },
   "daily": {
     "title": "Actions Quotidiennes"
+  },
+  "analytics": {
+    "title": "Tableau de Bord Analytique",
+    "loading": "Chargement des métriques..."
   }
 }
