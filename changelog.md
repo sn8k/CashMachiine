@@ -1,4 +1,4 @@
-# Changelog v0.6.26
+# Changelog v0.6.27
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -84,6 +84,7 @@
 - Documented new metrics endpoints in the user manual.
 - Updated development tasks with new deliverables from the README and bumped README to v0.1.5 with current date linkage.
 - Replaced insecure asserts in execution-engine tests and bound feasibility-calculator to localhost to satisfy Bandit.
+- Added historical and hypothetical stress test endpoint `/risk/stress` with persistence, migrations and documentation.
 
 ## 2025-08-18
 - Added initial development tasks outline.

@@ -1,4 +1,4 @@
-# Changelog v0.6.22
+# Changelog v0.6.23
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -62,6 +62,8 @@
 - Implemented database-driven price loading and portfolio simulation in backtester CLI with KPI charts and metrics storage.
 - Expanded `admin/db_check.php` to validate `backtests` columns and updated documentation with new dependencies.
 - Silenced npm http-proxy warning in UI tests via `.npmrc` loglevel setting.
+
+- Added historical and hypothetical stress test endpoint `/risk/stress` with persistence, migrations and documentation.
 
 
 ## 2025-08-18
