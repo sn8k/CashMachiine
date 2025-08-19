@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""data-ingestion consumer v0.5.4 (2025-08-19)"""
+"""data-ingestion consumer v0.5.5 (2025-08-19)"""
 import argparse
 import os
 import subprocess  # nosec B404
 
-from common.monitoring import setup_logging
+from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 from messaging import EventConsumer
 from fetchers.equities_yahoo import YahooEquityFetcher
 from fetchers.crypto_binance import BinanceCryptoFetcher
 from fetchers.bonds_alpha_vantage import AlphaVantageBondFetcher
 from fetchers.commodities_alpha_vantage import AlphaVantageCommodityFetcher
+
+REQUEST_COUNT = setup_metrics("data-ingestion", port=settings.data_ingestion_metrics_port)
+tracer = setup_tracer("data-ingestion")
 
 
 def install_service():
@@ -25,24 +28,26 @@ def remove_service():
 
 def handle_event(message: dict) -> None:
     event = message.get("event")
-    if event == "data_fetch":
-        payload = message.get("payload", {})
-        symbol = payload.get("symbol", "AAPL")
-        asset_class = payload.get("asset_class", "equity")
-        if asset_class == "bond":
-            fetcher = AlphaVantageBondFetcher()
-        elif asset_class == "commodity":
-            fetcher = AlphaVantageCommodityFetcher()
-        elif asset_class == "crypto":
-            fetcher = BinanceCryptoFetcher()
-        else:
-            fetcher = YahooEquityFetcher()
-        fetcher.save(fetcher.fetch(symbol))
-        logger.info("Fetched %s data for %s", asset_class, symbol)
+    with tracer.start_as_current_span(event or "unknown"):
+        if event == "data_fetch":
+            payload = message.get("payload", {})
+            symbol = payload.get("symbol", "AAPL")
+            asset_class = payload.get("asset_class", "equity")
+            if asset_class == "bond":
+                fetcher = AlphaVantageBondFetcher()
+            elif asset_class == "commodity":
+                fetcher = AlphaVantageCommodityFetcher()
+            elif asset_class == "crypto":
+                fetcher = BinanceCryptoFetcher()
+            else:
+                fetcher = YahooEquityFetcher()
+            fetcher.save(fetcher.fetch(symbol))
+            logger.info("Fetched %s data for %s", asset_class, symbol)
+            REQUEST_COUNT.inc()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.4")
+    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.5")
     parser.add_argument("--install", action="store_true", help="Install data-ingestion service")
     parser.add_argument("--remove", action="store_true", help="Remove data-ingestion service")
     parser.add_argument("--log-path", default=os.path.join("logs", "data-ingestion.log"), help="Path to log file")

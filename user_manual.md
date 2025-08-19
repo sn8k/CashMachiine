@@ -1,4 +1,4 @@
-# User Manual v0.6.24
+# User Manual v0.6.25
 
 Date: 2025-08-19
 
@@ -45,6 +45,12 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.
 - Benchmark tests cover `api-gateway` and `strategy-engine`.
 - Prometheus exposes latency metrics on each service's metrics port.
+- Metrics endpoints:
+  - API Gateway: `http://localhost:9001/metrics`
+  - Risk Engine: `http://localhost:9002/metrics`
+  - Execution Engine: `http://localhost:9003/metrics`
+  - Data Ingestion: `http://localhost:9004/metrics`
+  - Backtester: `http://localhost:9005/metrics`
 - Benchmark results are stored under `perf/`.
 
 ## Architecture

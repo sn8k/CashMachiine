@@ -1,4 +1,4 @@
-# Changelog v0.6.23
+# Changelog v0.6.24
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -77,6 +77,11 @@
 - Bumped locale installer scripts for updated translation assets.
 - Documented new UI features and scripts in user manual.
 - Silenced npm http-proxy warning in UI tests via `.npmrc` loglevel setting.
+
+- Unified monitoring across order handler, data-ingestion and backtester with logging, metrics and tracing.
+- Added Prometheus ports `9003` (execution-engine), `9004` (data-ingestion) and `9005` (backtester) with configuration entries.
+- Extended log creation scripts for backtester logs.
+- Documented new metrics endpoints in the user manual.
 
 
 ## 2025-08-18
