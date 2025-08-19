@@ -1,4 +1,4 @@
-# Changelog v0.6.15
+# Changelog v0.6.16
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
@@ -44,6 +44,8 @@
 
 - Upgraded Next.js to 14.2.32 to resolve audit vulnerabilities and added a dedicated
   `messaging.log` path with version bumps across orchestrator and dependent services.
+
+- Added per-service `requirements.txt` files with updated Dockerfiles and install scripts to eliminate build warnings.
 
 ## 2025-08-18
 - Added initial development tasks outline.

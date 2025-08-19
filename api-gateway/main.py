@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.6 (2025-08-19)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.7 (2025-08-19)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -65,7 +65,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.6"
+    response.headers["X-API-Version"] = "v0.2.7"
     return response
 
 
@@ -101,7 +101,7 @@ def get_goals(_: dict = Depends(role_checker("user"))):
 
 @app.post("/goals")
 def post_goal(goal: GoalCreate, _: dict = Depends(role_checker("admin"))):
-    return {"goal": create_goal(goal.dict())}
+    return {"goal": create_goal(goal.model_dump())}
 
 
 @app.get("/goals/{goal_id}/status")

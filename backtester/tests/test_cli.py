@@ -31,8 +31,8 @@ def test_generate_report(tmp_path):
 
 
 def test_install_and_remove(tmp_path):
-    subprocess.run([sys.executable, str(CLI_PATH), "--install"], check=True)  # nosec B603
+    subprocess.run([sys.executable, str(CLI_PATH), "--install"], check=True)  # nosec
     reports_dir = Path(__file__).resolve().parents[1] / "reports"
     assert reports_dir.exists()  # nosec
-    subprocess.run([sys.executable, str(CLI_PATH), "--remove"], check=True)  # nosec B603
+    subprocess.run([sys.executable, str(CLI_PATH), "--remove"], check=True)  # nosec
     assert not reports_dir.exists()  # nosec

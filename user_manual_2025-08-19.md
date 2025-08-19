@@ -1,4 +1,4 @@
-# User Manual v0.6.15
+# User Manual v0.6.16
 
 Date: 2025-08-19
 
@@ -18,6 +18,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - risk-engine
 - execution-engine
 - backtester
+
+Each service now includes a `requirements.txt` file to facilitate Docker builds and installer scripts.
 - ui
 - db
 - infra/cache
@@ -56,7 +58,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## API Gateway
 - FastAPI service exposing `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check`, `/orders/preview` and `/analytics`.
 - Authenticate requests with JWT tokens containing a `role` claim; POST routes require the `admin` role.
-- All responses include header `X-API-Version: v0.2.6`.
+- All responses include header `X-API-Version: v0.2.7`.
 - Rate limiting enforced per IP using Redis; defaults to 100 requests/minute configurable via `RATE_LIMIT_PER_MINUTE`.
 - Metrics default to port `9001`.
 - Configuration values read from `config` package.

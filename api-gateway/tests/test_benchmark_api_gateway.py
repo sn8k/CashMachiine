@@ -1,5 +1,9 @@
 # nosec
-"""Benchmark tests for api-gateway v0.2.6 (2025-08-19)"""
+"""Benchmark tests for api-gateway v0.2.7 (2025-08-19)"""
+import os
+
+os.environ["OTEL_SDK_DISABLED"] = "true"
+
 from fastapi.testclient import TestClient
 from jose import jwt
 import importlib.util
