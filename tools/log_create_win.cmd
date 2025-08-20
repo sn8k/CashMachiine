@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.32 (2025-08-20)
+REM log directory creator v0.6.33 (2025-02-14)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -10,6 +10,7 @@ mkdir perf 2>nul
 mkdir perf\reports 2>nul
 mkdir execution-engine\logs 2>nul
 mkdir infra\terraform\logs 2>nul
+mkdir db\seeds 2>nul
 mkdir logs\notification-service 2>nul
 mkdir logs\strategy-marketplace 2>nul
 mkdir logs\fx-service 2>nul
@@ -50,3 +51,4 @@ type nul > logs\kyc-service\kyc.log
 type nul > logs\alert-engine\alert.log
 type nul > logs\macro-service\macro.log
 type nul > logs\whatif-service\whatif.log
+type nul > db\seeds\.gitkeep

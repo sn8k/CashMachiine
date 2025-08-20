@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.17 (2025-08-20)
-$expectedVersion = 'v0.1.14';
+// db_check.php v0.1.18 (2025-02-14)
+$expectedVersion = 'v0.1.15';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -10,7 +10,7 @@ $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily',
-    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results','macro_indicators'
+    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results','macro_indicators','demo_users'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
@@ -171,8 +171,13 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
           echo "Missing column in macro_indicators: $col\n";
           exit(1);
       }
+    }
+  $demoCount = $pdo->query("SELECT COUNT(*) FROM demo_users")->fetchColumn();
+  if ($demoCount == 0) {
+      echo "Missing demo data in demo_users\n";
+      exit(1);
   }
-$schemaVersion = getenv('DB_SCHEMA_VERSION') ?: 'unknown';
+  $schemaVersion = getenv('DB_SCHEMA_VERSION') ?: 'unknown';
 if ($schemaVersion !== $expectedVersion) {
     echo "Schema version mismatch: expected $expectedVersion, got $schemaVersion\n";
     exit(1);
