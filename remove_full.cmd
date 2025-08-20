@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.7 (2025-08-20)
+rem remove_full.cmd v0.1.8 (2025-08-20)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -71,12 +71,9 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_USER="Enter database use
 if "%DB_USER%"=="" set DB_USER=postgres
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_PASS="Enter database password: "
 
-echo Dropping tables...
+echo Dropping database %DB_NAME%...
 set PGPASSWORD=%DB_PASS%
-for %%T in (actions backtests metrics_daily risk_limits signals prices executions orders positions portfolios accounts goals users audit_events) do (
-  echo Dropping %%T
-  psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "DROP TABLE IF EXISTS %%T CASCADE;"
-)
+psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "DROP DATABASE IF EXISTS %DB_NAME%"
 set PGPASSWORD=
 
 echo Removing Python environment...
