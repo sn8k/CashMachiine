@@ -1,6 +1,7 @@
-/** Analytics dashboard page v0.2.0 (2025-08-19) */
+/** Analytics dashboard page v0.2.1 (2025-08-20) */
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '../lib/useTranslation';
+import { useEventStream } from '../lib/useEventStream';
 import { Chart } from 'chart.js/auto';
 
 export default function Analytics() {
@@ -8,6 +9,7 @@ export default function Analytics() {
   const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
   const [data, setData] = useState(null);
   const canvasRef = useRef(null);
+  const event = useEventStream();
 
   useEffect(() => {
     fetch(`${base}/analytics`)
@@ -33,6 +35,12 @@ export default function Analytics() {
       return () => chart.destroy();
     }
   }, [data, t]);
+
+  useEffect(() => {
+    if (event && event.event === 'metrics') {
+      setData(d => ({ ...(d || {}), metrics: event.payload }));
+    }
+  }, [event]);
 
   if (!data) {
     return <div className="p-4">{t('analytics.loading')}</div>;

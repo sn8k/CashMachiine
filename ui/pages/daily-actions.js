@@ -1,12 +1,14 @@
-/** Daily actions page v0.3.1 (2025-08-20) */
+/** Daily actions page v0.3.2 (2025-08-20) */
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../lib/useTranslation';
+import { useEventStream } from '../lib/useEventStream';
 
 export default function DailyActions() {
   const t = useTranslation();
   const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
   const [actions, setActions] = useState([]);
   const [message, setMessage] = useState('');
+  const event = useEventStream();
 
   useEffect(() => {
     const cached = localStorage.getItem('actions');
@@ -19,6 +21,16 @@ export default function DailyActions() {
       })
       .catch(() => {});
   }, [base]);
+
+  useEffect(() => {
+    if (event && event.event === 'action') {
+      setActions(as => {
+        const updated = [...as, event.payload];
+        localStorage.setItem('actions', JSON.stringify(updated));
+        return updated;
+      });
+    }
+  }, [event]);
 
   const check = id => {
     fetch(`${base}/actions/${id}/check`, { method: 'POST' })

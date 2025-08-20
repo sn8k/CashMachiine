@@ -1,4 +1,4 @@
-# Changelog v0.6.25
+# Changelog v0.6.26
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -123,3 +123,6 @@
 - Created alerts table with migration and schema checks in admin/db_check.php.
 - Exposed /alerts/subscribe in api-gateway and added UI subscription page.
 - Updated log creation scripts for alert-engine outputs.
+- Added `/ws` WebSocket endpoint in api-gateway streaming action, order and metrics events.
+- UI consumes WebSocket feed to refresh daily actions, goal orders and analytics metrics in real time.
+- Added `websocket-client` dependency and bumped environment setup scripts.

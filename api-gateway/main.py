@@ -1,5 +1,16 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.2 (2025-08-20)"""
-from fastapi import FastAPI, Depends, HTTPException, status, Request, UploadFile, File, Form
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.3 (2025-08-20)"""
+from fastapi import (
+    FastAPI,
+    Depends,
+    HTTPException,
+    status,
+    Request,
+    UploadFile,
+    File,
+    Form,
+    WebSocket,
+    WebSocketDisconnect,
+)
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
 from jose import JWTError, jwt
@@ -10,12 +21,15 @@ from datetime import date
 from pathlib import Path
 import sys
 import requests
+import asyncio
+import threading
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from db.goals import fetch_goals, create_goal, fetch_goal_status
 from db.actions import fetch_actions_today, check_action
 from db.orders import fetch_orders_preview
 from common.events import emit_event
+from messaging import EventConsumer
 from auth import router as auth_router
 
 from common.monitoring import (
@@ -35,6 +49,8 @@ security = HTTPBearer()
 app = FastAPI()
 app.include_router(auth_router, prefix="/auth")
 subscriptions: list[dict] = []
+ws_clients: list[WebSocket] = []
+event_queue: asyncio.Queue = asyncio.Queue()
 
 logger = setup_logging("api-gateway", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("api-gateway", port=settings.api_gateway_metrics_port)
@@ -70,8 +86,49 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.3.2"
+    response.headers["X-API-Version"] = "v0.3.3"
     return response
+
+
+async def dispatch_events():
+    while True:
+        message = await event_queue.get()
+        alive: list[WebSocket] = []
+        for ws in ws_clients:
+            try:
+                await ws.send_json(message)
+                alive.append(ws)
+            except Exception:
+                pass
+        ws_clients[:] = alive
+
+
+@app.on_event("startup")
+async def start_event_consumer() -> None:
+    loop = asyncio.get_running_loop()
+    try:
+        consumer = EventConsumer(settings.rabbitmq_url, "api-gateway-ws")
+    except Exception as exc:  # pragma: no cover - best effort
+        logger.warning("event consumer disabled", extra={"error": str(exc)})
+        return
+
+    def handler(msg: dict) -> None:
+        asyncio.run_coroutine_threadsafe(event_queue.put(msg), loop)
+
+    threading.Thread(target=consumer.start, args=(handler,), daemon=True).start()
+    asyncio.create_task(dispatch_events())
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(ws: WebSocket):
+    await ws.accept()
+    ws_clients.append(ws)
+    try:
+        while True:
+            await ws.receive_text()
+    except WebSocketDisconnect:
+        if ws in ws_clients:
+            ws_clients.remove(ws)
 
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security), required_role: str | None = None):

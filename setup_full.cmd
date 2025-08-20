@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.1 (2025-08-20)
+rem setup_full.cmd v0.1.2 (2025-08-20)
 
 echo CashMachiine full interactive setup
 
