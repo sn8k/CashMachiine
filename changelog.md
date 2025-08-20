@@ -1,4 +1,4 @@
-# Changelog v0.6.64
+# Changelog v0.6.65
 =======
 
 
@@ -241,3 +241,4 @@
 - Logged WebSocket broadcast errors instead of silently ignoring them to satisfy security scan.
 - Added containerized strategy execution with signature verification, resource quotas and dedicated execution logs.
 - Introduced reporting utility using WeasyPrint to generate PDF summaries of actions, orders, KYC and metrics under `reports/` with install/remove options and updated log scripts, requirements and manuals.
+- Reviewed development tasks, marked completed feasibility integration, added WebSocket reconnection and alert-engine documentation tasks, and updated user manual references.

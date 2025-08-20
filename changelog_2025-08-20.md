@@ -1,4 +1,4 @@
-# Changelog v0.6.30
+# Changelog v0.6.31
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -131,3 +131,4 @@
 - Added intraday threshold monitoring in orchestrator publishing `volatility_alert` and `drawdown_alert` events to strategy-engine and execution-engine, with audit-log recording all alerts.
 - Exposed intraday thresholds via configuration and documented usage.
 - Introduced reporting utility using WeasyPrint to generate PDF summaries of actions, orders, KYC and metrics under `reports/` with install/remove options and updated log scripts, requirements and manuals.
+- Reviewed development tasks, marked completed feasibility integration, added WebSocket reconnection and alert-engine documentation tasks, and updated user manual references.
