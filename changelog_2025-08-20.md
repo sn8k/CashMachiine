@@ -1,4 +1,4 @@
-# Changelog v0.6.24
+# Changelog v0.6.25
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -119,3 +119,7 @@
 - Performance script now fails fast if risk-engine health check fails.
 - Replaced Stable Baselines3 optimizer with a lightweight heuristic in `rl_optimizer.py` and updated tests and documentation.
 - Fixed strategy-engine Locust test to emit metrics via `events.request` since `request_success` hook was removed.
+- Added alert-engine service consuming risk metrics and forwarding alerts to notification-service.
+- Created alerts table with migration and schema checks in admin/db_check.php.
+- Exposed /alerts/subscribe in api-gateway and added UI subscription page.
+- Updated log creation scripts for alert-engine outputs.

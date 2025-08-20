@@ -3,7 +3,8 @@
     "title": "CashMachiine UI",
     "createGoal": "Create Goal",
     "dailyActions": "Daily Actions",
-    "analytics": "Analytics"
+    "analytics": "Analytics",
+    "alerts": "Alerts"
   },
   "goals": {
     "title": "Create Goal",
@@ -27,5 +28,11 @@
     "title": "Scenario Runner",
     "placeholder": "Scenario name",
     "run": "Run"
+  },
+  "alerts": {
+    "title": "Alert Subscription",
+    "metric": "Metric",
+    "threshold": "Threshold",
+    "subscribe": "Subscribe"
   }
 }

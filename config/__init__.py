@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.9 (2025-08-20)"""
+"""Configuration loader v0.1.10 (2025-08-20)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -15,6 +15,7 @@ class Settings:
     data_ingestion_metrics_port: int = int(os.getenv("DATA_INGESTION_METRICS_PORT", "9004"))
     backtester_metrics_port: int = int(os.getenv("BACKTESTER_METRICS_PORT", "9005"))
     notification_service_metrics_port: int = int(os.getenv("NOTIFICATION_SERVICE_METRICS_PORT", "9006"))
+    alert_engine_metrics_port: int = int(os.getenv("ALERT_ENGINE_METRICS_PORT", "9009"))
     strategy_marketplace_metrics_port: int = int(os.getenv("STRATEGY_MARKETPLACE_METRICS_PORT", "9007"))
     kyc_service_metrics_port: int = int(os.getenv("KYC_SERVICE_METRICS_PORT", "9008"))
     db_host: str = os.getenv("DB_HOST", "localhost")
@@ -23,6 +24,7 @@ class Settings:
     db_user: str = os.getenv("DB_USER", "postgres")
     db_pass: str = os.getenv("DB_PASS", "")
     risk_engine_url: str = os.getenv("RISK_ENGINE_URL", "http://localhost:8000")
+    notification_service_url: str = os.getenv("NOTIFICATION_SERVICE_URL", "http://localhost:8200")
     redis_host: str = os.getenv("REDIS_HOST", "localhost")
     redis_port: int = int(os.getenv("REDIS_PORT", "6379"))
     redis_db: int = int(os.getenv("REDIS_DB", "0"))

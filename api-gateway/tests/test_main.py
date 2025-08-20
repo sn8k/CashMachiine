@@ -1,5 +1,5 @@
 # nosec
-"""Unit tests for api-gateway main application v0.3.1 (2025-08-20)"""
+"""Unit tests for api-gateway main application v0.3.2 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -40,7 +40,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
-    assert response.headers["X-API-Version"] == "v0.3.1"  # nosec
+    assert response.headers["X-API-Version"] == "v0.3.2"  # nosec
     assert response.json() == {"goals": []}  # nosec
 
 
@@ -92,6 +92,12 @@ def test_orders_preview_endpoint():
     response = client.get("/orders/preview", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
     assert response.json() == {"orders": []}  # nosec
+
+def test_alerts_subscribe():
+    token = create_token("user")
+    resp = client.post("/alerts/subscribe", json={"user_id": 1, "metric": "risk", "threshold": 0.5}, headers={"Authorization": f"Bearer {token}"})
+    assert resp.status_code == 200  # nosec
+    assert resp.json() == {"status": "subscribed"}  # nosec
 
 
 def test_onboard_proxy(monkeypatch):
