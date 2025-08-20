@@ -1,4 +1,4 @@
-# Changelog v0.6.61
+# Changelog v0.6.62
 =======
 
 
@@ -201,6 +201,11 @@
 - Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer version bumps and new execution-engine logs; documented DeFi support in user manuals.
 - Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.
 - Scaffolded `kyc-service` FastAPI app for document uploads and status checks with Dockerfile, installers and log directories.
+- Added ECB and FRED macro indicator fetchers with base support.
+- Created `macro_indicators` table with migration and schema checks.
+- Introduced `macro-service` exposing latest macro indicators.
+- Updated configuration for FRED API key and metrics port.
+- Added install scripts, requirements and log paths for macro-service.
 - Added `kyc_level` column migration on `users` with schema check updates and bumped expected DB version.
 - Wired API gateway onboarding endpoints to proxy uploads and status queries to kyc-service.
 - Expanded log creation scripts, docker-compose, environment samples, requirements and manuals for KYC integration.

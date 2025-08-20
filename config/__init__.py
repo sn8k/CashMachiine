@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.10 (2025-08-20)"""
+"""Configuration loader v0.1.11 (2025-08-20)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -18,6 +18,7 @@ class Settings:
     alert_engine_metrics_port: int = int(os.getenv("ALERT_ENGINE_METRICS_PORT", "9009"))
     strategy_marketplace_metrics_port: int = int(os.getenv("STRATEGY_MARKETPLACE_METRICS_PORT", "9007"))
     kyc_service_metrics_port: int = int(os.getenv("KYC_SERVICE_METRICS_PORT", "9008"))
+    macro_service_metrics_port: int = int(os.getenv("MACRO_SERVICE_METRICS_PORT", "9010"))
     db_host: str = os.getenv("DB_HOST", "localhost")
     db_port: int = int(os.getenv("DB_PORT", "5432"))
     db_name: str = os.getenv("DB_NAME", "cashmachiine")
@@ -34,6 +35,7 @@ class Settings:
     binance_api_key: str = os.getenv("BINANCE_API_KEY", "demo")
     binance_api_secret: str = os.getenv("BINANCE_API_SECRET", "demo")
     ibkr_api_key: str = os.getenv("IBKR_API_KEY", "demo")
+    fred_api_key: str = os.getenv("FRED_API_KEY", "demo")
     kyc_service_url: str = os.getenv("KYC_SERVICE_URL", "http://localhost:8400")
     google_client_id: str = os.getenv("GOOGLE_CLIENT_ID", "")
     google_client_secret: str = os.getenv("GOOGLE_CLIENT_SECRET", "")

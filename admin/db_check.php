@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.16 (2025-08-20)
-$expectedVersion = 'v0.1.13';
+// db_check.php v0.1.17 (2025-08-20)
+$expectedVersion = 'v0.1.14';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -10,7 +10,7 @@ $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily',
-    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results'
+    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results','macro_indicators'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
@@ -160,6 +160,15 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
   foreach ($scenarioColumns as $col) {
       if (!in_array($col, $cols)) {
           echo "Missing column in scenario_results: $col\n";
+          exit(1);
+      }
+  }
+  $macroColumns = ['id','indicator','source','value','ts'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='macro_indicators'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($macroColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in macro_indicators: $col\n";
           exit(1);
       }
   }

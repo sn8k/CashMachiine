@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""data-ingestion consumer v0.5.5 (2025-08-19)"""
+"""data-ingestion consumer v0.5.6 (2025-08-20)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -11,6 +11,8 @@ from fetchers.equities_yahoo import YahooEquityFetcher
 from fetchers.crypto_binance import BinanceCryptoFetcher
 from fetchers.bonds_alpha_vantage import AlphaVantageBondFetcher
 from fetchers.commodities_alpha_vantage import AlphaVantageCommodityFetcher
+from fetchers.macro_ecb import ECBMacroFetcher
+from fetchers.macro_fred import FREDMacroFetcher
 
 REQUEST_COUNT = setup_metrics("data-ingestion", port=settings.data_ingestion_metrics_port)
 tracer = setup_tracer("data-ingestion")
@@ -39,6 +41,17 @@ def handle_event(message: dict) -> None:
                 fetcher = AlphaVantageCommodityFetcher()
             elif asset_class == "crypto":
                 fetcher = BinanceCryptoFetcher()
+            elif asset_class == "macro":
+                source = payload.get("source", "ecb")
+                if source == "fred":
+                    fetcher = FREDMacroFetcher()
+                    fetcher.save(fetcher.fetch(payload.get("series", "GDP")))
+                else:
+                    fetcher = ECBMacroFetcher()
+                    fetcher.save(fetcher.fetch())
+                logger.info("Fetched macro data from %s", source)
+                REQUEST_COUNT.inc()
+                return
             else:
                 fetcher = YahooEquityFetcher()
             fetcher.save(fetcher.fetch(symbol))
@@ -47,7 +60,7 @@ def handle_event(message: dict) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.5")
+    parser = argparse.ArgumentParser(description="data-ingestion consumer v0.5.6")
     parser.add_argument("--install", action="store_true", help="Install data-ingestion service")
     parser.add_argument("--remove", action="store_true", help="Remove data-ingestion service")
     parser.add_argument("--log-path", default=os.path.join("logs", "data-ingestion.log"), help="Path to log file")
