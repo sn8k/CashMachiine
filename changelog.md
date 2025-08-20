@@ -1,4 +1,4 @@
-# Changelog v0.6.67
+# Changelog v0.6.68
 =======
 
 
@@ -246,3 +246,4 @@
 - remove_full.cmd now removes the virtual environment during teardown.
 - Documented virtual environment usage in user manuals and bumped script versions.
 - Added interactive prompts for RabbitMQ, API Gateway and API keys in setup_full.cmd with .env updates; remove_full.cmd now purges these credentials.
+- setup_env.cmd and setup_full.cmd now invoke `tools\\log_create_win.cmd` at startup to create log directories.

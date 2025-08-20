@@ -1,5 +1,7 @@
 @echo off
-rem setup_env.cmd v0.2.3 (2025-08-20)
+rem setup_env.cmd v0.2.4 (2025-08-20)
+
+call tools\log_create_win.cmd
 
 pip install -r "%~dp0requirements.txt"
 
