@@ -1,4 +1,6 @@
 # Changelog v0.6.52
+=======
+
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -209,3 +211,5 @@
 - Logged authentication events and updated log creation scripts and documentation.
 - Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
 - Ensured performance script launches API gateway before Locust runs to avoid connection errors.
+- Added prerequisite checks for Python, pip, psql, Docker and Node in `setup_full.cmd` and `remove_full.cmd` with documentation in the user manual.
+
