@@ -1,4 +1,4 @@
-/** next config v0.3.0 (2025-08-19) */
+/** next config v0.3.1 (2025-08-20) */
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',

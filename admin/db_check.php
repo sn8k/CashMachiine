@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.14 (2025-08-20)
-$expectedVersion = 'v0.1.11';
+// db_check.php v0.1.15 (2025-08-20)
+$expectedVersion = 'v0.1.12';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -10,7 +10,7 @@ $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily',
-    'backtests','risk_stress_results','notifications','strategies','strategy_reviews','audit_events'
+    'backtests','risk_stress_results','notifications','strategies','strategy_reviews','audit_events','scenario_results'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
@@ -142,6 +142,15 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
   foreach ($reviewColumns as $col) {
       if (!in_array($col, $cols)) {
           echo "Missing column in strategy_reviews: $col\n";
+          exit(1);
+      }
+  }
+  $scenarioColumns = ['id','name','input','result','created_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='scenario_results'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($scenarioColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in scenario_results: $col\n";
           exit(1);
       }
   }

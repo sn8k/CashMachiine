@@ -1,4 +1,4 @@
-"""Shared monitoring utilities v0.1.2 (2025-08-19)"""
+"""Shared monitoring utilities v0.1.3 (2025-08-20)"""
 from __future__ import annotations
 
 import json
@@ -7,12 +7,29 @@ import os
 from logging.handlers import RotatingFileHandler
 from functools import lru_cache
 from typing import Optional
+from contextlib import nullcontext
 
 import requests
-from prometheus_client import Counter, Summary, start_http_server, REGISTRY
-from opentelemetry import trace
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+
+try:  # optional monitoring deps
+    from prometheus_client import Counter, Summary, start_http_server, REGISTRY
+except Exception:  # pragma: no cover - fallback stubs
+    Counter = Summary = None
+
+    class _DummyRegistry:
+        _names_to_collectors: dict = {}
+
+    REGISTRY = _DummyRegistry()
+
+    def start_http_server(*_a, **_kw):  # type: ignore[no-redef]
+        return None
+
+try:  # optional tracing deps
+    from opentelemetry import trace
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
+except Exception:  # pragma: no cover - no tracing available
+    trace = None
 
 
 class JsonFormatter(logging.Formatter):
@@ -70,8 +87,18 @@ def setup_logging(service_name: str, log_path: Optional[str] = None, remote_url:
     return logger
 
 
-def setup_metrics(service_name: str, port: int = 8000) -> Counter:
+def setup_metrics(service_name: str, port: int = 8000):
     """Start Prometheus metrics server and return request counter."""
+    if Counter is None:  # metrics disabled
+        class _Dummy:
+            def labels(self, **_kw):
+                return self
+
+            def inc(self) -> None:
+                return None
+
+        return _Dummy()
+
     try:
         start_http_server(port)
     except OSError:
@@ -83,8 +110,18 @@ def setup_metrics(service_name: str, port: int = 8000) -> Counter:
 
 
 @lru_cache
-def setup_performance_metrics(service_name: str) -> Summary:
+def setup_performance_metrics(service_name: str):
     """Create and return a Prometheus summary for latency measurements."""
+    if Summary is None:
+        class _Dummy:
+            def labels(self, **_kw):
+                return self
+
+            def observe(self, *_a, **_kw) -> None:
+                return None
+
+        return _Dummy()
+
     if "service_latency_seconds" in REGISTRY._names_to_collectors:
         summary = REGISTRY._names_to_collectors["service_latency_seconds"]
         return summary.labels(service=service_name)
@@ -97,6 +134,13 @@ def setup_performance_metrics(service_name: str) -> Summary:
 
 def setup_tracer(service_name: str):
     """Initialize OpenTelemetry tracer for the given service."""
+    if trace is None:  # tracing disabled
+        class _DummyTracer:
+            def start_as_current_span(self, *_a, **_kw):
+                return nullcontext()
+
+        return _DummyTracer()
+
     provider = TracerProvider()
     processor = BatchSpanProcessor(ConsoleSpanExporter())
     provider.add_span_processor(processor)

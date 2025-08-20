@@ -1,5 +1,5 @@
 # nosec
-"""Benchmark tests for api-gateway v0.3.0 (2025-08-20)"""
+"""Benchmark tests for api-gateway v0.3.1 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"

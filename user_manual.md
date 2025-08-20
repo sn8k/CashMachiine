@@ -1,4 +1,4 @@
-# User Manual v0.6.52
+# User Manual v0.6.59
 =======
 
 
@@ -36,7 +36,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Restore a dump via `tools/db_restore.sh <dump_file>`.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
 - Install Playwright browsers with `npm run install:e2e` and remove them with `npm run remove:e2e`.
-- Execute end-to-end tests via `npm run test:e2e`; reports are written to `tests/e2e/reports/`.
+- Execute end-to-end tests via `npm run test:e2e`; tests rely on local mocks so no external network is required and reports are written to `tests/e2e/reports/`.
 - Install the KYC service with `kyc-service/install.sh` and remove it with `kyc-service/remove.sh`.
 
 ## Authentication
@@ -88,6 +88,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The daily actions checklist also allows exporting orders for external processing.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page, which renders charts with Chart.js.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
+- The whatif-service provides `/scenarios/run` and `/scenarios/{id}` endpoints to run scenarios and retrieve stored results in the `scenario_results` table.
 - It now binds to `127.0.0.1` by default for improved security.
 - Work in progress: integrate results into the UI overview, document the workflow and add automated tests.
 - Upload identity documents via API Gateway `/onboard`; files are forwarded to kyc-service and stored under `kyc-service/uploads/`.
@@ -100,7 +101,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - `strategy-engine` now provides `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
 - Core and satellite strategies consume market data, call the risk engine for adjustments, and expose `explain()` for weight justification.
 - `ml_forecast.py` supplies `forecast_prices()` using RandomForest models stored in `strategy-engine/models/`.
-- `rl_optimizer.py` offers `train_allocation_model()` and `optimize_allocation()` with Stable Baselines3 PPO models saved in `strategy-engine/models/` and wired into the core strategy.
+- `rl_optimizer.py` exposes a lightweight `optimize_allocation()` heuristic that scales allocation with recent returns; no external models are required.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.
@@ -113,7 +114,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - Data Ingestion: `http://localhost:9004/metrics`
   - Backtester: `http://localhost:9005/metrics`
 - Benchmark results are stored under `perf/`.
-- Execute Locust scenarios with `./tests/perf/run_perf.sh`, which automatically starts the API gateway, to produce HTML and CSV reports under `perf/reports/`.
+- Execute Locust scenarios with `./tests/perf/run_perf.sh`, which automatically starts the API gateway and a risk engine instance on port 8001, producing HTML and CSV reports under `perf/reports/`.
+- The script raises `RATE_LIMIT_PER_MINUTE` to `1000` during benchmarks to prevent rate limit errors.
+- Custom scenario tasks emit stats via `events.request` because `request_success` hooks were removed in recent Locust versions.
 - API Gateway average response time must remain under **500 ms**.
 - Strategy Engine computation time must remain under **100 ms**.
 
@@ -146,3 +149,4 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Ensure required variables are set in `.env`.
 - If Python raises syntax errors for imports with hyphens, replace them with underscores or use relative imports.
 - Messaging events write to `logs/messaging.log` for debugging bus traffic.
+- Risk-engine starts even if Prometheus or OpenTelemetry packages are absent; metrics and tracing are then disabled.

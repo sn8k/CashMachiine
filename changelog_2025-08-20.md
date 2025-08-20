@@ -1,4 +1,4 @@
-# Changelog v0.6.19
+# Changelog v0.6.24
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -108,3 +108,14 @@
 - Fixed Uniswap DeFi fetcher GraphQL query and updated documentation.
 - Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
 - Ensured performance script launches API gateway before Locust runs to avoid connection errors.
+- Introduced whatif-service with `/scenarios/run` and `/scenarios/{id}` endpoints storing results in a new `scenario_results` table.
+- Added migration and admin schema checks for `scenario_results`.
+- Added a UI page to trigger scenarios via the service.
+- Updated log creation scripts and bumped service versions to `v0.3.1`.
+- Updated Playwright end-to-end tests to run offline using local mock servers.
+- Raised `RATE_LIMIT_PER_MINUTE` to `1000` during Locust performance tests to avoid 429 errors.
+- Started risk-engine API on a dedicated port with health checks during performance tests to prevent connection errors.
+- Made monitoring dependencies optional so risk-engine starts without Prometheus or OpenTelemetry.
+- Performance script now fails fast if risk-engine health check fails.
+- Replaced Stable Baselines3 optimizer with a lightweight heuristic in `rl_optimizer.py` and updated tests and documentation.
+- Fixed strategy-engine Locust test to emit metrics via `events.request` since `request_success` hook was removed.

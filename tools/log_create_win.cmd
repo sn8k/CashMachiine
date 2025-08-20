@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.25 (2025-08-20)
+REM log directory creator v0.6.27 (2025-08-20)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -22,6 +22,7 @@ mkdir strategy-engine\models 2>nul
 mkdir strategy-marketplace\assets 2>nul
 mkdir backups 2>nul
 mkdir logs\audit-log 2>nul
+mkdir logs\whatif-service 2>nul
 type nul > logs\auth.log
 type nul > logs\orchestrator.log
 type nul > logs\data-ingestion.log
@@ -40,5 +41,5 @@ type nul > logs\mobile\build.log
 type nul > logs\ui\build.log
 type nul > logs\data-warehouse\etl.log
 type nul > logs\audit-log\audit.log
-type nul > logs\rl_optimizer.log
 type nul > logs\kyc-service\kyc.log
+type nul > logs\whatif-service\whatif.log
