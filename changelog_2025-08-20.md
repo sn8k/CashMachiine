@@ -1,4 +1,4 @@
-# Changelog v0.6.28
+# Changelog v0.6.29
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -128,3 +128,5 @@
 - Added `websocket-client` dependency and bumped environment setup scripts.
 - Logged WebSocket broadcast errors instead of silently ignoring them to satisfy security scan.
 - Added containerized strategy execution with signature verification, resource quotas and dedicated execution logs.
+- Added intraday threshold monitoring in orchestrator publishing `volatility_alert` and `drawdown_alert` events to strategy-engine and execution-engine, with audit-log recording all alerts.
+- Exposed intraday thresholds via configuration and documented usage.

@@ -1,4 +1,4 @@
-# User Manual v0.6.63
+# User Manual v0.6.64
 
 Date: 2025-08-20
 
@@ -67,6 +67,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - A daily 02:00 backup job invokes `tools/db_backup.sh`.
+ - Intraday monitoring checks volatility and drawdown every 5 minutes and emits `volatility_alert` or `drawdown_alert` events to strategy-engine and execution-engine. Alerts are logged by `audit-log`.
 - `data_fetch` covers equities, bonds, commodities and macro indicators via Alpha Vantage, ECB and FRED fetchers and on-chain DeFi prices from Uniswap.
 - The Uniswap fetcher now leverages The Graph's `pairDayDatas` for more reliable OHLCV data.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.

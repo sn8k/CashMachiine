@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""execution-engine consumer v0.4.5 (2025-08-20)"""
+"""execution-engine consumer v0.4.6 (2025-08-20)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -21,7 +21,8 @@ def remove_service():
 
 
 def handle_event(message: dict) -> None:
-    if message.get("event") == "order_dispatch":
+    event = message.get("event")
+    if event == "order_dispatch":
         payload = message.get("payload", {})
         broker = payload.get("broker", "ibkr")
         order = {
@@ -32,10 +33,12 @@ def handle_event(message: dict) -> None:
         handler = OrderHandler()
         order_id = handler.place_order(broker, order)
         logger.info("Dispatched order %s", order_id)
+    elif event in {"volatility_alert", "drawdown_alert"}:
+        logger.warning("Received %s %s", event, message.get("payload"))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="execution-engine consumer v0.4.5")
+    parser = argparse.ArgumentParser(description="execution-engine consumer v0.4.6")
     parser.add_argument("--install", action="store_true", help="Install execution-engine service")
     parser.add_argument("--remove", action="store_true", help="Remove execution-engine service")
     parser.add_argument("--log-path", default=os.path.join("logs", "execution-engine.log"), help="Path to log file")
