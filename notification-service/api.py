@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""notification-service FastAPI app v0.3.1 (2025-08-19)"""
+"""notification-service FastAPI app v0.3.2 (2025-08-20)"""
 from __future__ import annotations
 
 import os
@@ -10,12 +10,13 @@ import psycopg2
 from psycopg2.extras import Json
 from fastapi import FastAPI
 from pydantic import BaseModel
+from pywebpush import WebPushException, webpush
 
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 from messaging import EventConsumer
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 
 logger = setup_logging(
     "notification-service",
@@ -39,6 +40,11 @@ class WebhookNotification(BaseModel):
     user_id: int
     url: str
     payload: dict[str, Any]
+
+
+class PushNotification(BaseModel):
+    user_id: int
+    subscription: dict[str, Any]
 
 
 def save_notification(channel: str, payload: dict[str, Any]) -> None:
@@ -72,6 +78,24 @@ def notify_webhook(note: WebhookNotification) -> dict[str, str]:
     with tracer.start_as_current_span("notify-webhook"):
         save_notification("webhook", note.dict())
         logger.info("Queued webhook notification", extra={"url": note.url})
+        REQUEST_COUNT.inc()
+    return {"status": "queued"}
+
+
+@app.post("/notify/push")
+def notify_push(note: PushNotification) -> dict[str, str]:
+    with tracer.start_as_current_span("notify-push"):
+        save_notification("push", note.dict())
+        try:
+            webpush(
+                subscription_info=note.subscription,
+                data="New notification",
+                vapid_private_key=os.getenv("VAPID_PRIVATE_KEY", ""),
+                vapid_claims={"sub": "mailto:admin@example.com"},
+            )
+        except WebPushException:
+            logger.warning("Failed to send push notification")
+        logger.info("Queued push notification", extra={"user_id": note.user_id})
         REQUEST_COUNT.inc()
     return {"status": "queued"}
 

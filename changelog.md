@@ -1,4 +1,4 @@
-# Changelog v0.6.43
+# Changelog v0.6.44
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -193,5 +193,6 @@
 
 - Added broker fee and tax calculations with DB columns and net order metrics returned by api-gateway.
 - Added audit-log service capturing domain events in `audit_events` with producer helpers and replay docs.
-
-
+- Implemented service workers and localStorage caches in mobile and UI.
+- Integrated push notifications via notification-service and client APIs.
+- Updated install scripts and log creation scripts for new components.

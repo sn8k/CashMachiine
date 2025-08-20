@@ -1,4 +1,4 @@
-# Changelog v0.6.11
+# Changelog v0.6.12
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -96,4 +96,6 @@
 - Updated services to persist and query data by `tenant_id`.
 - Documented tenant scoping in user manuals and bumped service versions.
 - Added audit-log service capturing domain events in `audit_events` with producer helpers and replay docs.
-
+- Implemented service workers and localStorage caches in mobile and UI.
+- Integrated push notifications via notification-service and client APIs.
+- Updated install scripts and log creation scripts for new components.

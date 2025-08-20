@@ -1,4 +1,4 @@
-# User Manual v0.6.43
+# User Manual v0.6.44
 
 Date: 2025-08-20
 
@@ -32,11 +32,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Use `./teardown_tf.sh` to destroy deployed resources, writing output to the same log directory.
 
 ## Progressive Web App
-- The Next.js UI registers a service worker and offline cache via `next-pwa`.
+- The Next.js UI registers a service worker for offline caching, stores daily actions in localStorage and subscribes to push notifications via notification-service.
 - A web app manifest lives at `ui/public/manifest.json`.
 
 ## Mobile Application
-- React Native app initialized under `mobile/` with a simple entry point.
+- React Native app initializes under `mobile/`, registers a service worker when available, caches a welcome message in localStorage and subscribes to push notifications via notification-service.
 - Use `mobile/build.sh` to generate mobile build logs in `logs/mobile/`.
 - Orders now store `fee` and `tax` columns with strategy-engine utilities computing broker costs.
 - API Gateway `/orders/preview` endpoint returns gross and net totals including fees and taxes.
