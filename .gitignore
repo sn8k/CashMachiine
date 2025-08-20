@@ -53,3 +53,5 @@ strategy-engine/models/*
 !strategy-engine/models/.gitkeep
 strategy-marketplace/assets/*
 !strategy-marketplace/assets/.gitkeep
+kyc-service/uploads/*
+!kyc-service/uploads/.gitkeep

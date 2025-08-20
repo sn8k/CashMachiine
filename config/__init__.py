@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.6 (2025-08-19)"""
+"""Configuration loader v0.1.7 (2025-08-20)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -16,6 +16,7 @@ class Settings:
     backtester_metrics_port: int = int(os.getenv("BACKTESTER_METRICS_PORT", "9005"))
     notification_service_metrics_port: int = int(os.getenv("NOTIFICATION_SERVICE_METRICS_PORT", "9006"))
     strategy_marketplace_metrics_port: int = int(os.getenv("STRATEGY_MARKETPLACE_METRICS_PORT", "9007"))
+    kyc_service_metrics_port: int = int(os.getenv("KYC_SERVICE_METRICS_PORT", "9008"))
     db_host: str = os.getenv("DB_HOST", "localhost")
     db_port: int = int(os.getenv("DB_PORT", "5432"))
     db_name: str = os.getenv("DB_NAME", "cashmachiine")
@@ -31,6 +32,7 @@ class Settings:
     binance_api_key: str = os.getenv("BINANCE_API_KEY", "demo")
     binance_api_secret: str = os.getenv("BINANCE_API_SECRET", "demo")
     ibkr_api_key: str = os.getenv("IBKR_API_KEY", "demo")
+    kyc_service_url: str = os.getenv("KYC_SERVICE_URL", "http://localhost:8400")
 
 
 settings = Settings()

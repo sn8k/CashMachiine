@@ -1,0 +1,5 @@
+# requirements.txt v0.1.0 (2025-08-20)
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-multipart>=0.0.6
+requests>=2.31.0
