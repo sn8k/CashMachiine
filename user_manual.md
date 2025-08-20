@@ -101,7 +101,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - `strategy-engine` now provides `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
 - Core and satellite strategies consume market data, call the risk engine for adjustments, and expose `explain()` for weight justification.
 - `ml_forecast.py` supplies `forecast_prices()` using RandomForest models stored in `strategy-engine/models/`.
-- `rl_optimizer.py` offers `train_allocation_model()` and `optimize_allocation()` with Stable Baselines3 PPO models saved in `strategy-engine/models/` and wired into the core strategy.
+- `rl_optimizer.py` exposes a lightweight `optimize_allocation()` heuristic that scales allocation with recent returns; no external models are required.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.
