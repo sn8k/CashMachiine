@@ -1,4 +1,4 @@
-# User Manual v0.6.54
+# User Manual v0.6.55
 
 Date: 2025-08-20
 
@@ -106,6 +106,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - Backtester: `http://localhost:9005/metrics`
 - Benchmark results are stored under `perf/`.
 - Execute Locust scenarios with `./tests/perf/run_perf.sh`, which automatically starts the API gateway, to produce HTML and CSV reports under `perf/reports/`.
+- The script raises `RATE_LIMIT_PER_MINUTE` to `1000` during benchmarks to prevent rate limit errors.
 - API Gateway average response time must remain under **500 ms**.
 - Strategy Engine computation time must remain under **100 ms**.
 

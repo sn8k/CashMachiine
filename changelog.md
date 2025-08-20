@@ -1,4 +1,4 @@
-# Changelog v0.6.54
+# Changelog v0.6.55
 =======
 
 
@@ -217,4 +217,5 @@
 - Added a UI page to trigger scenarios via the service.
 - Updated log creation scripts and bumped service versions to `v0.3.1`.
 - Updated Playwright end-to-end tests to run offline using local mock servers.
+- Raised `RATE_LIMIT_PER_MINUTE` to `1000` during Locust performance tests to avoid 429 errors.
 

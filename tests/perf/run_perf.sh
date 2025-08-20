@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_perf.sh v0.1.1 (2025-08-20)
+# run_perf.sh v0.1.2 (2025-08-20)
 set -e
 if [ "$1" = "--install" ]; then
   pip install locust
@@ -11,6 +11,8 @@ if [ "$1" = "--remove" ]; then
 fi
 RUN_TIME=${RUN_TIME:-1m}
 mkdir -p perf/reports
+
+export RATE_LIMIT_PER_MINUTE=${RATE_LIMIT_PER_MINUTE:-1000}
 
 PYTHONPATH=. uvicorn main:app --app-dir api-gateway --host 127.0.0.1 --port 8000 >/dev/null 2>&1 &
 SERVER_PID=$!
