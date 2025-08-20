@@ -1,4 +1,4 @@
-# Changelog v0.6.69
+# Changelog v0.6.70
 =======
 
 
@@ -207,7 +207,9 @@
 - Added ECB and FRED macro indicator fetchers with base support.
 - Created `macro_indicators` table with migration and schema checks.
 - Introduced `macro-service` exposing latest macro indicators.
-- Updated configuration for FRED API key and metrics port.
+ - Updated configuration for FRED API key and metrics port.
+ - Added `--silent` and `--config` options to `setup_full.cmd` and `remove_full.cmd`, redirecting output to `logs/setup_full.log`.
+ - Updated log creation scripts to create `logs/setup_full.log` and documented usage in user manual.
 - Added install scripts, requirements and log paths for macro-service.
 - Added `kyc_level` column migration on `users` with schema check updates and bumped expected DB version.
 - Wired API gateway onboarding endpoints to proxy uploads and status queries to kyc-service.
