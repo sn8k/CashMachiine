@@ -115,3 +115,5 @@
 - Updated Playwright end-to-end tests to run offline using local mock servers.
 - Raised `RATE_LIMIT_PER_MINUTE` to `1000` during Locust performance tests to avoid 429 errors.
 - Started risk-engine API on a dedicated port with health checks during performance tests to prevent connection errors.
+- Made monitoring dependencies optional so risk-engine starts without Prometheus or OpenTelemetry.
+- Performance script now fails fast if risk-engine health check fails.

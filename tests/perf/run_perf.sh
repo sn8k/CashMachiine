@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_perf.sh v0.1.4 (2025-08-20)
+# run_perf.sh v0.1.5 (2025-08-20)
 set -e
 if [ "$1" = "--install" ]; then
   pip install locust
@@ -27,10 +27,11 @@ trap - EXIT
 
 # Start risk-engine on separate port
 export RISK_ENGINE_URL="http://127.0.0.1:8001"
-PYTHONPATH=risk-engine uvicorn api:app --app-dir risk-engine --host 127.0.0.1 --port 8001 >/dev/null 2>&1 &
+PYTHONPATH=. uvicorn api:app --app-dir risk-engine --host 127.0.0.1 --port 8001 >/dev/null 2>&1 &
 RISK_PID=$!
 trap "kill $RISK_PID" EXIT
 for i in {1..10}; do curl -sf http://127.0.0.1:8001/docs >/dev/null && break; sleep 1; done
+curl -sf http://127.0.0.1:8001/docs >/dev/null || { echo "risk-engine failed to start"; exit 1; }
 
 PYTHONPATH=./strategy-engine locust -f tests/perf/locust_strategy_engine.py --headless -u 10 -r 2 -t $RUN_TIME --csv perf/reports/strategy_engine --html perf/reports/strategy_engine.html
 

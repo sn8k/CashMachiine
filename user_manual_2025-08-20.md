@@ -1,4 +1,4 @@
-# User Manual v0.6.57
+# User Manual v0.6.58
 
 Date: 2025-08-20
 
@@ -139,3 +139,4 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Ensure required variables are set in `.env`.
 - If Python raises syntax errors for imports with hyphens, replace them with underscores or use relative imports.
 - Messaging events write to `logs/messaging.log` for debugging bus traffic.
+- Risk-engine starts even if Prometheus or OpenTelemetry packages are absent; metrics and tracing are then disabled.
