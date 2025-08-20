@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.6 (2025-08-20)
+rem remove_full.cmd v0.1.7 (2025-08-20)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -96,6 +96,14 @@ if %ERRORLEVEL%==0 (
   docker compose down 2>nul || docker-compose down
 ) else (
   echo Docker not found, skipping container stop.
+)
+
+echo Removing UI dependencies and build artifacts...
+if exist ui (
+  pushd ui
+  if exist node_modules rmdir /s /q node_modules
+  if exist .next rmdir /s /q .next
+  popd
 )
 
 if exist .env (
