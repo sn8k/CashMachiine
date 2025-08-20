@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.10 (2025-08-20)
+rem setup_full.cmd v0.1.11 (2025-08-20)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -8,6 +8,8 @@ exit /b %ERRORLEVEL%
 
 :main
 setlocal
+set "EXIT_CODE=0"
+set "ERROR_MSG="
 call tools\log_create_win.cmd
 
 set "SILENT=0"
@@ -124,6 +126,10 @@ call venv\Scripts\activate
 
 echo Installing Python dependencies...
 pip install -r "%~dp0requirements.txt"
+if %ERRORLEVEL% neq 0 (
+  set "ERROR_MSG=Python dependency installation failed."
+  goto cleanup
+)
 
 echo Creating and migrating database...
 set PGPASSWORD=%DB_PASS%
@@ -132,12 +138,20 @@ psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF
 for %%f in (db\migrations\*.sql) do (
   echo Applying %%f
   psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+  if %ERRORLEVEL% neq 0 (
+    set "ERROR_MSG=Database migration failed (%%f)."
+    goto cleanup
+  )
 )
 if /I "%LOAD_DEMO%"=="Y" (
   echo Inserting demonstration data...
   for %%f in (db\seeds\*.sql) do (
     echo Applying %%f
     psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+    if %ERRORLEVEL% neq 0 (
+      set "ERROR_MSG=Demo data insertion failed (%%f)."
+      goto cleanup
+    )
   )
 )
 set PGPASSWORD=
@@ -145,25 +159,62 @@ set PGPASSWORD=
 echo Verifying database schema...
 php admin\db_check.php
 if %ERRORLEVEL% neq 0 (
-  echo Database verification failed.
-  exit /b %ERRORLEVEL%
+  set "ERROR_MSG=Database verification failed."
+  goto cleanup
 )
 
 echo Installing UI dependencies and building...
 pushd ui
 npm install
+if %ERRORLEVEL% neq 0 (
+  popd
+  set "ERROR_MSG=UI dependency installation failed."
+  goto cleanup
+)
 npm run build
+if %ERRORLEVEL% neq 0 (
+  popd
+  set "ERROR_MSG=UI build failed."
+  goto cleanup
+)
 popd
 
 echo Starting services with Docker...
 where docker >nul 2>nul
 if %ERRORLEVEL%==0 (
   docker compose up -d 2>nul || docker-compose up -d
+  if %ERRORLEVEL% neq 0 (
+    set "ERROR_MSG=Docker startup failed."
+    goto cleanup
+  )
 ) else (
   echo Docker not found, skipping container start.
 )
 
 echo Setup complete.
+goto end
+
+:cleanup
+echo Setup failed: %ERROR_MSG%
+if exist "%LOG_FILE%" echo ERROR: %ERROR_MSG%>>"%LOG_FILE%"
+set PGPASSWORD=%DB_PASS%
+psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "DROP DATABASE IF EXISTS %DB_NAME%" >nul 2>&1
+set PGPASSWORD=
+if exist venv (
+  call venv\Scripts\activate
+  pip uninstall -r "%~dp0requirements.txt" -y >nul 2>&1
+  deactivate
+  rmdir /s /q venv
+)
+where docker >nul 2>nul
+if %ERRORLEVEL%==0 (
+  docker compose down 2>nul || docker-compose down 2>nul
+)
+if exist ui\node_modules rmdir /s /q ui\node_modules
+if exist ui\.next rmdir /s /q ui\.next
+set "EXIT_CODE=1"
+
+:end
 endlocal
-exit /b 0
+exit /b %EXIT_CODE%
 

@@ -1,4 +1,4 @@
-# Changelog v0.6.75
+# Changelog v0.6.76
 =======
 
 
@@ -256,3 +256,4 @@
 - setup_full.cmd now creates or updates `.env` immediately after prompts, replacing database placeholders, and remove_full.cmd clears these `.env` entries; versions bumped.
 - setup_full.cmd now installs UI dependencies and builds the Next.js frontend while remove_full.cmd deletes `ui` node_modules and `.next` directories.
 - setup_full.cmd now verifies database schema with `php admin\\db_check.php` after migrations and aborts on failure.
+- setup_full.cmd adds error-checked sections with rollback to drop the database, uninstall dependencies and stop containers; errors are logged to `logs\\setup_full.log`, and remove_full.cmd drops the database.
