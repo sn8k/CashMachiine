@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.2 (2025-08-20)
+rem setup_full.cmd v0.1.3 (2025-08-20)
 
 echo CashMachiine full interactive setup
 
@@ -41,6 +41,12 @@ if "%DB_NAME%"=="" set DB_NAME=cashmachiine
 set /p DB_USER="Enter database user [postgres]: "
 if "%DB_USER%"=="" set DB_USER=postgres
 set /p DB_PASS="Enter database password: "
+
+echo Creating Python virtual environment...
+if not exist venv (
+  python -m venv venv
+)
+call venv\Scripts\activate
 
 echo Installing Python dependencies...
 pip install -r "%~dp0requirements.txt"
