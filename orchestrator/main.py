@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.6 (2025-08-20)"""
+"""orchestrator scheduler v0.5.7 (2025-08-20)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -12,6 +12,9 @@ import random
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 from messaging import EventProducer
+
+
+SECURE_RANDOM = random.SystemRandom()
 
 
 tracer = setup_tracer("orchestrator")
@@ -35,11 +38,11 @@ def run_pipeline(producer: EventProducer):
 
 
 def _current_volatility() -> float:
-    return random.uniform(0, 0.1)
+    return SECURE_RANDOM.uniform(0, 0.1)
 
 
 def _current_drawdown() -> float:
-    return random.uniform(-0.1, 0)
+    return SECURE_RANDOM.uniform(-0.1, 0)
 
 
 def check_intraday(producer: EventProducer):
@@ -76,7 +79,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.6")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.7")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""alert-engine service v0.1.0 (2025-08-20)"""
+"""alert-engine service v0.1.1 (2025-08-20)"""
 
 import argparse
 import os
@@ -38,7 +38,8 @@ def process_metric(payload: Dict[str, float]) -> None:
 
 
 def handle_event(message: Dict) -> None:
-    if message.get("event") == "risk_metric":
+    event = message.get("event")
+    if event in {"risk_metric", "risk_anomaly"}:
         process_metric(message.get("payload", {}))
 
 def install_service() -> None:
@@ -51,7 +52,7 @@ def remove_service() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="alert-engine consumer v0.1.0")
+    parser = argparse.ArgumentParser(description="alert-engine consumer v0.1.1")
     parser.add_argument("--install", action="store_true", help="Install alert-engine service")
     parser.add_argument("--remove", action="store_true", help="Remove alert-engine service")
     parser.add_argument("--log-path", default=os.path.join("logs", "alert-engine", "alert.log"), help="Path to log file")

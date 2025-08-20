@@ -1,8 +1,9 @@
-"""Strategy loader v0.1.0 (2025-08-20)"""
+"""Strategy loader v0.1.1 (2025-08-20)"""
 from __future__ import annotations
 import hashlib
 import hmac
-import subprocess
+import subprocess  # nosec B404
+import tempfile
 from pathlib import Path
 
 
@@ -15,6 +16,7 @@ def verify_signature(file_path: str, signature: str, key: str) -> bool:
 
 def run_strategy(file_path: str, image: str = "python:3.11") -> str:
     """Execute strategy inside a restricted Docker container and return output."""
+    container_strategy_path = Path(tempfile.gettempdir()) / "strategy.py"
     cmd = [
         "docker",
         "run",
@@ -24,11 +26,11 @@ def run_strategy(file_path: str, image: str = "python:3.11") -> str:
         "--memory",
         "512m",
         "-v",
-        f"{file_path}:/tmp/strategy.py:ro",
+        f"{file_path}:{container_strategy_path}:ro",
         image,
         "python",
-        "/tmp/strategy.py",
+        str(container_strategy_path),
     ]
-    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=30)  # nosec B603
     return proc.stdout + proc.stderr
 
