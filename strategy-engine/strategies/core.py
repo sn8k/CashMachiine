@@ -1,16 +1,17 @@
-"""Core strategy example v0.1.3 (2025-08-19)"""
+"""Core strategy example v0.1.4 (2025-08-20)"""
 from strategy_engine.interface import Strategy
 from strategy_engine.risk_client import adjust_risk
 from strategy_engine.ml_forecast import forecast_prices
+from strategy_engine.rl_optimizer import optimize_allocation
 from common.monitoring import setup_performance_metrics
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 SIGNAL_LATENCY = setup_performance_metrics("strategy-engine-core")
 
 
 class CoreStrategy(Strategy):
-    """Long-term core allocation example with risk adjustment."""
+    """Long-term core allocation example with risk adjustment and RL optimization."""
 
     def __init__(self):
         self._last_explanation = ""
@@ -40,7 +41,9 @@ class CoreStrategy(Strategy):
         )
         self._last_explanation = result.get("explanation", "")
         adjusted = result.get("weights", [raw])[0]
-        return {"SPY": adjusted}
+        optimized = optimize_allocation(signals.get("SPY", 0))
+        final_weight = adjusted * optimized
+        return {"SPY": final_weight}
 
     def explain(self) -> str:
         return self._last_explanation or "No explanation available."

@@ -1,4 +1,4 @@
-# Changelog v0.6.13
+# Changelog v0.6.14
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -100,3 +100,4 @@
 - Integrated push notifications via notification-service and client APIs.
 - Updated install scripts and log creation scripts for new components.
 - Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer updates and new execution-engine logs; documented DeFi support in user manuals.
+- Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.

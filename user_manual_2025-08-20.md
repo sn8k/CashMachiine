@@ -1,4 +1,4 @@
-# User Manual v0.6.45
+# User Manual v0.6.46
 
 Date: 2025-08-20
 
@@ -63,8 +63,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
 - The strategy-marketplace service exposes CRUD endpoints at `/strategies` and stores uploads under `strategy-marketplace/assets/`.
 - Configure its binding via `NOTIFICATION_HOST` (default `127.0.0.1`) and `NOTIFICATION_PORT`.
-- Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`) and support on-chain swaps through a Uniswap adapter using Web3. Orders
-  are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.
+- Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`) and support on-chain swaps through a Uniswap adapter using Web3. Orders are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - Mark tasks complete on the daily actions page; checkboxes send POST requests to `/actions/{id}/check` and show feedback messages.
@@ -81,6 +80,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - `strategy-engine` now provides `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.
 - Core and satellite strategies consume market data, call the risk engine for adjustments, and expose `explain()` for weight justification.
 - `ml_forecast.py` supplies `forecast_prices()` using RandomForest models stored in `strategy-engine/models/`.
+- `rl_optimizer.py` offers `train_allocation_model()` and `optimize_allocation()` with Stable Baselines3 PPO models saved in `strategy-engine/models/` and wired into the core strategy.
 
 ## Performance
 - Run benchmarks with `pytest --benchmark-json=perf/<service>/results.json`.
@@ -123,4 +123,3 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Ensure required variables are set in `.env`.
 - If Python raises syntax errors for imports with hyphens, replace them with underscores or use relative imports.
 - Messaging events write to `logs/messaging.log` for debugging bus traffic.
-
