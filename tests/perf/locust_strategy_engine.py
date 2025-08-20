@@ -1,4 +1,4 @@
-"""Locust performance test for strategy-engine computations v0.1.2 (2025-08-20)"""
+"""Locust performance test for strategy-engine computations v0.1.3 (2025-08-20)"""
 from locust import User, task, between, events
 import time
 import os
@@ -38,11 +38,12 @@ class StrategyEngineUser(User):
         signals = strategy.signals({})
         strategy.target_weights(signals)
         total_time = (time.time() - start) * 1000
-        self.environment.events.request_success.fire(
+        self.environment.events.request.fire(
             request_type="compute",
             name="core_strategy",
             response_time=total_time,
             response_length=0,
+            exception=None,
         )
 
 

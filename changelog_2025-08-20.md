@@ -118,4 +118,4 @@
 - Made monitoring dependencies optional so risk-engine starts without Prometheus or OpenTelemetry.
 - Performance script now fails fast if risk-engine health check fails.
 - Replaced Stable Baselines3 optimizer with a lightweight heuristic in `rl_optimizer.py` and updated tests and documentation.
-- Corrected strategy-engine Locust test to emit success events via the user environment, preventing attribute errors.
+- Fixed strategy-engine Locust test to emit metrics via `events.request` since `request_success` hook was removed.

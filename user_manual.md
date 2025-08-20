@@ -1,4 +1,4 @@
-# User Manual v0.6.58
+# User Manual v0.6.59
 =======
 
 
@@ -116,6 +116,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Benchmark results are stored under `perf/`.
 - Execute Locust scenarios with `./tests/perf/run_perf.sh`, which automatically starts the API gateway and a risk engine instance on port 8001, producing HTML and CSV reports under `perf/reports/`.
 - The script raises `RATE_LIMIT_PER_MINUTE` to `1000` during benchmarks to prevent rate limit errors.
+- Custom scenario tasks emit stats via `events.request` because `request_success` hooks were removed in recent Locust versions.
 - API Gateway average response time must remain under **500 ms**.
 - Strategy Engine computation time must remain under **100 ms**.
 

@@ -218,9 +218,9 @@
 - Updated log creation scripts and bumped service versions to `v0.3.1`.
 - Updated Playwright end-to-end tests to run offline using local mock servers.
 - Raised `RATE_LIMIT_PER_MINUTE` to `1000` during Locust performance tests to avoid 429 errors.
+- Fixed strategy-engine Locust test to use `events.request` instead of removed `request_success` hook.
 - Launched risk-engine on a dedicated port during performance tests and added health checks to prevent connection errors.
 - Made monitoring dependencies optional so risk-engine starts without Prometheus or OpenTelemetry.
 - Performance script now fails fast if risk-engine health check fails.
 - Replaced Stable Baselines3 optimizer with a lightweight heuristic in `rl_optimizer.py` and updated tests and documentation.
-- Corrected strategy-engine Locust test to emit success events via the user environment, preventing attribute errors.
 
