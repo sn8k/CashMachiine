@@ -22,5 +22,10 @@
     "loading": "Chargement des métriques...",
     "error": "Métriques indisponibles",
     "metrics": "Métriques"
+  },
+  "whatif": {
+    "title": "Simulateur de Scénario",
+    "placeholder": "Nom du scénario",
+    "run": "Exécuter"
   }
 }

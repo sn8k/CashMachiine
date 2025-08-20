@@ -1,7 +1,7 @@
-"""Risk calculation utilities v0.3.0 (2025-08-18)"""
+"""Risk calculation utilities v0.3.1 (2025-08-20)"""
 from __future__ import annotations
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 from typing import Iterable, List, Tuple
 

@@ -22,5 +22,10 @@
     "loading": "Loading metrics...",
     "error": "Metrics unavailable",
     "metrics": "Metrics"
+  },
+  "whatif": {
+    "title": "Scenario Runner",
+    "placeholder": "Scenario name",
+    "run": "Run"
   }
 }

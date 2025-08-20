@@ -1,4 +1,4 @@
-# Changelog v0.6.19
+# Changelog v0.6.20
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -108,3 +108,7 @@
 - Fixed Uniswap DeFi fetcher GraphQL query and updated documentation.
 - Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
 - Ensured performance script launches API gateway before Locust runs to avoid connection errors.
+- Introduced whatif-service with `/scenarios/run` and `/scenarios/{id}` endpoints storing results in a new `scenario_results` table.
+- Added migration and admin schema checks for `scenario_results`.
+- Added a UI page to trigger scenarios via the service.
+- Updated log creation scripts and bumped service versions to `v0.3.1`.

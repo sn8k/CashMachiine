@@ -1,4 +1,4 @@
-# User Manual v0.6.52
+# User Manual v0.6.53
 =======
 
 
@@ -88,6 +88,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The daily actions checklist also allows exporting orders for external processing.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page, which renders charts with Chart.js.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
+- The whatif-service provides `/scenarios/run` and `/scenarios/{id}` endpoints to run scenarios and retrieve stored results in the `scenario_results` table.
 - It now binds to `127.0.0.1` by default for improved security.
 - Work in progress: integrate results into the UI overview, document the workflow and add automated tests.
 - Upload identity documents via API Gateway `/onboard`; files are forwarded to kyc-service and stored under `kyc-service/uploads/`.

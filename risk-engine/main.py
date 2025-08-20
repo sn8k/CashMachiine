@@ -17,7 +17,7 @@ from messaging import EventConsumer
 from engine import volatility_target
 from stress_tests import historical_scenario, hypothetical_scenario
 
-app = FastAPI(title="risk-engine", version="0.3.0")
+app = FastAPI(title="risk-engine", version="0.3.1")
 logger = setup_logging("risk-engine", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("risk-engine", port=settings.risk_engine_metrics_port)
 tracer = setup_tracer("risk-engine")
@@ -28,7 +28,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.3.0"
+    response.headers["X-API-Version"] = "v0.3.1"
     return response
 
 

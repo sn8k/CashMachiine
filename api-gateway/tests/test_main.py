@@ -1,5 +1,5 @@
 # nosec
-"""Unit tests for api-gateway main application v0.3.0 (2025-08-20)"""
+"""Unit tests for api-gateway main application v0.3.1 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -40,7 +40,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
-    assert response.headers["X-API-Version"] == "v0.3.0"  # nosec
+    assert response.headers["X-API-Version"] == "v0.3.1"  # nosec
     assert response.json() == {"goals": []}  # nosec
 
 
