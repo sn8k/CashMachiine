@@ -1,4 +1,4 @@
-# requirements.txt v0.3.16 (2025-08-20)
+# requirements.txt v0.3.17 (2025-08-20)
 
 # Runtime dependencies
 requests>=2.31.0
@@ -24,6 +24,7 @@ scikit-learn>=1.4.2
 web3>=6.0.0
 sqlalchemy>=2.0.29
 websocket-client>=1.8.0
+weasyprint>=62.0
 
 # Development dependencies
 pytest>=8.2.0

@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.31 (2025-08-20)
+# log directory creator v0.6.32 (2025-08-20)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -26,6 +26,8 @@ mkdir -p strategy-marketplace/assets
 mkdir -p backups
 mkdir -p logs/audit-log
 mkdir -p logs/whatif-service
+mkdir -p reports
+touch reports/.gitkeep
 touch logs/auth.log
 touch logs/orchestrator.log
 touch logs/data-ingestion.log
