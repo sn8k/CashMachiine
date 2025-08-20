@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.9 (2025-08-20)
+rem setup_full.cmd v0.1.10 (2025-08-20)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -141,6 +141,13 @@ if /I "%LOAD_DEMO%"=="Y" (
   )
 )
 set PGPASSWORD=
+
+echo Verifying database schema...
+php admin\db_check.php
+if %ERRORLEVEL% neq 0 (
+  echo Database verification failed.
+  exit /b %ERRORLEVEL%
+)
 
 echo Installing UI dependencies and building...
 pushd ui

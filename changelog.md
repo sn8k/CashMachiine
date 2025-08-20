@@ -1,4 +1,4 @@
-# Changelog v0.6.74
+# Changelog v0.6.75
 =======
 
 
@@ -255,3 +255,4 @@
 - Hardened randomness and subprocess usage in orchestrator, reporting and strategy-marketplace to satisfy Bandit security checks.
 - setup_full.cmd now creates or updates `.env` immediately after prompts, replacing database placeholders, and remove_full.cmd clears these `.env` entries; versions bumped.
 - setup_full.cmd now installs UI dependencies and builds the Next.js frontend while remove_full.cmd deletes `ui` node_modules and `.next` directories.
+- setup_full.cmd now verifies database schema with `php admin\\db_check.php` after migrations and aborts on failure.
