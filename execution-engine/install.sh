@@ -1,5 +1,5 @@
 #!/bin/bash
-# execution-engine installer v0.4.5
+# execution-engine installer v0.4.6 (2025-08-20)
 set -e
 mkdir -p "$(dirname \"$0\")/logs"
 echo "Installing execution-engine service..."

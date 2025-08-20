@@ -1,4 +1,4 @@
-# Changelog v0.6.44
+# Changelog v0.6.45
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -196,3 +196,4 @@
 - Implemented service workers and localStorage caches in mobile and UI.
 - Integrated push notifications via notification-service and client APIs.
 - Updated install scripts and log creation scripts for new components.
+- Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer version bumps and new execution-engine logs; documented DeFi support in user manuals.

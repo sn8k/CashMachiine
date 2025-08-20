@@ -1,5 +1,5 @@
 @echo off
-rem setup_env.cmd v0.2.1
+rem setup_env.cmd v0.2.2 (2025-08-20)
 
 pip install -r "%~dp0requirements.txt"
 

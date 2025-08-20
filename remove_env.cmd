@@ -1,5 +1,5 @@
 @echo off
-rem remove_env.cmd v0.1.1
+rem remove_env.cmd v0.1.2 (2025-08-20)
 
 pip uninstall -r "%~dp0requirements.txt" -y
 
