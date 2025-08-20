@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_perf.sh v0.1.2 (2025-08-20)
+# run_perf.sh v0.1.3 (2025-08-20)
 set -e
 if [ "$1" = "--install" ]; then
   pip install locust
@@ -24,4 +24,12 @@ locust -f tests/perf/locust_api_gateway.py --headless -u 10 -r 2 -t $RUN_TIME --
 kill $SERVER_PID 2>/dev/null || true
 trap - EXIT
 
+PYTHONPATH=risk-engine uvicorn api:app --app-dir risk-engine --host 127.0.0.1 --port 8000 >/dev/null 2>&1 &
+RISK_PID=$!
+trap "kill $RISK_PID" EXIT
+sleep 3
+
 PYTHONPATH=./strategy-engine locust -f tests/perf/locust_strategy_engine.py --headless -u 10 -r 2 -t $RUN_TIME --csv perf/reports/strategy_engine --html perf/reports/strategy_engine.html
+
+kill $RISK_PID 2>/dev/null || true
+trap - EXIT

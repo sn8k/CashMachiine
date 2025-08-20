@@ -1,4 +1,4 @@
-# Changelog v0.6.22
+# Changelog v0.6.23
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -114,3 +114,4 @@
 - Updated log creation scripts and bumped service versions to `v0.3.1`.
 - Updated Playwright end-to-end tests to run offline using local mock servers.
 - Raised `RATE_LIMIT_PER_MINUTE` to `1000` during Locust performance tests to avoid 429 errors.
+- Started risk-engine API during performance tests so strategy-engine benchmarks no longer fail with connection errors.
