@@ -1,4 +1,4 @@
-# Changelog v0.6.66
+# Changelog v0.6.67
 =======
 
 
@@ -245,3 +245,4 @@
 - setup_full.cmd now creates and activates a Python virtual environment before installing dependencies.
 - remove_full.cmd now removes the virtual environment during teardown.
 - Documented virtual environment usage in user manuals and bumped script versions.
+- Added interactive prompts for RabbitMQ, API Gateway and API keys in setup_full.cmd with .env updates; remove_full.cmd now purges these credentials.
