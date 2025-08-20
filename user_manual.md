@@ -1,4 +1,4 @@
-# User Manual v0.6.66
+# User Manual v0.6.67
 =======
 
 
@@ -22,7 +22,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Set `KYC_HOST` to control the bind address of the KYC service (defaults to `127.0.0.1`).
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
-- Run `setup_full.cmd` for an interactive Windows setup including database creation; use `remove_full.cmd` to uninstall and drop tables.
+- Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; use `remove_full.cmd` to uninstall, remove the environment, and drop tables.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
 - Requirements now include `web3` for on-chain interactions.

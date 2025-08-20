@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.2 (2025-08-20)
+rem remove_full.cmd v0.1.3 (2025-08-20)
 
 echo CashMachiine full removal
 
@@ -50,8 +50,17 @@ for %%T in (actions backtests metrics_daily risk_limits signals prices execution
 )
 set PGPASSWORD=
 
-echo Uninstalling Python dependencies...
-pip uninstall -r "%~dp0requirements.txt" -y
+echo Removing Python environment...
+if exist venv (
+  call venv\Scripts\activate
+  echo Uninstalling Python dependencies...
+  pip uninstall -r "%~dp0requirements.txt" -y
+  deactivate
+  rmdir /s /q venv
+) else (
+  echo venv not found. Attempting global uninstall.
+  pip uninstall -r "%~dp0requirements.txt" -y
+)
 
 where docker >nul 2>nul
 if %ERRORLEVEL%==0 (
