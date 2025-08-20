@@ -1,5 +1,7 @@
 @echo off
-rem setup_full.cmd v0.1.4 (2025-08-20)
+rem setup_full.cmd v0.1.5 (2025-08-20)
+
+call tools\log_create_win.cmd
 
 echo CashMachiine full interactive setup
 
