@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.3 (2025-08-20)
+rem remove_full.cmd v0.1.4 (2025-08-20)
 
 echo CashMachiine full removal
 
@@ -67,6 +67,12 @@ if %ERRORLEVEL%==0 (
   docker compose down 2>nul || docker-compose down
 ) else (
   echo Docker not found, skipping container stop.
+)
+
+if exist .env (
+  echo Clearing service credentials from .env...
+  powershell -Command ^
+    "$envpath='.env'; $vars = 'RABBITMQ_URL','API_GATEWAY_URL','ALPHA_VANTAGE_KEY','BINANCE_API_KEY','BINANCE_API_SECRET','IBKR_API_KEY','FRED_API_KEY'; $content = Get-Content $envpath; foreach($k in $vars){$pattern = '^' + [regex]::Escape($k) + '='; if($content -match $pattern){$content = $content -replace $pattern + '.*', $k + '='}}; Set-Content $envpath $content"
 )
 
 echo Removal complete.

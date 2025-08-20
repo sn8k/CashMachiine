@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.3 (2025-08-20)
+rem setup_full.cmd v0.1.4 (2025-08-20)
 
 echo CashMachiine full interactive setup
 
@@ -41,6 +41,20 @@ if "%DB_NAME%"=="" set DB_NAME=cashmachiine
 set /p DB_USER="Enter database user [postgres]: "
 if "%DB_USER%"=="" set DB_USER=postgres
 set /p DB_PASS="Enter database password: "
+set /p RABBITMQ_URL="Enter RabbitMQ URL [amqp://guest:guest@localhost:5672/]: "
+if "%RABBITMQ_URL%"=="" set RABBITMQ_URL=amqp://guest:guest@localhost:5672/
+set /p API_GATEWAY_URL="Enter API Gateway URL [http://localhost:8000]: "
+if "%API_GATEWAY_URL%"=="" set API_GATEWAY_URL=http://localhost:8000
+set /p ALPHA_VANTAGE_KEY="Enter Alpha Vantage API key [demo]: "
+if "%ALPHA_VANTAGE_KEY%"=="" set ALPHA_VANTAGE_KEY=demo
+set /p BINANCE_API_KEY="Enter Binance API key [demo]: "
+if "%BINANCE_API_KEY%"=="" set BINANCE_API_KEY=demo
+set /p BINANCE_API_SECRET="Enter Binance API secret [demo]: "
+if "%BINANCE_API_SECRET%"=="" set BINANCE_API_SECRET=demo
+set /p IBKR_API_KEY="Enter IBKR API key [demo]: "
+if "%IBKR_API_KEY%"=="" set IBKR_API_KEY=demo
+set /p FRED_API_KEY="Enter FRED API key [demo]: "
+if "%FRED_API_KEY%"=="" set FRED_API_KEY=demo
 
 echo Creating Python virtual environment...
 if not exist venv (
@@ -55,6 +69,15 @@ if not exist .env (
   echo Creating .env from sample...
   copy .env.example .env >nul
 )
+
+echo Updating .env with provided values...
+powershell -Command ^
+  "$envpath='.env';" ^
+  "$vars = @{'DB_HOST'='%DB_HOST%'; 'DB_PORT'='%DB_PORT%'; 'DB_NAME'='%DB_NAME%'; 'DB_USER'='%DB_USER%'; 'DB_PASS'='%DB_PASS%'; 'RABBITMQ_URL'='%RABBITMQ_URL%'; 'API_GATEWAY_URL'='%API_GATEWAY_URL%'; 'ALPHA_VANTAGE_KEY'='%ALPHA_VANTAGE_KEY%'; 'BINANCE_API_KEY'='%BINANCE_API_KEY%'; 'BINANCE_API_SECRET'='%BINANCE_API_SECRET%'; 'IBKR_API_KEY'='%IBKR_API_KEY%'; 'FRED_API_KEY'='%FRED_API_KEY%'};" ^
+  "if(!(Test-Path $envpath)){New-Item $envpath -ItemType File | Out-Null};" ^
+  "$content = Get-Content $envpath;" ^
+  "foreach($k in $vars.Keys){$pattern = '^' + [regex]::Escape($k) + '='; $replacement = \"$k=$($vars[$k])\"; if($content -match $pattern){$content = $content -replace $pattern + '.*', $replacement} else {$content += $replacement}};" ^
+  "Set-Content $envpath $content"
 
 echo Creating and migrating database...
 set PGPASSWORD=%DB_PASS%
