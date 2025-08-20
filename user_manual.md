@@ -1,4 +1,4 @@
-# User Manual v0.6.77
+# User Manual v0.6.78
 =======
 
 
@@ -23,6 +23,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies; the Windows script now invokes `tools\\log_create_win.cmd` to create log directories.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; it now records service URLs and API keys in `.env`, invokes `tools\\log_create_win.cmd` at startup, installs UI dependencies and builds the frontend. The script rolls back on any failure by dropping the database, uninstalling dependencies and stopping containers while logging errors to `logs\\setup_full.log`. Use `--silent` to accept defaults or `--config <file>` to supply answers, and all output is logged to `logs\\setup_full.log`. Use `remove_full.cmd` with the same flags to uninstall, remove the environment, drop the database, purge these credentials, and delete UI `node_modules` and `.next` directories.
+- After base migrations, `setup_full.cmd` applies warehouse schema migrations from `db/migrations/warehouse/*.sql`.
 - After migrations, `setup_full.cmd` can optionally apply demonstration SQL files from `db/seeds/*.sql` to populate sample data.
 - The script then verifies the database schema with `php admin\\db_check.php` and aborts if inconsistencies are found.
 - Each service provides `install.sh` and `remove.sh` scripts.

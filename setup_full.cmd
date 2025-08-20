@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.11 (2025-08-20)
+rem setup_full.cmd v0.1.12 (2025-08-20)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -140,6 +140,14 @@ for %%f in (db\migrations\*.sql) do (
   psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
   if %ERRORLEVEL% neq 0 (
     set "ERROR_MSG=Database migration failed (%%f)."
+    goto cleanup
+  )
+)
+for %%f in (db\migrations\warehouse\*.sql) do (
+  echo Applying %%f
+  psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+  if %ERRORLEVEL% neq 0 (
+    set "ERROR_MSG=Warehouse migration failed (%%f)."
     goto cleanup
   )
 )
