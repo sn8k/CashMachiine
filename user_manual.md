@@ -1,6 +1,6 @@
-# User Manual v0.6.40
+# User Manual v0.6.41
 
-Date: 2025-08-19
+Date: 2025-08-20
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -11,6 +11,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET` and `IBKR_API_KEY`.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
+- Run `setup_full.cmd` for an interactive Windows setup including database creation; use `remove_full.cmd` to uninstall and drop tables.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
 - Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.

@@ -1,4 +1,4 @@
-# Changelog v0.6.40
+# Changelog v0.6.41
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -187,6 +187,7 @@
 - Updated services to persist and query data by `tenant_id`.
 - Documented tenant scoping in user manuals and bumped service versions.
 - Introduced Monte Carlo simulation utilities in strategy-engine with probability-of-hitting calculations.
+- Added interactive Windows installer `setup_full.cmd` with SQL database creation and `remove_full.cmd` for teardown; documented in user manual.
 - Core and satellite strategies now derive signals from market data, adjust risk via the risk engine, and justify allocations through `explain()`.
 - Extended strategy interface with `explain()` and added tests and documentation for dynamic weights.
 
