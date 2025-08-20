@@ -1,4 +1,4 @@
-# User Manual v0.6.50
+# User Manual v0.6.51
 
 Date: 2025-08-20
 
@@ -7,8 +7,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Development Roadmap
 - Refer to [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md) for the latest task status.
 
-## Installation
+# Installation
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET` and `IBKR_API_KEY`.
+- Configure OAuth token endpoints via `GOOGLE_TOKEN_URL` and `GITHUB_TOKEN_URL` if overriding defaults.
+- Set `KYC_HOST` to control the bind address of the KYC service (defaults to `127.0.0.1`).
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation; use `remove_full.cmd` to uninstall and drop tables.

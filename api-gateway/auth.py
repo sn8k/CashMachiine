@@ -1,4 +1,4 @@
-"""OAuth2/OIDC and TOTP authentication utilities v0.1.0 (2025-08-20)"""
+"""OAuth2/OIDC and TOTP authentication utilities v0.1.1 (2025-08-20)"""
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 import requests
@@ -48,11 +48,11 @@ def oauth_login(provider: str, request: Request):
 @router.get("/oauth/{provider}/callback", name="oauth_callback")
 def oauth_callback(provider: str, code: str):
     if provider == "google":
-        token_url = "https://oauth2.googleapis.com/token"
+        token_url = settings.google_token_url
         client_id = settings.google_client_id
         client_secret = settings.google_client_secret
     elif provider == "github":
-        token_url = "https://github.com/login/oauth/access_token"
+        token_url = settings.github_token_url
         client_id = settings.github_client_id
         client_secret = settings.github_client_secret
     else:

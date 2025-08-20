@@ -104,7 +104,8 @@ def test_onboard_proxy(monkeypatch):
             return {"status": "uploaded"}
 
     def fake_post(url, data=None, files=None, timeout=5):
-        assert url.endswith("/kyc/upload")
+        if not url.endswith("/kyc/upload"):
+            raise AssertionError("unexpected URL")
         return DummyResponse()
 
     monkeypatch.setattr(main.requests, "post", fake_post)
@@ -129,7 +130,8 @@ def test_kyc_status_proxy(monkeypatch):
             return {"status": "pending"}
 
     def fake_get(url, timeout=5):
-        assert url.endswith("/kyc/status/1")
+        if not url.endswith("/kyc/status/1"):
+            raise AssertionError("unexpected URL")
         return DummyResponse()
 
     monkeypatch.setattr(main.requests, "get", fake_get)

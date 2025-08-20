@@ -1,4 +1,4 @@
-# Changelog v0.6.17
+# Changelog v0.6.18
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -106,3 +106,4 @@
 - Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.
 - Added Locust performance tests for api-gateway and strategy-engine with CI integration and reports under `perf/`.
 - Fixed Uniswap DeFi fetcher GraphQL query and updated documentation.
+- Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.

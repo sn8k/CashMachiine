@@ -1,4 +1,4 @@
-# Changelog v0.6.50
+# Changelog v0.6.51
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -207,3 +207,4 @@
 - Implemented OAuth2/OIDC login with Google and GitHub plus TOTP-based 2FA with backup codes.
 - Added migration and schema checks for new auth columns and refreshed installers and requirements.
 - Logged authentication events and updated log creation scripts and documentation.
+- Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
