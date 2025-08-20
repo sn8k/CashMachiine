@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.23 (2025-08-20)
+REM log directory creator v0.6.24 (2025-08-20)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -7,6 +7,7 @@ mkdir backtester\reports 2>nul
 mkdir tests\e2e\reports 2>nul
 mkdir ui\.next 2>nul
 mkdir perf 2>nul
+mkdir perf\reports 2>nul
 mkdir execution-engine\logs 2>nul
 mkdir infra\terraform\logs 2>nul
 mkdir logs\notification-service 2>nul

@@ -1,4 +1,4 @@
-# User Manual v0.6.47
+# User Manual v0.6.48
 
 Date: 2025-08-20
 
@@ -96,6 +96,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - Data Ingestion: `http://localhost:9004/metrics`
   - Backtester: `http://localhost:9005/metrics`
 - Benchmark results are stored under `perf/`.
+- Execute Locust scenarios with `./tests/perf/run_perf.sh` to produce HTML and CSV reports under `perf/reports/`.
+- API Gateway average response time must remain under **500 ms**.
+- Strategy Engine computation time must remain under **100 ms**.
 
 ## Architecture
 - Services communicate via structured logs, metrics, and traces.
