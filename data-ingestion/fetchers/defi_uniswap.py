@@ -1,4 +1,4 @@
-"""Uniswap DeFi fetcher v0.1.0 (2025-08-20)"""
+"""Uniswap DeFi fetcher v0.1.1 (2025-08-20)"""
 from datetime import datetime
 from typing import List
 import requests
@@ -17,11 +17,14 @@ class UniswapFetcher(OHLCVFetcher):
     def fetch(self, symbol: str) -> List[OHLCV]:
         """Retrieve the latest daily OHLCV for a given pair address."""
         query = (
-            "{"""\n"
-            "  pairDayDatas(first:1, orderBy: date, orderDirection: desc, where:{pairAddress: \"%s\"}) {""""\n"
-            "    date open high low close volumeUSD""""\n"
-            "  }""""\n"
-            "}""" % symbol.lower()
+            """
+            {
+              pairDayDatas(first:1, orderBy: date, orderDirection: desc, where:{pairAddress: "%s"}) {
+                date open high low close volumeUSD
+              }
+            }
+            """
+            % symbol.lower()
         )
         try:
             resp = requests.post(self.endpoint, json={"query": query}, timeout=10)

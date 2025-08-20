@@ -1,4 +1,4 @@
-# User Manual v0.6.49
+# User Manual v0.6.50
 
 Date: 2025-08-20
 
@@ -64,7 +64,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - A daily 02:00 backup job invokes `tools/db_backup.sh`.
- - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers and on-chain DeFi prices from Uniswap.
+- `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers and on-chain DeFi prices from Uniswap.
+- The Uniswap fetcher now leverages The Graph's `pairDayDatas` for more reliable OHLCV data.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
 - The strategy-marketplace service exposes CRUD endpoints at `/strategies` and stores uploads under `strategy-marketplace/assets/`.
