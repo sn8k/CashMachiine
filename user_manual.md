@@ -1,4 +1,4 @@
-# User Manual v0.6.48
+# User Manual v0.6.52
 
 Date: 2025-08-20
 
@@ -7,8 +7,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Development Roadmap
 - Refer to [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md) for the latest task status.
 
-## Installation
+# Installation
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET` and `IBKR_API_KEY`.
+- Configure OAuth token endpoints via `GOOGLE_TOKEN_URL` and `GITHUB_TOKEN_URL` if overriding defaults.
+- Set `KYC_HOST` to control the bind address of the KYC service (defaults to `127.0.0.1`).
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation; use `remove_full.cmd` to uninstall and drop tables.
@@ -27,6 +29,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Install Playwright browsers with `npm run install:e2e` and remove them with `npm run remove:e2e`.
 - Execute end-to-end tests via `npm run test:e2e`; reports are written to `tests/e2e/reports/`.
 - Install the KYC service with `kyc-service/install.sh` and remove it with `kyc-service/remove.sh`.
+
+## Authentication
+- OAuth2/OIDC login is available via Google and GitHub.
+- Enable TOTP-based 2FA under `/auth/2fa/setup` and verify with `/auth/2fa/verify`.
+- Backup codes are returned on setup and can be used through `/auth/2fa/recover` if the authenticator is lost.
 
 ## Infrastructure Deployment
 - Modules for database, cache, message bus and services live under `infra/terraform/`.
@@ -59,7 +66,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - A daily 02:00 backup job invokes `tools/db_backup.sh`.
- - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers and on-chain DeFi prices from Uniswap.
+- `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers and on-chain DeFi prices from Uniswap.
+- The Uniswap fetcher now leverages The Graph's `pairDayDatas` for more reliable OHLCV data.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
 - The strategy-marketplace service exposes CRUD endpoints at `/strategies` and stores uploads under `strategy-marketplace/assets/`.
@@ -96,7 +104,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - Data Ingestion: `http://localhost:9004/metrics`
   - Backtester: `http://localhost:9005/metrics`
 - Benchmark results are stored under `perf/`.
-- Execute Locust scenarios with `./tests/perf/run_perf.sh` to produce HTML and CSV reports under `perf/reports/`.
+- Execute Locust scenarios with `./tests/perf/run_perf.sh`, which automatically starts the API gateway, to produce HTML and CSV reports under `perf/reports/`.
 - API Gateway average response time must remain under **500 ms**.
 - Strategy Engine computation time must remain under **100 ms**.
 

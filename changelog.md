@@ -1,4 +1,4 @@
-# Changelog v0.6.48
+# Changelog v0.6.52
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -203,3 +203,9 @@
 - Wired API gateway onboarding endpoints to proxy uploads and status queries to kyc-service.
 - Expanded log creation scripts, docker-compose, environment samples, requirements and manuals for KYC integration.
 - Added Locust performance tests for api-gateway and strategy-engine with CI integration and reports under `perf/`.
+- Fixed Uniswap DeFi fetcher GraphQL query and updated documentation.
+- Implemented OAuth2/OIDC login with Google and GitHub plus TOTP-based 2FA with backup codes.
+- Added migration and schema checks for new auth columns and refreshed installers and requirements.
+- Logged authentication events and updated log creation scripts and documentation.
+- Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
+- Ensured performance script launches API gateway before Locust runs to avoid connection errors.

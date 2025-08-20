@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.11 (2025-08-20)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.0 (2025-08-20)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request, UploadFile, File, Form
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -16,6 +16,7 @@ from db.goals import fetch_goals, create_goal, fetch_goal_status
 from db.actions import fetch_actions_today, check_action
 from db.orders import fetch_orders_preview
 from common.events import emit_event
+from auth import router as auth_router
 
 from common.monitoring import (
     setup_logging,
@@ -32,6 +33,7 @@ ALGORITHM = "HS256"
 security = HTTPBearer()
 
 app = FastAPI()
+app.include_router(auth_router, prefix="/auth")
 
 logger = setup_logging("api-gateway", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("api-gateway", port=settings.api_gateway_metrics_port)
@@ -67,7 +69,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.11"
+    response.headers["X-API-Version"] = "v0.3.0"
     return response
 
 

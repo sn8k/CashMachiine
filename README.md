@@ -1,12 +1,12 @@
-# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.5
+# Goal-Based Investment Copilot — Spécification fonctionnelle v0.1.7
 
 [![Lint](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=lint)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 [![Tests](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=test)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 [![Build](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml/badge.svg?branch=main&job=build)](https://github.com/OpenAI/CashMachiine/actions/workflows/ci.yml?query=branch%3Amain)
 
-*Date : 2025-08-19*
+*Date : 2025-08-20*
 
-Consultez le [manuel utilisateur](user_manual_2025-08-19.md) pour l'installation, l'utilisation, l'architecture et le dépannage. Consultez aussi les [tâches de développement](development_tasks.md) pour la feuille de route.
+Consultez le [manuel utilisateur](user_manual_2025-08-20.md) pour l'installation, l'utilisation, l'architecture et le dépannage. Consultez aussi les [tâches de développement](development_tasks.md) pour la feuille de route.
 
 ## 1) Vision & cas d’usage
 
@@ -212,7 +212,7 @@ Chaque stratégie expose : `signals()`, `target_weights()`, `explain()`, **tests
 
 * **KYC/AML** selon broker ; politique **« conseils généraux »** par défaut ;
 * **Avertissements de risques** explicites ; pas de promesse de performance ;
-* **RBAC**, 2FA, chiffrage secrets, journaux d’audit immuables ;
+* **RBAC**, OAuth2/OIDC (Google/GitHub), 2FA TOTP avec codes de secours, chiffrage secrets, journaux d’audit immuables ;
 * Mode **paper‑trading** par défaut ; activation **opt‑in** d’auto‑exécution par objectif.
 
 ---

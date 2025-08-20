@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.7 (2025-08-20)"""
+"""Configuration loader v0.1.9 (2025-08-20)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -33,6 +33,16 @@ class Settings:
     binance_api_secret: str = os.getenv("BINANCE_API_SECRET", "demo")
     ibkr_api_key: str = os.getenv("IBKR_API_KEY", "demo")
     kyc_service_url: str = os.getenv("KYC_SERVICE_URL", "http://localhost:8400")
+    google_client_id: str = os.getenv("GOOGLE_CLIENT_ID", "")
+    google_client_secret: str = os.getenv("GOOGLE_CLIENT_SECRET", "")
+    google_token_url: str = os.getenv(
+        "GOOGLE_TOKEN_URL", "https://oauth2.googleapis.com/token"
+    )
+    github_client_id: str = os.getenv("GITHUB_CLIENT_ID", "")
+    github_client_secret: str = os.getenv("GITHUB_CLIENT_SECRET", "")
+    github_token_url: str = os.getenv(
+        "GITHUB_TOKEN_URL", "https://github.com/login/oauth/access_token"
+    )
 
 
 settings = Settings()

@@ -1,4 +1,4 @@
-# Changelog v0.6.15
+# Changelog v0.6.19
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -85,6 +85,9 @@
 - Updated user manual and log creation scripts; ignored report outputs.
 
 ## 2025-08-20
+- Implemented OAuth2/OIDC login with Google and GitHub plus TOTP-based 2FA with backup codes.
+- Added migration and schema checks for new auth columns and refreshed installers and requirements.
+- Logged authentication events and updated log creation scripts and documentation.
 - Added Next.js internationalization with French default and English fallback locales.
 - Externalized UI strings to translation files with locale install/remove scripts.
 - Documented localization setup in user manuals.
@@ -102,3 +105,6 @@
 - Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer updates and new execution-engine logs; documented DeFi support in user manuals.
 - Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.
 - Added Locust performance tests for api-gateway and strategy-engine with CI integration and reports under `perf/`.
+- Fixed Uniswap DeFi fetcher GraphQL query and updated documentation.
+- Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
+- Ensured performance script launches API gateway before Locust runs to avoid connection errors.
