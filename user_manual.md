@@ -1,4 +1,4 @@
-# User Manual v0.6.78
+# User Manual v0.6.79
 =======
 
 
@@ -18,6 +18,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - Node.js
 - `setup_full.cmd` checks for these tools, prompts for database, RabbitMQ, API Gateway and API keys, writing values to `.env`, and opens download pages if any are missing. The script now writes all output to `logs\\setup_full.log` and accepts a `--silent` flag or `--config <file>` to skip prompts. After prompts it creates `.env` if missing and replaces database placeholders with the provided values.
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY` and `FRED_API_KEY`.
+- `DB_SCHEMA_VERSION` records the expected database schema revision (`v0.1.7`) checked by `admin/db_check.php`.
 - Configure OAuth token endpoints via `GOOGLE_TOKEN_URL` and `GITHUB_TOKEN_URL` if overriding defaults.
 - Set `KYC_HOST` to control the bind address of the KYC service (defaults to `127.0.0.1`).
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies; the Windows script now invokes `tools\\log_create_win.cmd` to create log directories.
