@@ -1,4 +1,4 @@
-# User Manual v0.6.75
+# User Manual v0.6.76
 =======
 
 
@@ -24,6 +24,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; it now records service URLs and API keys in `.env`, invokes `tools\\log_create_win.cmd` at startup, installs UI dependencies and builds the frontend. Use `--silent` to accept defaults or `--config <file>` to supply answers, and all output is logged to `logs\\setup_full.log`. Use `remove_full.cmd` with the same flags to uninstall, remove the environment, drop tables, purge these credentials, and delete UI `node_modules` and `.next` directories.
 - After migrations, `setup_full.cmd` can optionally apply demonstration SQL files from `db/seeds/*.sql` to populate sample data.
+- The script then verifies the database schema with `php admin\\db_check.php` and aborts if inconsistencies are found.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
 - Requirements now include `web3` for on-chain interactions.
