@@ -1,4 +1,4 @@
-# Changelog v0.6.20
+# Changelog v0.6.21
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -112,3 +112,4 @@
 - Added migration and admin schema checks for `scenario_results`.
 - Added a UI page to trigger scenarios via the service.
 - Updated log creation scripts and bumped service versions to `v0.3.1`.
+- Updated Playwright end-to-end tests to run offline using local mock servers.
