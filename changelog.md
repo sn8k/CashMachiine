@@ -1,4 +1,4 @@
-# Changelog v0.6.42
+# Changelog v0.6.43
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -192,5 +192,6 @@
 - Extended strategy interface with `explain()` and added tests and documentation for dynamic weights.
 
 - Added broker fee and tax calculations with DB columns and net order metrics returned by api-gateway.
+- Added audit-log service capturing domain events in `audit_events` with producer helpers and replay docs.
 
 

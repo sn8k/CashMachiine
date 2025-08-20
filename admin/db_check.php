@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.11 (2025-08-20)
-$expectedVersion = 'v0.1.8';
+// db_check.php v0.1.12 (2025-08-20)
+$expectedVersion = 'v0.1.9';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -10,7 +10,7 @@ $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily',
-    'backtests','risk_stress_results','notifications','strategies','strategy_reviews'
+    'backtests','risk_stress_results','notifications','strategies','strategy_reviews','audit_events'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
@@ -34,7 +34,7 @@ foreach ($warehouseTables as $tbl) {
         exit(1);
     }
 }
-$tenantTables = ['users','goals','orders'];
+$tenantTables = ['users','goals','orders','audit_events'];
 foreach ($tenantTables as $tbl) {
     $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='$tbl'");
     $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);

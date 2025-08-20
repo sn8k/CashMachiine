@@ -1,4 +1,4 @@
-"""Order handler v0.2.2 (2025-08-20)"""
+"""Order handler v0.2.3 (2025-08-20)"""
 
 import json
 from pathlib import Path
@@ -8,6 +8,7 @@ import psycopg2
 import redis
 
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
+from common.events import emit_event
 from config import settings
 from .adapters import IBKRAdapter, BinanceAdapter, BrokerAdapter
 
@@ -88,4 +89,12 @@ class OrderHandler:
             except Exception as exc:  # pragma: no cover - database issues
                 raise RuntimeError(f"Failed to persist order: {exc}") from exc
             ORDER_COUNT.inc()
+            emit_event(
+                "order_executed",
+                {
+                    "order_id": result["order_id"],
+                    "broker": broker,
+                    "tenant_id": order.get("tenant_id", 1),
+                },
+            )
             return result["order_id"]

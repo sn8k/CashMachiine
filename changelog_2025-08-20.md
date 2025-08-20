@@ -1,4 +1,4 @@
-# Changelog v0.6.10
+# Changelog v0.6.11
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -95,4 +95,5 @@
 - Extended JWT payloads and API gateway RBAC to enforce tenant scoping.
 - Updated services to persist and query data by `tenant_id`.
 - Documented tenant scoping in user manuals and bumped service versions.
+- Added audit-log service capturing domain events in `audit_events` with producer helpers and replay docs.
 
