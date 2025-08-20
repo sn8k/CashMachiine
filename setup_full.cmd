@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.7 (2025-08-20)
+rem setup_full.cmd v0.1.8 (2025-08-20)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -102,15 +102,6 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p FRED_API_KEY="Enter FRED AP
 if "%FRED_API_KEY%"=="" set "FRED_API_KEY=demo"
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p LOAD_DEMO="Load demonstration data (db\\seeds\\*.sql)? [y/N]: "
 
-echo Creating Python virtual environment...
-if not exist venv (
-  python -m venv venv
-)
-call venv\Scripts\activate
-
-echo Installing Python dependencies...
-pip install -r "%~dp0requirements.txt"
-
 if not exist .env (
   echo Creating .env from sample...
   copy .env.example .env >nul
@@ -124,6 +115,15 @@ powershell -Command ^
   "$content = Get-Content $envpath;" ^
   "foreach($k in $vars.Keys){$pattern = '^' + [regex]::Escape($k) + '='; $replacement = \"$k=$($vars[$k])\"; if($content -match $pattern){$content = $content -replace $pattern + '.*', $replacement} else {$content += $replacement}};" ^
   "Set-Content $envpath $content"
+
+echo Creating Python virtual environment...
+if not exist venv (
+  python -m venv venv
+)
+call venv\Scripts\activate
+
+echo Installing Python dependencies...
+pip install -r "%~dp0requirements.txt"
 
 echo Creating and migrating database...
 set PGPASSWORD=%DB_PASS%

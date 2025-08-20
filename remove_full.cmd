@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.5 (2025-08-20)
+rem remove_full.cmd v0.1.6 (2025-08-20)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -101,7 +101,7 @@ if %ERRORLEVEL%==0 (
 if exist .env (
   echo Clearing service credentials from .env...
   powershell -Command ^
-    "$envpath='.env'; $vars = 'RABBITMQ_URL','API_GATEWAY_URL','ALPHA_VANTAGE_KEY','BINANCE_API_KEY','BINANCE_API_SECRET','IBKR_API_KEY','FRED_API_KEY'; $content = Get-Content $envpath; foreach($k in $vars){$pattern = '^' + [regex]::Escape($k) + '='; if($content -match $pattern){$content = $content -replace $pattern + '.*', $k + '='}}; Set-Content $envpath $content"
+    "$envpath='.env'; $vars = 'DB_HOST','DB_PORT','DB_NAME','DB_USER','DB_PASS','RABBITMQ_URL','API_GATEWAY_URL','ALPHA_VANTAGE_KEY','BINANCE_API_KEY','BINANCE_API_SECRET','IBKR_API_KEY','FRED_API_KEY'; $content = Get-Content $envpath; foreach($k in $vars){$pattern = '^' + [regex]::Escape($k) + '='; if($content -match $pattern){$content = $content -replace $pattern + '.*', $k + '='}}; Set-Content $envpath $content"
 )
 
 echo Removal complete.

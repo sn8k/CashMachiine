@@ -1,4 +1,4 @@
-# Changelog v0.6.72
+# Changelog v0.6.73
 =======
 
 
@@ -252,3 +252,4 @@
 - setup_env.cmd and setup_full.cmd now invoke `tools\\log_create_win.cmd` at startup to create log directories.
 - Added IsolationForest-based anomaly detection persisting anomalies in `risk_anomalies` and emitting `risk_anomaly` events to alert-engine with migration, schema checks, log script and documentation updates.
 - Hardened randomness and subprocess usage in orchestrator, reporting and strategy-marketplace to satisfy Bandit security checks.
+- setup_full.cmd now creates or updates `.env` immediately after prompts, replacing database placeholders, and remove_full.cmd clears these `.env` entries; versions bumped.
