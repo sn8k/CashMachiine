@@ -1,4 +1,4 @@
-# Changelog v0.6.48
+# Changelog v0.6.49
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -203,3 +203,4 @@
 - Wired API gateway onboarding endpoints to proxy uploads and status queries to kyc-service.
 - Expanded log creation scripts, docker-compose, environment samples, requirements and manuals for KYC integration.
 - Added Locust performance tests for api-gateway and strategy-engine with CI integration and reports under `perf/`.
+- Added prerequisite checks for Python, pip, psql, Docker and Node in `setup_full.cmd` and `remove_full.cmd` with documentation in the user manual.
