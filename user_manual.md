@@ -1,4 +1,4 @@
-# User Manual v0.6.64
+# User Manual v0.6.65
 =======
 
 
@@ -96,6 +96,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The whatif-service provides `/scenarios/run` and `/scenarios/{id}` endpoints to run scenarios and retrieve stored results in the `scenario_results` table.
 - It now binds to `127.0.0.1` by default for improved security.
 - Work in progress: integrate results into the UI overview, document the workflow and add automated tests.
+- Generate consolidated PDF reports with `python reporting/generate_report.py`, which installs dependencies with `--install`, removes them with `--remove` and writes files to `reports/`.
 - Upload identity documents via API Gateway `/onboard`; files are forwarded to kyc-service and stored under `kyc-service/uploads/`.
 - Check verification progress at `/kyc/status/{user_id}`.
 - The backtester CLI loads prices from the database, simulates equal-weight portfolios, computes KPIs (CAGR, Sharpe, max drawdown), embeds equity charts in HTML reports and records metrics in the `backtests` table.
