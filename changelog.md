@@ -1,4 +1,4 @@
-# Changelog v0.6.62
+# Changelog v0.6.63
 =======
 
 
@@ -198,6 +198,8 @@
 - Implemented service workers and localStorage caches in mobile and UI.
 - Integrated push notifications via notification-service and client APIs.
 - Updated install scripts and log creation scripts for new components.
+- Added intraday threshold monitoring in orchestrator publishing `volatility_alert` and `drawdown_alert` events to strategy-engine and execution-engine, with audit-log recording all alerts.
+- Exposed intraday thresholds via configuration and documented usage.
 - Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer version bumps and new execution-engine logs; documented DeFi support in user manuals.
 - Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.
 - Scaffolded `kyc-service` FastAPI app for document uploads and status checks with Dockerfile, installers and log directories.

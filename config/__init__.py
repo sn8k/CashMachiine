@@ -1,4 +1,4 @@
-"""Configuration loader v0.1.11 (2025-08-20)"""
+"""Configuration loader v0.1.12 (2025-08-20)"""
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import os
@@ -30,6 +30,8 @@ class Settings:
     redis_port: int = int(os.getenv("REDIS_PORT", "6379"))
     redis_db: int = int(os.getenv("REDIS_DB", "0"))
     rate_limit_per_minute: int = int(os.getenv("RATE_LIMIT_PER_MINUTE", "100"))
+    intraday_vol_threshold: float = float(os.getenv("INTRADAY_VOL_THRESHOLD", "0.08"))
+    intraday_drawdown_threshold: float = float(os.getenv("INTRADAY_DRAWDOWN_THRESHOLD", "0.05"))
     rabbitmq_url: str = os.getenv("RABBITMQ_URL", "amqp://guest:guest@localhost:5672/")
     alpha_vantage_key: str = os.getenv("ALPHA_VANTAGE_KEY", "demo")
     binance_api_key: str = os.getenv("BINANCE_API_KEY", "demo")

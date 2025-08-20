@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.30 (2025-08-20)
+# log directory creator v0.6.31 (2025-08-20)
 set -e
 mkdir -p logs
 mkdir -p logs/containers

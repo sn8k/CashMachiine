@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""strategy-engine consumer v0.3.1 (2025-08-20)"""
+"""strategy-engine consumer v0.3.2 (2025-08-20)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -21,15 +21,18 @@ def remove_service():
 
 
 def handle_event(message: dict) -> None:
-    if message.get("event") == "strategy_compute":
+    event = message.get("event")
+    if event == "strategy_compute":
         strategy = CoreStrategy()
         signals = strategy.signals([])
         weights = strategy.target_weights(signals)
         logger.info("Computed strategy weights %s", weights)
+    elif event in {"volatility_alert", "drawdown_alert"}:
+        logger.warning("Received %s %s", event, message.get("payload"))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="strategy-engine consumer v0.3.1")
+    parser = argparse.ArgumentParser(description="strategy-engine consumer v0.3.2")
     parser.add_argument("--install", action="store_true", help="Install strategy-engine service")
     parser.add_argument("--remove", action="store_true", help="Remove strategy-engine service")
     parser.add_argument("--log-path", default=os.path.join("logs", "strategy-engine.log"), help="Path to log file")

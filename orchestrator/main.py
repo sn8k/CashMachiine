@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""orchestrator scheduler v0.5.5 (2025-08-20)"""
+"""orchestrator scheduler v0.5.6 (2025-08-20)"""
 import argparse
 import os
 import subprocess  # nosec B404
@@ -7,6 +7,7 @@ import time
 from zoneinfo import ZoneInfo
 
 from apscheduler.schedulers.background import BackgroundScheduler
+import random
 
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
@@ -33,6 +34,29 @@ def run_pipeline(producer: EventProducer):
         logger.info("Pipeline events emitted")
 
 
+def _current_volatility() -> float:
+    return random.uniform(0, 0.1)
+
+
+def _current_drawdown() -> float:
+    return random.uniform(-0.1, 0)
+
+
+def check_intraday(producer: EventProducer):
+    """Emit alerts when intraday thresholds are breached."""
+    with tracer.start_as_current_span("check_intraday"):
+        vol = _current_volatility()
+        dd = _current_drawdown()
+        if vol > settings.intraday_vol_threshold:
+            payload = {"current_vol": vol, "threshold": settings.intraday_vol_threshold, "tenant_id": 1}
+            producer.publish("volatility_alert", payload)
+            logger.warning("Volatility threshold breached %.4f", vol)
+        if dd <= -settings.intraday_drawdown_threshold:
+            payload = {"current_drawdown": dd, "threshold": settings.intraday_drawdown_threshold, "tenant_id": 1}
+            producer.publish("drawdown_alert", payload)
+            logger.warning("Drawdown threshold breached %.4f", dd)
+
+
 def run_db_backup():
     """Trigger database backup script."""
     with tracer.start_as_current_span("run_db_backup"):
@@ -52,7 +76,7 @@ def remove_service():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.5")
+    parser = argparse.ArgumentParser(description="Orchestrator controller v0.5.6")
     parser.add_argument("--install", action="store_true", help="Install orchestrator service")
     parser.add_argument("--remove", action="store_true", help="Remove orchestrator service")
     parser.add_argument("--log-path", default=os.path.join("logs", "orchestrator.log"), help="Path to log file")
@@ -74,6 +98,7 @@ def main():
     scheduler = BackgroundScheduler(timezone=ZoneInfo("Europe/Paris"))
     scheduler.add_job(run_pipeline, "cron", hour=8, minute=0, args=[producer])
     scheduler.add_job(run_db_backup, "cron", hour=2, minute=0)
+    scheduler.add_job(check_intraday, "interval", minutes=5, args=[producer])
     scheduler.start()
     logger.info("Scheduler started, waiting for jobs")
     try:
