@@ -1,4 +1,4 @@
-# requirements.txt v0.3.11 (2025-08-20)
+# requirements.txt v0.3.12 (2025-08-20)
 
 # Runtime dependencies
 requests>=2.31.0
@@ -31,3 +31,5 @@ fakeredis>=2.21.0
 bandit>=1.7.5
 pytest-benchmark>=4.0.0
 playwright>=1.41.1
+locust>=2.29.0
+
