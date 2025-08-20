@@ -1,4 +1,4 @@
-# User Manual v0.6.41
+# User Manual v0.6.42
 
 Date: 2025-08-20
 
@@ -38,6 +38,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 ## Mobile Application
 - React Native app initialized under `mobile/` with a simple entry point.
 - Use `mobile/build.sh` to generate mobile build logs in `logs/mobile/`.
+- Orders now store `fee` and `tax` columns with strategy-engine utilities computing broker costs.
+- API Gateway `/orders/preview` endpoint returns gross and net totals including fees and taxes.
 
 ## Data Warehouse
 - Nightly ETL scripts load operational data into an analytical `warehouse` schema.

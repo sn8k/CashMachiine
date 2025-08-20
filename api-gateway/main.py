@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.8 (2025-08-20)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.9 (2025-08-20)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -65,7 +65,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.8"
+    response.headers["X-API-Version"] = "v0.2.9"
     return response
 
 

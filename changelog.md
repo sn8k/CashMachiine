@@ -1,4 +1,4 @@
-# Changelog v0.6.41
+# Changelog v0.6.42
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -190,5 +190,7 @@
 - Added interactive Windows installer `setup_full.cmd` with SQL database creation and `remove_full.cmd` for teardown; documented in user manual.
 - Core and satellite strategies now derive signals from market data, adjust risk via the risk engine, and justify allocations through `explain()`.
 - Extended strategy interface with `explain()` and added tests and documentation for dynamic weights.
+
+- Added broker fee and tax calculations with DB columns and net order metrics returned by api-gateway.
 
 

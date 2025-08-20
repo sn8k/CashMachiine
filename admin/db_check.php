@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.10 (2025-08-19)
-$expectedVersion = 'v0.1.7';
+// db_check.php v0.1.11 (2025-08-20)
+$expectedVersion = 'v0.1.8';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -50,6 +50,17 @@ foreach ($currencyTables as $tbl) {
     if (!in_array('currency', $cols)) {
         echo "Missing column in $tbl: currency\n";
         exit(1);
+    }
+}
+$costTables = ['orders','executions'];
+foreach ($costTables as $tbl) {
+    $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='$tbl'");
+    $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    foreach (['fee','tax'] as $col) {
+        if (!in_array($col, $cols)) {
+            echo "Missing column in $tbl: $col\n";
+            exit(1);
+        }
     }
 }
 $stmt = $pdo->query("SELECT extname FROM pg_extension WHERE extname='timescaledb'");
