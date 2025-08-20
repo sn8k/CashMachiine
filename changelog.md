@@ -1,4 +1,4 @@
-# Changelog v0.6.60
+# Changelog v0.6.61
 =======
 
 
@@ -232,3 +232,4 @@
 - UI consumes WebSocket feed to refresh daily actions, goal orders and analytics metrics in real time.
 - Added `websocket-client` dependency and bumped environment setup scripts.
 - Logged WebSocket broadcast errors instead of silently ignoring them to satisfy security scan.
+- Added containerized strategy execution with signature verification, resource quotas and dedicated execution logs.
