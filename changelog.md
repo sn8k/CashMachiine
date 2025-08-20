@@ -1,4 +1,4 @@
-# Changelog v0.6.45
+# Changelog v0.6.46
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -197,3 +197,4 @@
 - Integrated push notifications via notification-service and client APIs.
 - Updated install scripts and log creation scripts for new components.
 - Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer version bumps and new execution-engine logs; documented DeFi support in user manuals.
+- Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.

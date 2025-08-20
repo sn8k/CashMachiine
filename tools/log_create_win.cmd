@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.21 (2025-08-20)
+REM log directory creator v0.6.22 (2025-08-20)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -36,3 +36,4 @@ type nul > logs\mobile\build.log
 type nul > logs\ui\build.log
 type nul > logs\data-warehouse\etl.log
 type nul > logs\audit-log\audit.log
+type nul > logs\rl_optimizer.log
