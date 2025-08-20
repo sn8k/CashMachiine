@@ -1,5 +1,5 @@
 #!/bin/bash
-# execution-engine removal v0.4.5
+# execution-engine removal v0.4.6 (2025-08-20)
 set -e
 echo "Removing execution-engine service..."
 pip uninstall -y -r requirements.txt >/dev/null 2>&1

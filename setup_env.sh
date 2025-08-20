@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup_env.sh v0.2.1
+# setup_env.sh v0.2.2 (2025-08-20)
 
 set -e
 

@@ -1,4 +1,4 @@
-# User Manual v0.6.44
+# User Manual v0.6.45
 
 Date: 2025-08-20
 
@@ -14,6 +14,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation; use `remove_full.cmd` to uninstall and drop tables.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
+- Requirements now include `web3` for on-chain interactions.
 - Backtester includes a dedicated `requirements.txt` to ensure image builds succeed.
 - UI translation assets install with `ui/install_locales.sh` or `npm run locales:install` and remove with `ui/remove_locales.sh` or `npm run locales:remove`.
 - Mobile dependencies install with `mobile/install.sh` and remove with `mobile/remove.sh`; build logs output to `logs/mobile/`.
@@ -57,12 +58,12 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - A daily 02:00 backup job invokes `tools/db_backup.sh`.
- - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers.
+ - `data_fetch` covers equities, bonds and commodities via Alpha Vantage fetchers and on-chain DeFi prices from Uniswap.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
 - The notification-service offers `/notify/email` and `/notify/webhook`, consumes `notifications` events and logs to `logs/notification-service/`.
 - The strategy-marketplace service exposes CRUD endpoints at `/strategies` and stores uploads under `strategy-marketplace/assets/`.
 - Configure its binding via `NOTIFICATION_HOST` (default `127.0.0.1`) and `NOTIFICATION_PORT`.
-- Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`). Orders
+- Execution-engine adapters pull API keys from configuration (`BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY`) and support on-chain swaps through a Uniswap adapter using Web3. Orders
   are persisted to `orders` and `executions` tables, cached in Redis and logged to `execution-engine/logs/orders.log`.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.

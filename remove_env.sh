@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# remove_env.sh v0.1.1
+# remove_env.sh v0.1.2 (2025-08-20)
 
 set -e
 

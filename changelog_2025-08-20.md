@@ -1,4 +1,4 @@
-# Changelog v0.6.12
+# Changelog v0.6.13
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -99,3 +99,4 @@
 - Implemented service workers and localStorage caches in mobile and UI.
 - Integrated push notifications via notification-service and client APIs.
 - Updated install scripts and log creation scripts for new components.
+- Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer updates and new execution-engine logs; documented DeFi support in user manuals.
