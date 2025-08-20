@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.15 (2025-08-20)
-$expectedVersion = 'v0.1.12';
+// db_check.php v0.1.16 (2025-08-20)
+$expectedVersion = 'v0.1.13';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -10,7 +10,7 @@ $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily',
-    'backtests','risk_stress_results','notifications','strategies','strategy_reviews','audit_events','scenario_results'
+    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
@@ -124,6 +124,15 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
   foreach ($notificationColumns as $col) {
       if (!in_array($col, $cols)) {
           echo "Missing column in notifications: $col\n";
+          exit(1);
+      }
+  }
+  $alertColumns = ['id','notification_id','created_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='alerts'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($alertColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in alerts: $col\n";
           exit(1);
       }
   }

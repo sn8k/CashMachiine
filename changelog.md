@@ -1,4 +1,4 @@
-# Changelog v0.6.57
+# Changelog v0.6.58
 =======
 
 
@@ -224,3 +224,7 @@
 - Performance script now fails fast if risk-engine health check fails.
 - Replaced Stable Baselines3 optimizer with a lightweight heuristic in `rl_optimizer.py` and updated tests and documentation.
 
+- Added alert-engine service consuming risk metrics and forwarding alerts to notification-service.
+- Created alerts table with migration and schema checks in admin/db_check.php.
+- Exposed /alerts/subscribe in api-gateway and added UI subscription page.
+- Updated log creation scripts for alert-engine outputs.

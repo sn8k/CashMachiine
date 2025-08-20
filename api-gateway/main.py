@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.1 (2025-08-20)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.2 (2025-08-20)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request, UploadFile, File, Form
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -34,6 +34,7 @@ security = HTTPBearer()
 
 app = FastAPI()
 app.include_router(auth_router, prefix="/auth")
+subscriptions: list[dict] = []
 
 logger = setup_logging("api-gateway", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("api-gateway", port=settings.api_gateway_metrics_port)
@@ -69,7 +70,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.3.1"
+    response.headers["X-API-Version"] = "v0.3.2"
     return response
 
 
@@ -92,7 +93,6 @@ def role_checker(role: str):
         return verify_token(credentials, role)
     return checker
 
-
 class GoalCreate(BaseModel):
     user_id: int
     name: str
@@ -100,11 +100,13 @@ class GoalCreate(BaseModel):
     target_amount: float | None = None
     deadline: date | None = None
 
-
+class AlertSubscription(BaseModel):
+    user_id: int
+    metric: str
+    threshold: float
 @app.get("/goals")
 def get_goals(payload: dict = Depends(role_checker("user"))):
     return {"goals": fetch_goals(payload["tenant_id"])}
-
 
 @app.post("/goals")
 def post_goal(goal: GoalCreate, payload: dict = Depends(role_checker("admin"))):
@@ -140,6 +142,12 @@ def post_check_action(action_id: int, payload: dict = Depends(role_checker("admi
 @app.get("/orders/preview")
 def get_orders_preview(limit: int = 10, payload: dict = Depends(role_checker("user"))):
     return {"orders": fetch_orders_preview(limit, payload["tenant_id"])}
+
+@app.post("/alerts/subscribe")
+def subscribe_alert(alert: AlertSubscription, payload: dict = Depends(role_checker("user"))):
+    subscriptions.append({**alert.model_dump(), "tenant_id": payload["tenant_id"]})
+    emit_event("alert_subscribed", alert.model_dump())
+    return {"status": "subscribed"}
 
 
 @app.post("/onboard")

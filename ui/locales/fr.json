@@ -3,7 +3,8 @@
     "title": "Interface CashMachiine",
     "createGoal": "Créer un Objectif",
     "dailyActions": "Actions Quotidiennes",
-    "analytics": "Tableau de Bord"
+    "analytics": "Tableau de Bord",
+    "alerts": "Abonnements"
   },
   "goals": {
     "title": "Créer un Objectif",
@@ -27,5 +28,11 @@
     "title": "Simulateur de Scénario",
     "placeholder": "Nom du scénario",
     "run": "Exécuter"
+  },
+  "alerts": {
+    "title": "Abonnement aux alertes",
+    "metric": "Métrique",
+    "threshold": "Seuil",
+    "subscribe": "S'abonner"
   }
 }
