@@ -1,4 +1,4 @@
-/** Daily actions page v0.3.0 (2025-08-19) */
+/** Daily actions page v0.3.1 (2025-08-20) */
 import { useEffect, useState } from 'react';
 import { useTranslation } from '../lib/useTranslation';
 
@@ -9,17 +9,26 @@ export default function DailyActions() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    const cached = localStorage.getItem('actions');
+    if (cached) setActions(JSON.parse(cached));
     fetch(`${base}/actions`)
       .then(res => res.json())
-      .then(data => setActions(data.actions || []))
-      .catch(() => setActions([]));
+      .then(data => {
+        setActions(data.actions || []);
+        localStorage.setItem('actions', JSON.stringify(data.actions || []));
+      })
+      .catch(() => {});
   }, [base]);
 
   const check = id => {
     fetch(`${base}/actions/${id}/check`, { method: 'POST' })
       .then(res => {
         if (!res.ok) throw new Error('failed');
-        setActions(as => as.map(a => a.id === id ? { ...a, done: true } : a));
+        setActions(as => {
+          const updated = as.map(a => a.id === id ? { ...a, done: true } : a);
+          localStorage.setItem('actions', JSON.stringify(updated));
+          return updated;
+        });
         setMessage(t('daily.checked'));
       })
       .catch(() => setMessage(t('daily.error')));

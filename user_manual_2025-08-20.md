@@ -1,4 +1,4 @@
-# User Manual v0.6.13
+# User Manual v0.6.14
 
 Date: 2025-08-20
 
@@ -22,6 +22,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Pass `--install` or `--remove` to service scripts for setup and teardown.
 - The UI supports French and English; append `/en` to URLs to switch to English.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
+
+## Offline & Notifications
+- The UI and mobile app register service workers, cache data in localStorage and subscribe to push notifications through notification-service.
 
 ## Audit Log
 - The `audit-log` service records domain events in the `audit_events` table.
