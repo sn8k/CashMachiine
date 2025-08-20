@@ -1,4 +1,4 @@
-# User Manual v0.6.60
+# User Manual v0.6.61
 =======
 
 
@@ -88,6 +88,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Mark tasks complete on the daily actions page; checkboxes send POST requests to `/actions/{id}/check` and show feedback messages.
 - The daily actions checklist also allows exporting orders for external processing.
 - Visualize aggregated metrics via the `/analytics` endpoint or the UI analytics page, which renders charts with Chart.js.
+- A `/ws` WebSocket endpoint streams `action`, `order` and `metrics` events; the UI consumes this feed to update pages in real time.
 - The feasibility-calculator service exposes `/feasibility` to estimate CAGR, daily returns and probability of hitting a target based on capital, goal, deadline and risk profile.
 - The whatif-service provides `/scenarios/run` and `/scenarios/{id}` endpoints to run scenarios and retrieve stored results in the `scenario_results` table.
 - It now binds to `127.0.0.1` by default for improved security.
