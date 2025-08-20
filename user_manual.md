@@ -1,4 +1,4 @@
-# User Manual v0.6.72
+# User Manual v0.6.73
 =======
 
 
@@ -77,7 +77,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Start the scheduler with `python orchestrator/main.py`.
  - The orchestrator sequentially dispatches `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
  - A daily 02:00 backup job invokes `tools/db_backup.sh`.
- - Intraday monitoring checks volatility and drawdown every 5 minutes and emits `volatility_alert` or `drawdown_alert` events to strategy-engine and execution-engine. Alerts are logged by `audit-log`.
+ - Intraday monitoring checks volatility and drawdown every 5 minutes using cryptographically secure randomness and emits `volatility_alert` or `drawdown_alert` events to strategy-engine and execution-engine. Alerts are logged by `audit-log`.
 - `data_fetch` covers equities, bonds, commodities and macro indicators via Alpha Vantage, ECB and FRED fetchers and on-chain DeFi prices from Uniswap.
 - The Uniswap fetcher now leverages The Graph's `pairDayDatas` for more reliable OHLCV data.
 - Data ingestion, strategy-engine, risk-engine and execution-engine consume these events from RabbitMQ.
@@ -97,7 +97,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The whatif-service provides `/scenarios/run` and `/scenarios/{id}` endpoints to run scenarios and retrieve stored results in the `scenario_results` table.
 - It now binds to `127.0.0.1` by default for improved security.
 - Work in progress: integrate results into the UI overview, document the workflow and add automated tests.
-- Generate consolidated PDF reports with `python reporting/generate_report.py`, which installs dependencies with `--install`, removes them with `--remove` and writes files to `reports/`.
+- Generate consolidated PDF reports with `python reporting/generate_report.py`, which installs dependencies with `--install`, removes them with `--remove`, uses the active Python interpreter for `pip` operations and writes files to `reports/`.
 - Upload identity documents via API Gateway `/onboard`; files are forwarded to kyc-service and stored under `kyc-service/uploads/`.
 - Check verification progress at `/kyc/status/{user_id}`.
 - The backtester CLI loads prices from the database, simulates equal-weight portfolios, computes KPIs (CAGR, Sharpe, max drawdown), embeds equity charts in HTML reports and records metrics in the `backtests` table.
@@ -142,6 +142,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Dependency vulnerabilities cause the pipeline to fail, providing automatic alerts.
 - Developers can run `bandit -r .` and `npm run audit` locally before pushing changes.
 - Tests use `# nosec` to bypass false positives and subprocess calls are validated.
+- Randomness and subprocess usage across services are hardened to satisfy Bandit checks.
 - The UI now runs on Next.js 14.2.32 following security advisories.
 
 ## fx-service

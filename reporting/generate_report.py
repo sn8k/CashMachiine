@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-# generate_report.py v0.1.0 (2025-08-20)
+# generate_report.py v0.1.1 (2025-08-20)
 """Generate PDF reports for actions, orders, KYC and metrics."""
 
 import argparse
 import json
 import os
 import shutil
-import subprocess
+import subprocess  # nosec B404
+import sys
 from pathlib import Path
 
 try:
@@ -20,14 +21,14 @@ REPORT_FILE = REPORT_DIR / 'daily_report.pdf'
 
 def install_dependencies() -> None:
     """Install required Python packages."""
-    subprocess.run(["python", "-m", "pip", "install", "weasyprint"], check=False)
+    subprocess.run([sys.executable, "-m", "pip", "install", "weasyprint"], check=False)  # nosec B603
 
 
 def remove_reports() -> None:
     """Remove generated reports and optional dependency."""
     if REPORT_DIR.exists():
         shutil.rmtree(REPORT_DIR)
-    subprocess.run(["python", "-m", "pip", "uninstall", "-y", "weasyprint"], check=False)
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "weasyprint"], check=False)  # nosec B603
 
 
 def generate_report() -> None:
