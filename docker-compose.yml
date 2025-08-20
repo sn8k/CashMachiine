@@ -1,4 +1,4 @@
-# docker-compose.yml v0.1.4 (2025-08-20)
+# docker-compose.yml v0.1.5 (2025-08-20)
 version: '3.8'
 services:
   db:
@@ -110,6 +110,15 @@ services:
       - cache
     ports:
       - "8300:8000"
+  kyc-service:
+    build:
+      context: .
+      dockerfile: kyc-service/Dockerfile
+    depends_on:
+      - db
+      - cache
+    ports:
+      - "8400:8000"
   ui:
     build:
       context: ui

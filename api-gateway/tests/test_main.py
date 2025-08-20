@@ -1,5 +1,5 @@
 # nosec
-"""Unit tests for api-gateway main application v0.2.9 (2025-08-20)"""
+"""Unit tests for api-gateway main application v0.2.11 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -9,6 +9,7 @@ from jose import jwt
 import importlib.util
 from pathlib import Path
 import sys
+import io
 
 # Ensure project root is on sys.path for common package
 sys.path.append(str(Path(__file__).resolve().parents[2]))
@@ -38,7 +39,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
-    assert response.headers["X-API-Version"] == "v0.2.10"  # nosec
+    assert response.headers["X-API-Version"] == "v0.2.11"  # nosec
     assert response.json() == {"goals": []}  # nosec
 
 
@@ -90,6 +91,52 @@ def test_orders_preview_endpoint():
     response = client.get("/orders/preview", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
     assert response.json() == {"orders": []}  # nosec
+
+
+def test_onboard_proxy(monkeypatch):
+    token = create_token("user")
+
+    class DummyResponse:
+        status_code = 200
+
+        def json(self):
+            return {"status": "uploaded"}
+
+    def fake_post(url, data=None, files=None, timeout=5):
+        assert url.endswith("/kyc/upload")
+        return DummyResponse()
+
+    monkeypatch.setattr(main.requests, "post", fake_post)
+    file_content = io.BytesIO(b"data")
+    response = client.post(
+        "/onboard",
+        headers={"Authorization": f"Bearer {token}"},
+        data={"user_id": 1},
+        files={"document": ("id.txt", file_content, "text/plain")},
+    )
+    assert response.status_code == 200  # nosec
+    assert response.json() == {"status": "uploaded"}  # nosec
+
+
+def test_kyc_status_proxy(monkeypatch):
+    token = create_token("user")
+
+    class DummyResponse:
+        status_code = 200
+
+        def json(self):
+            return {"status": "pending"}
+
+    def fake_get(url, timeout=5):
+        assert url.endswith("/kyc/status/1")
+        return DummyResponse()
+
+    monkeypatch.setattr(main.requests, "get", fake_get)
+    response = client.get(
+        "/kyc/status/1", headers={"Authorization": f"Bearer {token}"}
+    )
+    assert response.status_code == 200  # nosec
+    assert response.json() == {"status": "pending"}  # nosec
 
 
 def test_rate_limiting_triggers_after_threshold():

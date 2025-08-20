@@ -1,5 +1,5 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.10 (2025-08-20)"""
-from fastapi import FastAPI, Depends, HTTPException, status, Request
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.11 (2025-08-20)"""
+from fastapi import FastAPI, Depends, HTTPException, status, Request, UploadFile, File, Form
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
 from jose import JWTError, jwt
@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from datetime import date
 from pathlib import Path
 import sys
+import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from db.goals import fetch_goals, create_goal, fetch_goal_status
@@ -66,7 +67,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.10"
+    response.headers["X-API-Version"] = "v0.2.11"
     return response
 
 
@@ -137,6 +138,42 @@ def post_check_action(action_id: int, payload: dict = Depends(role_checker("admi
 @app.get("/orders/preview")
 def get_orders_preview(limit: int = 10, payload: dict = Depends(role_checker("user"))):
     return {"orders": fetch_orders_preview(limit, payload["tenant_id"])}
+
+
+@app.post("/onboard")
+async def onboard(
+    user_id: int = Form(...),
+    document: UploadFile = File(...),
+    payload: dict = Depends(role_checker("user")),
+):
+    files = {"document": (document.filename, await document.read(), document.content_type)}
+    try:
+        resp = requests.post(
+            f"{settings.kyc_service_url}/kyc/upload",
+            data={"user_id": user_id},
+            files=files,
+            timeout=5,
+        )
+    except requests.RequestException as exc:
+        logger.error("KYC upload failed", extra={"error": str(exc)})
+        raise HTTPException(status_code=502, detail="KYC service unavailable")
+    if resp.status_code != 200:
+        raise HTTPException(status_code=resp.status_code, detail="KYC upload failed")
+    return resp.json()
+
+
+@app.get("/kyc/status/{user_id}")
+def kyc_status(user_id: int, payload: dict = Depends(role_checker("user"))):
+    try:
+        resp = requests.get(
+            f"{settings.kyc_service_url}/kyc/status/{user_id}", timeout=5
+        )
+    except requests.RequestException as exc:
+        logger.error("KYC status failed", extra={"error": str(exc)})
+        raise HTTPException(status_code=502, detail="KYC service unavailable")
+    if resp.status_code != 200:
+        raise HTTPException(status_code=resp.status_code, detail="KYC status error")
+    return resp.json()
 
 
 @app.get("/analytics")

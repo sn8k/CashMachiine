@@ -1,4 +1,4 @@
-# Changelog v0.6.46
+# Changelog v0.6.47
 
 ## 2025-01-14
 - Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
@@ -198,3 +198,7 @@
 - Updated install scripts and log creation scripts for new components.
 - Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer version bumps and new execution-engine logs; documented DeFi support in user manuals.
 - Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.
+- Scaffolded `kyc-service` FastAPI app for document uploads and status checks with Dockerfile, installers and log directories.
+- Added `kyc_level` column migration on `users` with schema check updates and bumped expected DB version.
+- Wired API gateway onboarding endpoints to proxy uploads and status queries to kyc-service.
+- Expanded log creation scripts, docker-compose, environment samples, requirements and manuals for KYC integration.
