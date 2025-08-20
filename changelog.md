@@ -1,4 +1,4 @@
-# Changelog v0.6.70
+# Changelog v0.6.71
 =======
 
 
@@ -250,3 +250,4 @@
 - Documented virtual environment usage in user manuals and bumped script versions.
 - Added interactive prompts for RabbitMQ, API Gateway and API keys in setup_full.cmd with .env updates; remove_full.cmd now purges these credentials.
 - setup_env.cmd and setup_full.cmd now invoke `tools\\log_create_win.cmd` at startup to create log directories.
+- Added IsolationForest-based anomaly detection persisting anomalies in `risk_anomalies` and emitting `risk_anomaly` events to alert-engine with migration, schema checks, log script and documentation updates.

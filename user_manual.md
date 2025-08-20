@@ -1,4 +1,4 @@
-# User Manual v0.6.71
+# User Manual v0.6.72
 =======
 
 
@@ -103,6 +103,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - The backtester CLI loads prices from the database, simulates equal-weight portfolios, computes KPIs (CAGR, Sharpe, max drawdown), embeds equity charts in HTML reports and records metrics in the `backtests` table.
 - Planned: add performance benchmarking for simulations.
 - Risk engine additionally offers `/risk/stress` for historical and hypothetical scenario analysis with stored results.
+- Risk engine now detects anomalies in `metrics_daily` with an IsolationForest, logs them to `risk_anomalies`, and publishes `risk_anomaly` events to alert-engine.
 
 ### Strategy Engine
 - `strategy-engine` now provides `simulation.py` for Monte Carlo path generation and probability-of-hitting analysis.

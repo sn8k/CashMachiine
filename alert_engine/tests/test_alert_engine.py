@@ -1,5 +1,5 @@
 # nosec
-"""Unit tests for alert-engine v0.1.0 (2025-08-20)"""
+"""Unit tests for alert-engine v0.1.1 (2025-08-20)"""
 import importlib.util
 import sys
 from pathlib import Path
@@ -23,3 +23,9 @@ def test_process_metric_no_alert():
     with patch.object(main, "_send_alert") as mock_alert:
         main.process_metric({"metric": "risk", "value": 0.1})
         mock_alert.assert_not_called()
+
+
+def test_handle_event_anomaly():
+    with patch.object(main, "process_metric") as mock_process:
+        main.handle_event({"event": "risk_anomaly", "payload": {"metric": "risk", "value": 1.2}})
+        mock_process.assert_called_once()
