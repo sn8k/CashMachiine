@@ -1,4 +1,4 @@
-# Changelog v0.6.15
+# Changelog v0.6.16
 
 ## 2025-02-14
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
@@ -85,6 +85,9 @@
 - Updated user manual and log creation scripts; ignored report outputs.
 
 ## 2025-08-20
+- Implemented OAuth2/OIDC login with Google and GitHub plus TOTP-based 2FA with backup codes.
+- Added migration and schema checks for new auth columns and refreshed installers and requirements.
+- Logged authentication events and updated log creation scripts and documentation.
 - Added Next.js internationalization with French default and English fallback locales.
 - Externalized UI strings to translation files with locale install/remove scripts.
 - Documented localization setup in user manuals.

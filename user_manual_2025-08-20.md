@@ -1,4 +1,4 @@
-# User Manual v0.6.48
+# User Manual v0.6.49
 
 Date: 2025-08-20
 
@@ -27,6 +27,11 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Install Playwright browsers with `npm run install:e2e` and remove them with `npm run remove:e2e`.
 - Execute end-to-end tests via `npm run test:e2e`; reports are written to `tests/e2e/reports/`.
 - Install the KYC service with `kyc-service/install.sh` and remove it with `kyc-service/remove.sh`.
+
+## Authentication
+- OAuth2/OIDC login is available via Google and GitHub.
+- Enable TOTP-based 2FA under `/auth/2fa/setup` and verify with `/auth/2fa/verify`.
+- Backup codes are returned on setup and can be used through `/auth/2fa/recover` if the authenticator is lost.
 
 ## Infrastructure Deployment
 - Modules for database, cache, message bus and services live under `infra/terraform/`.

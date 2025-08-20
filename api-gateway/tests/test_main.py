@@ -1,5 +1,5 @@
 # nosec
-"""Unit tests for api-gateway main application v0.2.11 (2025-08-20)"""
+"""Unit tests for api-gateway main application v0.3.0 (2025-08-20)"""
 import os
 
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -10,6 +10,7 @@ import importlib.util
 from pathlib import Path
 import sys
 import io
+import pyotp
 
 # Ensure project root is on sys.path for common package
 sys.path.append(str(Path(__file__).resolve().parents[2]))
@@ -39,7 +40,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
-    assert response.headers["X-API-Version"] == "v0.2.11"  # nosec
+    assert response.headers["X-API-Version"] == "v0.3.0"  # nosec
     assert response.json() == {"goals": []}  # nosec
 
 
@@ -167,3 +168,19 @@ def test_analytics_requires_admin_role():
     assert response.status_code == 200  # nosec
     body = response.json()
     assert "db_metrics" in body and "observability" in body  # nosec
+
+
+def test_totp_flow():
+    token = create_token("user")
+    setup_resp = client.post(
+        "/auth/2fa/setup", json={"user_id": 1}, headers={"Authorization": f"Bearer {token}"}
+    )
+    assert setup_resp.status_code == 200  # nosec
+    secret = setup_resp.json()["secret"]
+    code = pyotp.TOTP(secret).now()
+    verify_resp = client.post(
+        "/auth/2fa/verify",
+        json={"user_id": 1, "code": code},
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert verify_resp.status_code == 200  # nosec
