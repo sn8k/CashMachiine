@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.13 (2025-08-20)
-$expectedVersion = 'v0.1.10';
+// db_check.php v0.1.14 (2025-08-20)
+$expectedVersion = 'v0.1.11';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -65,9 +65,11 @@ foreach ($costTables as $tbl) {
 }
 $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='users'");
 $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
-if (!in_array('kyc_level', $cols)) {
-    echo "Missing column in users: kyc_level\n";
-    exit(1);
+foreach (['kyc_level','oauth_provider','oauth_sub','totp_secret','backup_codes'] as $col) {
+    if (!in_array($col, $cols)) {
+        echo "Missing column in users: $col\n";
+        exit(1);
+    }
 }
 $stmt = $pdo->query("SELECT extname FROM pg_extension WHERE extname='timescaledb'");
 if (!$stmt->fetchColumn()) {

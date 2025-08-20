@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""kyc-service FastAPI app v0.1.0 (2025-08-20)"""
+"""kyc-service FastAPI app v0.1.1 (2025-08-20)"""
 from __future__ import annotations
 
 import json
 from pathlib import Path
+import os
 
 from fastapi import FastAPI, UploadFile, File, Form
 
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 logger = setup_logging(
     "kyc-service",
@@ -63,6 +64,6 @@ def get_status(user_id: int) -> dict[str, str]:
 if __name__ == "__main__":
     import uvicorn
 
-    host = "0.0.0.0"
+    host = os.getenv("KYC_HOST", "127.0.0.1")
     port = int("8000")
     uvicorn.run("kyc-service.api:app", host=host, port=port)
