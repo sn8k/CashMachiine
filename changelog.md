@@ -1,4 +1,4 @@
-# Changelog v0.6.68
+# Changelog v0.6.69
 =======
 
 
@@ -13,6 +13,7 @@
 - Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
 - Cross-linked README and user manual.
 - Bumped README to v0.1.1 and user manual/changelog to v0.6.0.
+- Added optional demo data seeding via `setup_full.cmd` applying `db/seeds/*.sql` and validating with `admin/db_check.php`; log creation scripts, user manual and versions updated.
 
 ## 2025-08-19
 - Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.

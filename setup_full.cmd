@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.5 (2025-08-20)
+rem setup_full.cmd v0.1.6 (2025-02-14)
 
 call tools\log_create_win.cmd
 
@@ -88,6 +88,14 @@ psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF
 for %%f in (db\migrations\*.sql) do (
   echo Applying %%f
   psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+)
+set /p LOAD_DEMO="Load demonstration data (db\\seeds\\*.sql)? [y/N]: "
+if /I "%LOAD_DEMO%"=="Y" (
+  echo Inserting demonstration data...
+  for %%f in (db\seeds\*.sql) do (
+    echo Applying %%f
+    psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+  )
 )
 set PGPASSWORD=
 

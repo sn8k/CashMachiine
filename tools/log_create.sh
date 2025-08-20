@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.32 (2025-08-20)
+# log directory creator v0.6.33 (2025-02-14)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -11,6 +11,7 @@ mkdir -p perf
 mkdir -p perf/reports
 mkdir -p execution-engine/logs
 mkdir -p infra/terraform/logs
+mkdir -p db/seeds
 mkdir -p logs/notification-service
 mkdir -p logs/strategy-marketplace
 mkdir -p logs/fx-service
@@ -51,3 +52,4 @@ touch logs/kyc-service/kyc.log
 touch logs/alert-engine/alert.log
 touch logs/macro-service/macro.log
 touch logs/whatif-service/whatif.log
+touch db/seeds/.gitkeep

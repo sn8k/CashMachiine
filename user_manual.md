@@ -1,8 +1,8 @@
-# User Manual v0.6.69
+# User Manual v0.6.70
 =======
 
 
-Date: 2025-08-20
+Date: 2025-02-14
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
@@ -23,6 +23,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies; the Windows script now invokes `tools\\log_create_win.cmd` to create log directories.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; it now records service URLs and API keys in `.env` and invokes `tools\\log_create_win.cmd` at startup. Use `remove_full.cmd` to uninstall, remove the environment, drop tables, and purge these credentials.
+- After migrations, `setup_full.cmd` can optionally apply demonstration SQL files from `db/seeds/*.sql` to populate sample data.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
 - Requirements now include `web3` for on-chain interactions.
