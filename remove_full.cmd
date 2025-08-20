@@ -1,7 +1,35 @@
 @echo off
-rem remove_full.cmd v0.1.1 (2025-08-20)
+rem remove_full.cmd v0.1.2 (2025-08-20)
 
 echo CashMachiine full removal
+
+echo Checking prerequisites...
+where python >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Python not found. Please install from https://www.python.org/downloads/
+  exit /b 1
+)
+where pip >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo pip not found. Downloading installer...
+  start https://bootstrap.pypa.io/get-pip.py
+  exit /b 1
+)
+where psql >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo PostgreSQL not found. Please install from https://www.postgresql.org/download/
+  exit /b 1
+)
+where docker >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Docker not found. Please install from https://www.docker.com/get-started/
+  exit /b 1
+)
+where node >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Node.js not found. Please install from https://nodejs.org/en/download/
+  exit /b 1
+)
 
 echo.
 set /p DB_HOST="Enter database host [localhost]: "
