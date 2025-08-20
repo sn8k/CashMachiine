@@ -4,14 +4,21 @@ import psycopg2
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 
+from .loader import verify_signature, run_strategy
+
 from common.monitoring import setup_logging, setup_metrics, setup_tracer
 from config import settings
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 logger = setup_logging(
     "strategy-marketplace",
     log_path="logs/strategy-marketplace/marketplace.log",
+    remote_url=settings.remote_log_url,
+)
+exec_logger = setup_logging(
+    "strategy-runner",
+    log_path="logs/strategy-marketplace/executions.log",
     remote_url=settings.remote_log_url,
 )
 REQUEST_COUNT = setup_metrics(
@@ -37,6 +44,10 @@ class StrategyOut(StrategyIn):
 class ReviewIn(BaseModel):
     rating: int
     comment: str | None = None
+
+
+class ExecutionIn(BaseModel):
+    signature: str
 
 
 def get_conn():
@@ -127,6 +138,29 @@ def delete_strategy(strategy_id: int):
         logger.info("Deleted strategy", extra={"id": strategy_id})
         REQUEST_COUNT.inc()
         return {"status": "deleted"}
+
+
+@app.post("/strategies/{strategy_id}/execute")
+def execute_strategy(strategy_id: int, data: ExecutionIn):
+    with tracer.start_as_current_span("execute-strategy"):
+        conn = get_conn()
+        with conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT file_path FROM strategies WHERE id=%s",
+                    (strategy_id,),
+                )
+                res = cur.fetchone()
+        conn.close()
+        if not res:
+            raise HTTPException(status_code=404, detail="Strategy not found")
+        file_path = res[0]
+        if not verify_signature(file_path, data.signature, settings.secret_key):
+            raise HTTPException(status_code=400, detail="Invalid signature")
+        output = run_strategy(file_path)
+        exec_logger.info("Executed strategy", extra={"id": strategy_id})
+        REQUEST_COUNT.inc()
+        return {"output": output}
 
 
 @app.post("/strategies/{strategy_id}/reviews")
