@@ -1,4 +1,4 @@
-# User Manual v0.6.42
+# User Manual v0.6.43
 
 Date: 2025-08-20
 
@@ -45,6 +45,10 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Nightly ETL scripts load operational data into an analytical `warehouse` schema.
 - Logs reside in `logs/data-warehouse/etl.log`.
 - Install with `data-warehouse/install.sh` and remove with `data-warehouse/remove.sh` (v0.1.0).
+
+## Audit Log
+- The `audit-log` service consumes RabbitMQ events and stores them in the `audit_events` table.
+- Replay system state by fetching events ordered by `id` and re-emitting them via `common.events.emit_event`.
 
 ## Usage
 - Authenticate and interact with the API Gateway at `/goals`, `/goals/{id}/status`, `/actions/today`, `/actions/{id}/check` and `/orders/preview`. Requests are scoped by the `tenant_id` embedded in JWT tokens.

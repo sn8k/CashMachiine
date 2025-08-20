@@ -1,4 +1,4 @@
-"""Common utilities package v0.1.2 (2025-08-19)"""
-__version__ = "0.1.2"
+"""Common utilities package v0.1.3 (2025-08-20)"""
+__version__ = "0.1.3"
 
-__all__ = ["monitoring"]
+__all__ = ["monitoring", "events"]

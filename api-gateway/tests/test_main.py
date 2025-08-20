@@ -17,6 +17,7 @@ MODULE_PATH = Path(__file__).resolve().parents[1] / "main.py"
 SPEC = importlib.util.spec_from_file_location("api_gateway_main", MODULE_PATH)
 main = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(main)
+main.emit_event = lambda *args, **kwargs: None
 
 SECRET_KEY = main.SECRET_KEY
 ALGORITHM = main.ALGORITHM
@@ -37,7 +38,7 @@ def test_goals_returns_version_header_and_data():
     token = create_token("user")
     response = client.get("/goals", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200  # nosec
-    assert response.headers["X-API-Version"] == "v0.2.9"  # nosec
+    assert response.headers["X-API-Version"] == "v0.2.10"  # nosec
     assert response.json() == {"goals": []}  # nosec
 
 

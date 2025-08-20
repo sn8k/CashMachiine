@@ -64,6 +64,7 @@ def test_order_persistence(monkeypatch):
         return FakeConn(executed)
 
     monkeypatch.setattr(order_handler_mod.psycopg2, "connect", fake_connect)
+    monkeypatch.setattr(order_handler_mod, "emit_event", lambda *a, **k: None)
 
     redis_client = fakeredis.FakeRedis()
     handler = OrderHandler(redis_client=redis_client)

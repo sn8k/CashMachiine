@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.9 (2025-08-20)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.2.10 (2025-08-20)"""
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from db.goals import fetch_goals, create_goal, fetch_goal_status
 from db.actions import fetch_actions_today, check_action
 from db.orders import fetch_orders_preview
+from common.events import emit_event
 
 from common.monitoring import (
     setup_logging,
@@ -65,7 +66,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.2.9"
+    response.headers["X-API-Version"] = "v0.2.10"
     return response
 
 
@@ -104,7 +105,10 @@ def get_goals(payload: dict = Depends(role_checker("user"))):
 
 @app.post("/goals")
 def post_goal(goal: GoalCreate, payload: dict = Depends(role_checker("admin"))):
-    return {"goal": create_goal(goal.model_dump(), payload["tenant_id"])}
+    result = create_goal(goal.model_dump(), payload["tenant_id"])
+    if result:
+        emit_event("goal_created", {"goal_id": result["id"], "tenant_id": payload["tenant_id"]})
+    return {"goal": result}
 
 
 @app.get("/goals/{goal_id}/status")
