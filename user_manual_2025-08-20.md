@@ -1,11 +1,11 @@
-# User Manual v0.6.65
+# User Manual v0.6.66
 
 Date: 2025-08-20
 
 This document will evolve into a comprehensive encyclopedia for the project.
 
 ## Development Roadmap
-- Refer to [development_tasks_2025-08-19.md](development_tasks_2025-08-19.md) for the latest task status.
+- Refer to [development_tasks_2025-08-20.md](development_tasks_2025-08-20.md) for the latest task status.
 
 # Installation
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY` and `FRED_API_KEY`.
