@@ -1,4 +1,4 @@
-"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.3 (2025-08-20)"""
+"""FastAPI app exposing goals, actions and analytics endpoints with JWT auth v0.3.4 (2025-08-20)"""
 from fastapi import (
     FastAPI,
     Depends,
@@ -86,7 +86,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.3.3"
+    response.headers["X-API-Version"] = "v0.3.4"
     return response
 
 
@@ -98,8 +98,8 @@ async def dispatch_events():
             try:
                 await ws.send_json(message)
                 alive.append(ws)
-            except Exception:
-                pass
+            except Exception as exc:  # pragma: no cover - log and drop
+                logger.warning("WebSocket send failed", extra={"error": str(exc)})
         ws_clients[:] = alive
 
 

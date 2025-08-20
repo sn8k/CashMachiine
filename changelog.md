@@ -1,4 +1,4 @@
-# Changelog v0.6.59
+# Changelog v0.6.60
 =======
 
 
@@ -231,3 +231,4 @@
 - Added `/ws` WebSocket endpoint in api-gateway streaming action, order and metrics events.
 - UI consumes WebSocket feed to refresh daily actions, goal orders and analytics metrics in real time.
 - Added `websocket-client` dependency and bumped environment setup scripts.
+- Logged WebSocket broadcast errors instead of silently ignoring them to satisfy security scan.
