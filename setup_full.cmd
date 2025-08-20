@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.12 (2025-08-20)
+rem setup_full.cmd v0.1.13 (2025-08-20)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -112,7 +112,7 @@ if not exist .env (
 echo Updating .env with provided values...
 powershell -Command ^
   "$envpath='.env';" ^
-  "$vars = @{'DB_HOST'='%DB_HOST%'; 'DB_PORT'='%DB_PORT%'; 'DB_NAME'='%DB_NAME%'; 'DB_USER'='%DB_USER%'; 'DB_PASS'='%DB_PASS%'; 'RABBITMQ_URL'='%RABBITMQ_URL%'; 'API_GATEWAY_URL'='%API_GATEWAY_URL%'; 'ALPHA_VANTAGE_KEY'='%ALPHA_VANTAGE_KEY%'; 'BINANCE_API_KEY'='%BINANCE_API_KEY%'; 'BINANCE_API_SECRET'='%BINANCE_API_SECRET%'; 'IBKR_API_KEY'='%IBKR_API_KEY%'; 'FRED_API_KEY'='%FRED_API_KEY%'};" ^
+  "$vars = @{'DB_HOST'='%DB_HOST%'; 'DB_PORT'='%DB_PORT%'; 'DB_NAME'='%DB_NAME%'; 'DB_USER'='%DB_USER%'; 'DB_PASS'='%DB_PASS%'; 'DB_SCHEMA_VERSION'='v0.1.7'; 'RABBITMQ_URL'='%RABBITMQ_URL%'; 'API_GATEWAY_URL'='%API_GATEWAY_URL%'; 'ALPHA_VANTAGE_KEY'='%ALPHA_VANTAGE_KEY%'; 'BINANCE_API_KEY'='%BINANCE_API_KEY%'; 'BINANCE_API_SECRET'='%BINANCE_API_SECRET%'; 'IBKR_API_KEY'='%IBKR_API_KEY%'; 'FRED_API_KEY'='%FRED_API_KEY%'};" ^
   "if(!(Test-Path $envpath)){New-Item $envpath -ItemType File | Out-Null};" ^
   "$content = Get-Content $envpath;" ^
   "foreach($k in $vars.Keys){$pattern = '^' + [regex]::Escape($k) + '='; $replacement = \"$k=$($vars[$k])\"; if($content -match $pattern){$content = $content -replace $pattern + '.*', $replacement} else {$content += $replacement}};" ^

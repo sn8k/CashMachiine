@@ -1,4 +1,4 @@
-# Changelog v0.6.77
+# Changelog v0.6.78
 =======
 
 
@@ -258,3 +258,4 @@
 - setup_full.cmd now verifies database schema with `php admin\\db_check.php` after migrations and aborts on failure.
 - setup_full.cmd adds error-checked sections with rollback to drop the database, uninstall dependencies and stop containers; errors are logged to `logs\\setup_full.log`, and remove_full.cmd drops the database.
 - setup_full.cmd now applies warehouse migrations from `db/migrations/warehouse/*.sql` after core migrations.
+- Introduced `DB_SCHEMA_VERSION` (`v0.1.7`) in `.env.example`, propagated by `setup_full.cmd`, with documentation updates.
