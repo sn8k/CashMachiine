@@ -1,4 +1,4 @@
-# User Manual v0.6.62
+# User Manual v0.6.63
 =======
 
 
@@ -139,6 +139,9 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Tests use `# nosec` to bypass false positives and subprocess calls are validated.
 - The UI now runs on Next.js 14.2.32 following security advisories.
 
+## Risk Anomaly Detection
+- `risk-engine/anomaly.py` analyse `metrics_daily` via IsolationForest pour détecter des valeurs extrêmes.
+- Les anomalies sont enregistrées dans la table `risk_anomalies` puis un événement `risk_metric` déclenche une alerte via `alert-engine`.
 ## fx-service
 - Provides currency conversions using European Central Bank rates.
 - POST `/convert` with JSON `{ "from_currency": "USD", "to_currency": "EUR", "amount": 1.23 }`.

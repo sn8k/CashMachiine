@@ -1,4 +1,4 @@
-# Changelog v0.6.61
+# Changelog v0.6.62
 =======
 
 
@@ -233,3 +233,4 @@
 - Added `websocket-client` dependency and bumped environment setup scripts.
 - Logged WebSocket broadcast errors instead of silently ignoring them to satisfy security scan.
 - Added containerized strategy execution with signature verification, resource quotas and dedicated execution logs.
+- Introduced IsolationForest-based anomaly detection on `metrics_daily`, storing results in `risk_anomalies` and emitting alerts via `alert-engine`.

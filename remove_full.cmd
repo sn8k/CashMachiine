@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.2 (2025-08-20)
+rem remove_full.cmd v0.1.3 (2025-08-20)
 
 echo CashMachiine full removal
 
@@ -44,7 +44,7 @@ set /p DB_PASS="Enter database password: "
 
 echo Dropping tables...
 set PGPASSWORD=%DB_PASS%
-for %%T in (actions backtests metrics_daily risk_limits signals prices executions orders positions portfolios accounts goals users audit_events) do (
+for %%T in (actions backtests metrics_daily risk_anomalies risk_limits signals prices executions orders positions portfolios accounts goals users audit_events) do (
   echo Dropping %%T
   psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "DROP TABLE IF EXISTS %%T CASCADE;"
 )

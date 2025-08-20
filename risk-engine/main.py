@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""risk-engine service v0.4.5 (2025-08-19)"""
+"""risk-engine service v0.4.6 (2025-08-20)"""
 
 import argparse
 import json
@@ -17,7 +17,7 @@ from messaging import EventConsumer
 from engine import volatility_target
 from stress_tests import historical_scenario, hypothetical_scenario
 
-app = FastAPI(title="risk-engine", version="0.3.1")
+app = FastAPI(title="risk-engine", version="0.3.2")
 logger = setup_logging("risk-engine", remote_url=settings.remote_log_url)
 REQUEST_COUNT = setup_metrics("risk-engine", port=settings.risk_engine_metrics_port)
 tracer = setup_tracer("risk-engine")
@@ -28,7 +28,7 @@ async def add_version_header(request: Request, call_next):
     with tracer.start_as_current_span(request.url.path):
         response = await call_next(request)
     REQUEST_COUNT.inc()
-    response.headers["X-API-Version"] = "v0.3.1"
+    response.headers["X-API-Version"] = "v0.3.2"
     return response
 
 
@@ -90,7 +90,7 @@ def handle_event(message: dict) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="risk-engine consumer v0.4.5")
+    parser = argparse.ArgumentParser(description="risk-engine consumer v0.4.6")
     parser.add_argument("--install", action="store_true", help="Install risk-engine service")
     parser.add_argument("--remove", action="store_true", help="Remove risk-engine service")
     parser.add_argument(

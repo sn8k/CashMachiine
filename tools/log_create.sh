@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.29 (2025-08-20)
+# log directory creator v0.6.30 (2025-08-20)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -19,6 +19,7 @@ mkdir -p logs/ui
 mkdir -p logs/data-warehouse
 mkdir -p logs/kyc-service
 mkdir -p logs/alert-engine
+mkdir -p logs/risk-engine
 mkdir -p kyc-service/uploads
 mkdir -p strategy-engine/models
 mkdir -p strategy-marketplace/assets
@@ -30,6 +31,7 @@ touch logs/orchestrator.log
 touch logs/data-ingestion.log
 touch logs/strategy-engine.log
 touch logs/risk-engine.log
+touch logs/risk-engine/anomaly.log
 touch logs/execution-engine.log
 touch logs/messaging.log
 touch logs/feasibility-calculator.log

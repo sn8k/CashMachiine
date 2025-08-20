@@ -1,4 +1,3 @@
-"""risk-engine service v0.4.5 (2025-08-19)"""
-__version__ = "0.4.5"
+"""risk-engine service v0.4.6 (2025-08-20)"""
+__version__ = "0.4.6"
 
-from .engine import volatility_target, var_es, kelly_fraction

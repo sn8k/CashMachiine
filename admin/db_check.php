@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.16 (2025-08-20)
-$expectedVersion = 'v0.1.13';
+// db_check.php v0.1.17 (2025-08-20)
+$expectedVersion = 'v0.1.14';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
@@ -9,7 +9,7 @@ $user = getenv('DB_USER') ?: 'postgres';
 $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
-    'executions','prices','signals','actions','risk_limits','metrics_daily',
+    'executions','prices','signals','actions','risk_limits','metrics_daily','risk_anomalies',
     'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
@@ -133,6 +133,15 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
   foreach ($alertColumns as $col) {
       if (!in_array($col, $cols)) {
           echo "Missing column in alerts: $col\n";
+          exit(1);
+      }
+  }
+  $anomalyColumns = ['id','date','portfolio_id','metric','value','score','created_at'];
+  $stmt = $pdo->query("SELECT column_name FROM information_schema.columns WHERE table_name='risk_anomalies'");
+  $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
+  foreach ($anomalyColumns as $col) {
+      if (!in_array($col, $cols)) {
+          echo "Missing column in risk_anomalies: $col\n";
           exit(1);
       }
   }
