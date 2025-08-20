@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.33 (2025-02-14)
+# log directory creator v0.6.34 (2025-08-20)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -30,6 +30,7 @@ mkdir -p logs/whatif-service
 mkdir -p reports
 touch reports/.gitkeep
 touch logs/auth.log
+touch logs/setup_full.log
 touch logs/orchestrator.log
 touch logs/data-ingestion.log
 touch logs/strategy-engine.log

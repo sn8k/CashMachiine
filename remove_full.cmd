@@ -1,5 +1,34 @@
 @echo off
-rem remove_full.cmd v0.1.4 (2025-08-20)
+rem remove_full.cmd v0.1.5 (2025-08-20)
+
+set "SILENT=0"
+set "CONFIG_FILE="
+
+:parse_args
+if "%~1"=="" goto after_parse
+if /I "%~1"=="--silent" set "SILENT=1"
+if /I "%~1"=="--config" (
+  shift
+  set "CONFIG_FILE=%~1"
+)
+shift
+goto parse_args
+:after_parse
+
+set "DB_HOST=localhost"
+set "DB_PORT=5432"
+set "DB_NAME=cashmachiine"
+set "DB_USER=postgres"
+set "DB_PASS="
+
+if defined CONFIG_FILE (
+  if exist "%CONFIG_FILE%" (
+    for /f "usebackq tokens=1* delims==" %%A in ("%CONFIG_FILE%") do set "%%A=%%B"
+  ) else (
+    echo Config file %CONFIG_FILE% not found.
+    exit /b 1
+  )
+)
 
 echo CashMachiine full removal
 
@@ -32,15 +61,15 @@ if %ERRORLEVEL% neq 0 (
 )
 
 echo.
-set /p DB_HOST="Enter database host [localhost]: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_HOST="Enter database host [%DB_HOST%]: "
 if "%DB_HOST%"=="" set DB_HOST=localhost
-set /p DB_PORT="Enter database port [5432]: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_PORT="Enter database port [%DB_PORT%]: "
 if "%DB_PORT%"=="" set DB_PORT=5432
-set /p DB_NAME="Enter database name [cashmachiine]: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_NAME="Enter database name [%DB_NAME%]: "
 if "%DB_NAME%"=="" set DB_NAME=cashmachiine
-set /p DB_USER="Enter database user [postgres]: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_USER="Enter database user [%DB_USER%]: "
 if "%DB_USER%"=="" set DB_USER=postgres
-set /p DB_PASS="Enter database password: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_PASS="Enter database password: "
 
 echo Dropping tables...
 set PGPASSWORD=%DB_PASS%
