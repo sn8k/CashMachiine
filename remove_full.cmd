@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.14 (2025-08-21)
+rem remove_full.cmd v0.1.15 (2025-08-22)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -102,12 +102,8 @@ if %ERRORLEVEL%==0 (
 )
 
 echo Removing UI dependencies and build artifacts...
-if exist ui (
-  pushd ui
-  if exist node_modules rmdir /s /q node_modules
-  if exist .next rmdir /s /q .next
-  popd
-)
+if exist ui\node_modules rmdir /s /q ui\node_modules
+if exist ui\.next rmdir /s /q ui\.next
 
 if exist .env (
   echo Clearing service credentials from .env...
