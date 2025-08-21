@@ -1,4 +1,4 @@
-# Changelog v0.6.86
+# Changelog v0.6.87
 =======
 
 
@@ -279,3 +279,4 @@
 - Documented container usage in the user manual and bumped script and documentation versions.
 - Replaced plaintext database password prompts with a PowerShell secure input in `setup_full.cmd` and `remove_full.cmd`.
 - `setup_full.cmd` now dumps the existing database to `backups/` before applying migrations.
+- `setup_full.cmd` writes DB connection settings and `DB_SCHEMA_VERSION` to `.env`, `.env.example` includes this version, `remove_full.cmd` restores the sample `.env` and clears `DB_SCHEMA_VERSION`, and `admin/db_check.php` now expects schema `v0.1.7`.

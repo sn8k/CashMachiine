@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.21 (2025-08-21)
+rem setup_full.cmd v0.1.22 (2025-08-21)
 
 net session >nul 2>&1 || (echo Please run as administrator & exit /b 1)
 
@@ -35,6 +35,7 @@ set "DB_PORT=5432"
 set "DB_NAME=cashmachiine"
 set "DB_USER=postgres"
 set "DB_PASS="
+set "DB_SCHEMA_VERSION=v0.1.7"
 set "RABBITMQ_URL=amqp://guest:guest@localhost:5672/"
 set "API_GATEWAY_URL=http://localhost:8000"
 set "ALPHA_VANTAGE_KEY=demo"
@@ -175,7 +176,7 @@ if not exist .env (
 echo Updating .env with provided values...
 powershell -Command ^
   "$envpath='.env';" ^
-  "$vars = @{'DB_HOST'='%DB_HOST%'; 'DB_PORT'='%DB_PORT%'; 'DB_NAME'='%DB_NAME%'; 'DB_USER'='%DB_USER%'; 'DB_PASS'='%DB_PASS%'; 'DB_SCHEMA_VERSION'='v0.1.7'; 'RABBITMQ_URL'='%RABBITMQ_URL%'; 'API_GATEWAY_URL'='%API_GATEWAY_URL%'; 'ALPHA_VANTAGE_KEY'='%ALPHA_VANTAGE_KEY%'; 'BINANCE_API_KEY'='%BINANCE_API_KEY%'; 'BINANCE_API_SECRET'='%BINANCE_API_SECRET%'; 'IBKR_API_KEY'='%IBKR_API_KEY%'; 'FRED_API_KEY'='%FRED_API_KEY%'};" ^
+  "$vars = @{'DB_HOST'='%DB_HOST%'; 'DB_PORT'='%DB_PORT%'; 'DB_NAME'='%DB_NAME%'; 'DB_USER'='%DB_USER%'; 'DB_PASS'='%DB_PASS%'; 'DB_SCHEMA_VERSION'='%DB_SCHEMA_VERSION%'; 'RABBITMQ_URL'='%RABBITMQ_URL%'; 'API_GATEWAY_URL'='%API_GATEWAY_URL%'; 'ALPHA_VANTAGE_KEY'='%ALPHA_VANTAGE_KEY%'; 'BINANCE_API_KEY'='%BINANCE_API_KEY%'; 'BINANCE_API_SECRET'='%BINANCE_API_SECRET%'; 'IBKR_API_KEY'='%IBKR_API_KEY%'; 'FRED_API_KEY'='%FRED_API_KEY%'};" ^
   "if(!(Test-Path $envpath)){New-Item $envpath -ItemType File | Out-Null};" ^
   "$content = Get-Content $envpath;" ^
   "foreach($k in $vars.Keys){$pattern = '^' + [regex]::Escape($k) + '='; $replacement = \"$k=$($vars[$k])\"; if($content -match $pattern){$content = $content -replace $pattern + '.*', $replacement} else {$content += $replacement}};" ^
