@@ -1,4 +1,4 @@
-# Changelog v0.6.92
+# Changelog v0.6.93
 =======
 
 
@@ -287,6 +287,7 @@
 
 ## 2025-08-22
 - `install_db.sh` now applies warehouse schema migrations from `db/migrations/warehouse/*.sql` after core migrations.
+- `install_db.sh` now runs `php admin\db_check.php` after migrations and aborts on failure.
 - Updated script versions and user manual for warehouse migration support.
 - `setup_full.cmd` now runs `npm install` then `npm run build` within the `ui` directory to build the frontend.
 - `remove_full.cmd` now cleans up `ui\\node_modules` and `ui\\.next` during teardown.
