@@ -1,4 +1,4 @@
-# Changelog v0.6.93
+# Changelog v0.6.94
 =======
 
 
@@ -291,3 +291,4 @@
 - Updated script versions and user manual for warehouse migration support.
 - `setup_full.cmd` now runs `npm install` then `npm run build` within the `ui` directory to build the frontend.
 - `remove_full.cmd` now cleans up `ui\\node_modules` and `ui\\.next` during teardown.
+- Renamed seed SQL files for admin and demo data to 2025-08-22 versions and improved admin verification; setup_full.cmd usage updated and optional seeding documented.

@@ -1,4 +1,4 @@
-# User Manual v0.6.95
+# User Manual v0.6.96
 =======
 
 
@@ -28,7 +28,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
 - Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; run it with administrator privileges. It now records service URLs and API keys in `.env`, invokes `tools\\log_create_win.cmd` at startup, runs `npm install` then `npm run build` within `ui` to build the frontend. The script rolls back on any failure by dropping the database, uninstalling dependencies and stopping containers while logging errors to `logs\setup\setup_full.log`. Use `--silent` to accept defaults, `--config <file>` to supply answers, or `--seed` to execute SQL seed files without prompting. All output is logged to `logs\setup\setup_full.log`. Use `remove_full.cmd` with the same flags to uninstall, remove the virtual environment directory, drop the database, purge these credentials, restore `.env` from `.env.example`, delete UI `node_modules` and `.next` directories, stop and remove the TimescaleDB container, and uninstall Python, pip, PostgreSQL, Docker Desktop and Node.js via Chocolatey. Both scripts capture the database password with a PowerShell `Read-Host -AsSecureString` prompt instead of `set /p`, hiding the input.
 - After base migrations, `setup_full.cmd` applies warehouse schema migrations from `db/migrations/warehouse/*.sql`.
-- After migrations, `setup_full.cmd` can optionally execute seed SQL files from `db/seeds/*.sql` (admin user, demo accounts) to populate sample data.
+- After migrations, `setup_full.cmd` can optionally execute seed SQL files from `db/seeds/*.sql` (admin user, demo users and demo accounts) to populate sample data.
 - The script then verifies the database schema with `php admin\\db_check.php` and aborts if inconsistencies are found.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.

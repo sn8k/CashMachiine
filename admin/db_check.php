@@ -1,5 +1,5 @@
 <?php
-// db_check.php v0.1.22 (2025-08-21)
+// db_check.php v0.1.23 (2025-08-22)
 $expectedVersion = 'v0.1.7';
 $dbname = getenv('DB_NAME') ?: 'cashmachiine';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
@@ -210,11 +210,13 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
       echo "Missing demo data in demo_accounts\n";
       exit(1);
   }
-  $adminCount = $pdo->query("SELECT COUNT(*) FROM users WHERE role='admin'")->fetchColumn();
-  if ($adminCount == 0) {
-      echo "Missing admin user\n";
-      exit(1);
-  }
+    $adminEmail = 'admin@cashmachiine.local';
+    $adminStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email=? AND role='admin'");
+    $adminStmt->execute([$adminEmail]);
+    if ($adminStmt->fetchColumn() == 0) {
+        echo "Missing admin user: $adminEmail\n";
+        exit(1);
+    }
   $schemaVersion = getenv('DB_SCHEMA_VERSION') ?: 'unknown';
 if ($schemaVersion !== $expectedVersion) {
     echo "Schema version mismatch: expected $expectedVersion, got $schemaVersion\n";
