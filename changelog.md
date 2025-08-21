@@ -1,4 +1,4 @@
-# Changelog v0.6.83
+# Changelog v0.6.84
 =======
 
 
@@ -274,3 +274,4 @@
 - `remove_full.cmd` stops and removes this TimescaleDB container during cleanup.
 - Documented container usage in the user manual and bumped script and documentation versions.
 - Replaced plaintext database password prompts with a PowerShell secure input in `setup_full.cmd` and `remove_full.cmd`.
+- `setup_full.cmd` now dumps the existing database to `backups/` before applying migrations.
