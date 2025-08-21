@@ -1,4 +1,4 @@
-# User Manual v0.6.91
+# User Manual v0.6.98
 =======
 
 
@@ -11,21 +11,24 @@ This document will evolve into a comprehensive encyclopedia for the project.
 
 ## Installation
 - Prerequisites:
+  - Chocolatey
+  - PowerShell
   - Python
   - pip
-  - PostgreSQL `psql`
+  - PHP
+  - Node.js and npm
+  - PostgreSQL `psql` and `pg_dump`
   - Docker
-  - Node.js
-- `setup_full.cmd` checks for these tools, prompts for database, RabbitMQ, API Gateway and API keys, writing values to `.env`, and opens download pages if any are missing. If `psql` or TimescaleDB is unavailable, it pulls and starts a `timescale/timescaledb` container with your credentials. Before applying migrations it dumps the current database to `backups/`. The script writes all output to `logs\\setup_full.log` and accepts a `--silent` flag or `--config <file>` to skip prompts. After prompts it creates `.env` if missing, replaces database placeholders with the provided values, creates the database role if needed and grants it privileges on the target database.
+- `setup_full.cmd` verifies administrator privileges with `net session >nul 2>&1`, checks for these tools with `where`, installs any missing ones via Chocolatey or aborts with guidance, then prompts for database, RabbitMQ, API Gateway and API keys, writing values to `.env` (including `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` and `DB_SCHEMA_VERSION`). If `psql` or TimescaleDB is unavailable, it pulls and starts a `timescale/timescaledb` container with your credentials. Before applying migrations it dumps the current database to `backups/`. The script writes all output to `logs\setup_full.log` and accepts a `--silent` flag or `--config <file>` to skip prompts. After prompts it creates `.env` if missing, replaces database placeholders with the provided values, creates the database role if needed and grants it privileges on the target database.
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY` and `FRED_API_KEY`.
 - `DB_SCHEMA_VERSION` records the expected database schema revision (`v0.1.7`) checked by `admin/db_check.php`.
 - Configure OAuth token endpoints via `GOOGLE_TOKEN_URL` and `GITHUB_TOKEN_URL` if overriding defaults.
 - Set `KYC_HOST` to control the bind address of the KYC service (defaults to `127.0.0.1`).
 - Run `./setup_env.sh` (Linux/Mac) or `setup_env.cmd` (Windows) to install Python dependencies; the Windows script now invokes `tools\\log_create_win.cmd` to create log directories.
 - Use `./remove_env.sh` or `remove_env.cmd` to uninstall these dependencies.
-- Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; it now records service URLs and API keys in `.env`, invokes `tools\\log_create_win.cmd` at startup, installs UI dependencies and builds the frontend. The script rolls back on any failure by dropping the database, uninstalling dependencies and stopping containers while logging errors to `logs\setup_full.log`. Use `--silent` to accept defaults, `--config <file>` to supply answers, or `--seed` to execute SQL seed files without prompting. All output is logged to `logs\setup_full.log`. Use `remove_full.cmd` with the same flags to uninstall, remove the environment, drop the database, purge these credentials, delete UI `node_modules` and `.next` directories, and stop and remove the TimescaleDB container. Both scripts capture the database password with a PowerShell `Read-Host -AsSecureString` prompt instead of `set /p`, hiding the input.
+- Run `setup_full.cmd` for an interactive Windows setup including database creation and a Python virtual environment; run it with administrator privileges. It now records service URLs and API keys in `.env`, invokes `tools\\log_create_win.cmd` at startup, runs `npm install` then `npm run build` within `ui` to build the frontend. The script rolls back on any failure by dropping the database, uninstalling dependencies and stopping containers while logging errors to `logs\setup_full.log`. Use `--silent` to accept defaults, `--config <file>` to supply answers, or `--seed` to execute SQL seed files without prompting. All output is logged to `logs\setup_full.log`. Use `remove_full.cmd` with the same flags to uninstall, remove the virtual environment directory, drop the database, purge these credentials, restore `.env` from `.env.example`, delete UI `node_modules` and `.next` directories, remove the `backups` directory, stop and remove the TimescaleDB container, and uninstall Python, pip, PostgreSQL, Docker Desktop and Node.js via Chocolatey. Both scripts capture the database password with a PowerShell `Read-Host -AsSecureString` prompt instead of `set /p`, hiding the input.
 - After base migrations, `setup_full.cmd` applies warehouse schema migrations from `db/migrations/warehouse/*.sql`.
-- After migrations, `setup_full.cmd` can optionally execute seed SQL files from `db/seeds/*.sql` (admin user, demo accounts) to populate sample data.
+- After migrations, `setup_full.cmd` can optionally execute seed SQL files from `db/seeds/*.sql` (admin user, demo users and demo accounts) to populate sample data.
 - The script then verifies the database schema with `php admin\\db_check.php` and aborts if inconsistencies are found.
 - Each service provides `install.sh` and `remove.sh` scripts.
 - Each service now ships with its own `requirements.txt` for Docker builds.
@@ -35,8 +38,8 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Mobile dependencies install with `mobile/install.sh` and remove with `mobile/remove.sh`; build logs output to `logs/mobile/`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
-- Setup scripts wait for Docker containers to report healthy status and roll back if any container fails.
-- Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
+- Setup scripts wait for Docker containers to report healthy status using `docker compose ps --format '{{.Service}} {{.Status}}'` and roll back if any container fails to reach `running (healthy)`.
+- Run `./install_db.sh` to apply core migrations and then warehouse migrations from `db/migrations/warehouse/*.sql`; the script enables TimescaleDB, converts `prices` to a hypertable, and runs `php admin\db_check.php` to validate the schema, aborting on any failure.
 - Create PostgreSQL dumps with `tools/db_backup.sh --retention <days>` (default 7) which stores files under `backups/` and prunes old ones.
 - Restore a dump via `tools/db_restore.sh <dump_file>`.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.

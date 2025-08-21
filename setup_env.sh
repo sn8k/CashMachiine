@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup_env.sh v0.2.4 (2025-08-21)
+# setup_env.sh v0.2.5 (2025-08-21)
 
 set -e
 
@@ -19,14 +19,14 @@ wait_for_healthy() {
   local elapsed=0
   while [ "$elapsed" -lt "$timeout" ]; do
     local status
-    status=$(docker compose ps --format '{{.Service}} {{.State}}' 2>/dev/null || docker-compose ps --format '{{.Service}} {{.State}}')
+    status=$(docker compose ps --format '{{.Service}} {{.Status}}' 2>/dev/null || docker-compose ps --format '{{.Service}} {{.Status}}')
     echo "$status"
-    if echo "$status" | grep -q "unhealthy"; then
-      echo "Detected unhealthy container" >&2
+    if echo "$status" | grep -q "unhealthy\|exited"; then
+      echo "Detected unhealthy or exited container" >&2
       rollback
       exit 1
     fi
-    if echo "$status" | grep -qv "healthy"; then
+    if echo "$status" | grep -qv "running" || echo "$status" | grep -q "starting"; then
       sleep "$interval"
       elapsed=$((elapsed + interval))
       continue

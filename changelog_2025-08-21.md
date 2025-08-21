@@ -1,10 +1,299 @@
-# Changelog v0.6.84
+# Changelog v0.6.96
+=======
 
+
+## 2025-01-14
+- Added Playwright end-to-end tests under `tests/e2e` for UI and API flows.
+- Reports now output to `tests/e2e/reports/` with log scripts and `.gitignore` updated.
+- Introduced `@playwright/test` dependency and Python `playwright` entry.
+- Extended CI pipeline with an `e2e` job executing Playwright tests.
+- Documented end-to-end testing in user manuals and created `user_manual_2025-01-14.md`.
+
+## 2025-02-14
+- Introduced user manual revision with installation, usage, architecture and troubleshooting sections.
+- Cross-linked README and user manual.
+- Bumped README to v0.1.1 and user manual/changelog to v0.6.0.
+- Added optional demo data seeding via `setup_full.cmd` applying `db/seeds/*.sql` and validating with `admin/db_check.php`; log creation scripts, user manual and versions updated.
+
+## 2025-08-19
+- Added shared monitoring utilities providing JSON logging, Prometheus metrics and OpenTelemetry traces.
+- Centralized logs under `logs/` with optional remote sink.
+- Integrated monitoring into api-gateway, orchestrator and risk-engine services.
+- Updated log creation scripts and `.gitignore` for new log paths.
+- Documented monitoring setup in user manual.
+- Added Prometheus and OpenTelemetry dependencies.
+- Initialized Next.js UI with Tailwind pages for goal creation and daily actions referencing api-gateway.
+- Removed binary UI screenshots and ignored image assets to comply with repository policy.
+- Introduced GitHub Actions workflow running lint, tests and service image builds.
+- Added CI status badges to README.
+- Documented CI usage in user manuals.
+- Introduced centralized configuration package loading `.env` files and environment variables.
+- Added `.env.example` and referenced it in environment setup scripts.
+- Updated services to consume `config` values instead of hard-coded constants.
+- Added `python-dotenv` dependency.
+- Introduced Redis cache infrastructure module with helpers.
+- Added Redis-backed rate limiting middleware to api-gateway.
+- Updated configuration, environment samples and documentation for Redis settings.
+- Added `redis` and `fakeredis` dependencies.
+- Added RabbitMQ-based messaging package with producers and consumers.
+- Orchestrator now publishes events to the bus; data-ingestion consumes them.
+- Added broker installer scripts and `pika` dependency with configuration.
+
+## 2025-08-21
+- Setup script automatically installs missing prerequisites via Chocolatey with explanatory messages.
+- `remove_full.cmd` now uninstalls Python, pip, PostgreSQL, Docker Desktop and Node.js.
+- Bumped `setup_full.cmd` to v0.1.20 and `remove_full.cmd` to v0.1.11 with documentation updates.
+- `setup_full.cmd` now checks for administrator privileges and exits if not run as administrator.
+- Setup scripts now wait for Docker containers to become healthy and roll back on failure.
+- Added Dockerfiles for all services with version headers.
+- Introduced root docker-compose.yml wiring services, database, cache and message bus.
+- Updated setup/remove scripts to invoke `docker-compose up` and `docker-compose down`.
+- Added data-warehouse module with nightly ETL and warehouse schema migrations.
+- Logged ETL runs under `logs/data-warehouse/` and updated log creation scripts.
+- Created warehouse migrations and updated `admin/db_check.php` for new tables.
+- Updated root requirements with SQLAlchemy and refreshed documentation.
+- Extended log creation scripts to include container log directories.
+- Added Bandit and `npm audit` security scans to CI with automatic dependency alerts.
+- Added Bandit dependency and UI `audit` script.
+- Documented security policies in user manuals.
+- Added analytics endpoint in api-gateway aggregating observability and database metrics.
+- Created UI analytics dashboard fetching metrics from backend.
+- Mirrored analytics SQL checks in `admin/db_check.php`.
+- Extended log creation scripts for analytics logs.
+- Updated documentation and README for analytics features.
+
+- Introduced pytest-benchmark scripts for api-gateway and strategy-engine.
+- Stored benchmark results under `perf/` and updated log creation scripts.
+ Added Prometheus latency metrics via `setup_performance_metrics`.
+ Documented benchmarking and metrics in user manual.
+ Added `pytest-benchmark` dependency and ignored `perf/` artifacts.
+- Marked development tasks as completed and linked documentation in user manuals.
+
+- Implemented goals, actions and orders endpoints with a repository layer and admin-only mutations, and documented new APIs.
+
+- Scheduled orchestrator pipeline dispatching `data_fetch`, `strategy_compute`, `risk_adjust` and `order_dispatch` events.
+- Added EventConsumer entrypoints for strategy-engine, risk-engine and execution-engine.
+- Renamed data-ingestion handler to `data_fetch`.
+- Extended log creation scripts for new service log files.
+- Bumped service versions and updated user manual for the event-driven workflow.
+- Fixed service consumer imports by dropping hyphenated module paths.
+- Addressed Bandit warnings with safe subprocess calls, test skips, and enhanced logging.
+
+- Upgraded Next.js to 14.2.32 to resolve audit vulnerabilities and added a dedicated
+  `messaging.log` path with version bumps across orchestrator and dependent services.
+
+- Added per-service `requirements.txt` files with updated Dockerfiles and install scripts to eliminate build warnings.
+ - Added Alpha Vantage bond and commodity fetchers with message bus integration.
+ - Enabled TimescaleDB extension and converted `prices` to a hypertable with migration and schema checks.
+ - Updated install script and documentation for TimescaleDB.
+
+- Implemented real broker adapters using config-driven API keys and robust error handling.
+- Order handler now stores orders and executions in the database with Redis caching.
+- Updated log creation scripts and `.gitignore` for execution-engine order logs.
+- Added unit tests for adapters and order handler using mocked requests and fakeredis.
+
+- Introduced Terraform infrastructure modules for database, cache, message bus and services.
+- Added `setup_tf.sh` and `teardown_tf.sh` with state and plan logs stored under `infra/terraform/logs/`.
+- Extended log creation scripts and `.gitignore` for Terraform logs.
+- Documented deployment procedure in user manuals.
+
+- Added action checkboxes with status updates and feedback on the UI daily actions page.
+- Rendered Chart.js metrics on the analytics dashboard with localized strings.
+- Introduced Chart.js dependency and locale management scripts in `package.json`.
+- Bumped locale installer scripts for updated translation assets.
+- Documented new UI features and scripts in user manual.
+- Silenced npm http-proxy warning in UI tests via `.npmrc` loglevel setting.
+
+- Unified monitoring across order handler, data-ingestion and backtester with logging, metrics and tracing.
+- Added Prometheus ports `9003` (execution-engine), `9004` (data-ingestion) and `9005` (backtester) with configuration entries.
+- Extended log creation scripts for backtester logs.
+- Documented new metrics endpoints in the user manual.
+- Updated development tasks with new deliverables from the README and bumped README to v0.1.5 with current date linkage.
+- Replaced insecure asserts in execution-engine tests and bound feasibility-calculator to localhost to satisfy Bandit.
+- Added historical and hypothetical stress test endpoint `/risk/stress` with persistence, migrations and documentation.
+
+- `setup_full.cmd` now ensures the database role exists and grants it privileges on the target database; `admin/db_check.php` verifies the role and permissions.
+
+- Scaffolded `notification-service` with `/notify/email` and `/notify/webhook` endpoints, RabbitMQ consumer,
+ log directory, installer scripts and `notifications` table migration with schema checks.
+
+- Made notification-service bind host configurable via environment variables to satisfy Bandit.
+- Added database backup and restore scripts with configurable retention policy.
+- Scheduled daily 02:00 backups via orchestrator and documented usage.
+- Created `backups/` directory with log scripts and `.gitignore` updates.
+
+- Scaffolded `strategy-marketplace` service with CRUD endpoints for uploaded strategies.
+- Added `strategies` and `strategy_reviews` tables with migrations and schema checks.
+- Stored uploaded strategy files under `strategy-marketplace/assets/` with dedicated log directory.
+- Updated log creation scripts, `.gitignore` and documentation for the new service and installer scripts.
+
+- Initialized React Native mobile app with install/remove scripts and build logging.
+- Enabled PWA support in Next.js UI with service worker, manifest and offline cache.
+- Added `logs/mobile/` path to log creation scripts for mobile build artifacts.
+- Documented mobile and PWA features in user manuals.
+- Reviewed development tasks, marking feasibility calculator, action UI export and backtester HTML reports as complete with cross-references in user manuals.
+- Reconciled `development_tasks` with dated logs, adding deliverables for feasibility calculator documentation and backtester benchmarking.
+- Updated user manuals with notes on feasibility calculator integration and backtester performance plans.
+- Replaced `set /p` database password prompts in Windows setup scripts with a PowerShell secure prompt.
+- `setup_full.cmd` now runs `tools\\log_create_win.cmd` at startup and logs to `logs/setup/setup_full.log`; log creation scripts and user manual updated.
+
+## 2025-08-18
+- Added initial development tasks outline.
+- Initialized user manual skeleton.
+- Created first changelog entry.
+- Scaffolded service directories with versioned bootstraps and scripts.
+- Added .gitignore for build artifacts and volatile paths.
+- Expanded user manual with service overview.
+- Added requirements.txt with runtime and development dependencies.
+- Introduced setup_env and remove_env scripts for Linux/Mac and Windows.
+- Documented installer usage in user manuals.
+- Added initial database schema migrations.
+- Introduced admin/db_check.php for schema validation.
+- Added install_db.sh and remove_db.sh scripts.
+- Documented database setup in user manuals.
+- Added FastAPI API gateway with JWT auth, role checks, version header, install scripts, tests, and updated requirements.
+- Introduced orchestrator scheduler with APScheduler for daily 08:00 Europe/Paris jobs and configurable logging.
+- Added log creation scripts for orchestrator logs.
+- Updated user manual with scheduling details.
+- Added APScheduler dependency to requirements.
+- Updated orchestrator install/remove scripts to v0.3.0.
+- Introduced modular Yahoo equities and Binance crypto fetchers with normalized OHLCV and DB storage.
+- Added yfinance, ccxt and psycopg2-binary dependencies with installer updates.
+- Extended log creation scripts and .gitignore for data-ingestion logs.
+- Enhanced admin/db_check.php to validate `prices` table columns.
+- Expanded user manual with data-ingestion fetcher usage.
+- Added base Strategy interface with `signals()` and `target_weights()` methods.
+- Introduced example `CoreStrategy` and `SatelliteStrategy` with unit-test stubs.
+- Updated strategy-engine install/remove scripts to v0.3.0.
+- Bumped requirements.txt to v0.2.4.
+- Implemented risk-engine utilities for volatility targeting, VaR/ES limits, and Kelly caps with REST endpoint.
+- Added strategy-engine client for risk service and tests for risk calculations.
+- Updated risk-engine install/remove scripts to v0.3.0 and added log directories with script updates.
+- Added numpy dependency and bumped requirements to v0.2.5.
+- Expanded user manual with risk-engine usage and bumped to v0.5.4.
+- Introduced broker-agnostic order handler with pluggable IBKR and Binance adapters.
+- Logged orders in structured JSON and added execution-engine log directory.
+- Updated log creation scripts and execution-engine install/remove to v0.3.0.
+- Added execution-engine logs to .gitignore.
+- Expanded user manual with execution-engine order handling and bumped to v0.5.5.
+- Added backtester CLI for HTML reports with install/remove commands, tests, and report directories.
+- Updated user manual and log creation scripts; ignored report outputs.
+
+- Implemented database-driven price loading and portfolio simulation in backtester CLI with KPI charts.
+- Stored backtest metrics in the `backtests` table and expanded schema checks.
+- Added pandas and matplotlib dependencies with version bumps and updated tests and user manual.
+- Introduced RandomForest-based price forecasting with model storage under `strategy-engine/models/` and scikit-learn dependency.
+
+- Added fx-service for ECB-based FX conversions with `/convert` endpoint.
+- Introduced `currency` columns on `accounts`, `orders`, `positions` and `executions` with migration and schema checks.
+- Registered fx-service in docker-compose and log scripts.
+- Documented currency conversion usage and bumped requirements.
+
+## 2025-08-20
+- Added Next.js internationalization with French default and English fallback locales.
+- Externalized UI strings to translation files with locale install/remove scripts.
+- Documented localization setup in user manuals.
+- Added `requirements.txt` for backtester and bumped service to v0.3.2 fixing Docker builds.
+- Added feasibility-calculator FastAPI service with `/feasibility` endpoint for CAGR, daily returns and probability-of-hitting calculations.
+- Registered feasibility-calculator in docker-compose and log creation scripts and updated requirements and user manual.
+- Introduced multi-tenant support with `tenant_id` columns on `users`, `goals` and `orders` tables.
+- Extended JWT payloads and API gateway RBAC to enforce tenant scoping.
+- Updated services to persist and query data by `tenant_id`.
+- Documented tenant scoping in user manuals and bumped service versions.
+- Introduced Monte Carlo simulation utilities in strategy-engine with probability-of-hitting calculations.
+- Added interactive Windows installer `setup_full.cmd` with SQL database creation and `remove_full.cmd` for teardown; documented in user manual.
+- Core and satellite strategies now derive signals from market data, adjust risk via the risk engine, and justify allocations through `explain()`.
+- Extended strategy interface with `explain()` and added tests and documentation for dynamic weights.
+
+- Added broker fee and tax calculations with DB columns and net order metrics returned by api-gateway.
+- Added audit-log service capturing domain events in `audit_events` with producer helpers and replay docs.
+- Implemented service workers and localStorage caches in mobile and UI.
+- Integrated push notifications via notification-service and client APIs.
+- Updated install scripts and log creation scripts for new components.
+- Added intraday threshold monitoring in orchestrator publishing `volatility_alert` and `drawdown_alert` events to strategy-engine and execution-engine, with audit-log recording all alerts.
+- Exposed intraday thresholds via configuration and documented usage.
+- Added Uniswap DeFi price fetcher and trade adapter with Web3 dependency, installer version bumps and new execution-engine logs; documented DeFi support in user manuals.
+- Introduced reinforcement learning allocation optimizer using Stable Baselines3 with models saved under `strategy-engine/models/` and integrated `optimize_allocation` into the strategy workflow; updated log scripts and documentation.
+- Scaffolded `kyc-service` FastAPI app for document uploads and status checks with Dockerfile, installers and log directories.
+- Added ECB and FRED macro indicator fetchers with base support.
+- Created `macro_indicators` table with migration and schema checks.
+- Introduced `macro-service` exposing latest macro indicators.
+ - Updated configuration for FRED API key and metrics port.
+ - Added `--silent` and `--config` options to `setup_full.cmd` and `remove_full.cmd`, redirecting output to `logs/setup_full.log`.
+ - Updated log creation scripts to create `logs/setup_full.log` and documented usage in user manual.
+- Added install scripts, requirements and log paths for macro-service.
+- Added `kyc_level` column migration on `users` with schema check updates and bumped expected DB version.
+- Wired API gateway onboarding endpoints to proxy uploads and status queries to kyc-service.
+- Expanded log creation scripts, docker-compose, environment samples, requirements and manuals for KYC integration.
+- Added Locust performance tests for api-gateway and strategy-engine with CI integration and reports under `perf/`.
+- Fixed Uniswap DeFi fetcher GraphQL query and updated documentation.
+- Implemented OAuth2/OIDC login with Google and GitHub plus TOTP-based 2FA with backup codes.
+- Added migration and schema checks for new auth columns and refreshed installers and requirements.
+- Logged authentication events and updated log creation scripts and documentation.
+- Moved OAuth token endpoints to configuration, replaced test asserts with explicit checks, and made KYC service host configurable.
+- Ensured performance script launches API gateway before Locust runs to avoid connection errors.
+- Added prerequisite checks for Python, pip, psql, Docker and Node in `setup_full.cmd` and `remove_full.cmd` with documentation in the user manual.
+- Introduced whatif-service with `/scenarios/run` and `/scenarios/{id}` endpoints storing results in a new `scenario_results` table.
+- Added migration and admin schema checks for `scenario_results`.
+- Added a UI page to trigger scenarios via the service.
+- Updated log creation scripts and bumped service versions to `v0.3.1`.
+- Updated Playwright end-to-end tests to run offline using local mock servers.
+- Raised `RATE_LIMIT_PER_MINUTE` to `1000` during Locust performance tests to avoid 429 errors.
+- Fixed strategy-engine Locust test to use `events.request` instead of removed `request_success` hook.
+- Launched risk-engine on a dedicated port during performance tests and added health checks to prevent connection errors.
+- Made monitoring dependencies optional so risk-engine starts without Prometheus or OpenTelemetry.
+- Performance script now fails fast if risk-engine health check fails.
+- Replaced Stable Baselines3 optimizer with a lightweight heuristic in `rl_optimizer.py` and updated tests and documentation.
+
+
+- Added alert-engine service consuming risk metrics and forwarding alerts to notification-service.
+- Created alerts table with migration and schema checks in admin/db_check.php.
+- Exposed /alerts/subscribe in api-gateway and added UI subscription page.
+- Updated log creation scripts for alert-engine outputs.
+- Added `/ws` WebSocket endpoint in api-gateway streaming action, order and metrics events.
+- UI consumes WebSocket feed to refresh daily actions, goal orders and analytics metrics in real time.
+- Added `websocket-client` dependency and bumped environment setup scripts.
+- Logged WebSocket broadcast errors instead of silently ignoring them to satisfy security scan.
+- Added containerized strategy execution with signature verification, resource quotas and dedicated execution logs.
+- Introduced reporting utility using WeasyPrint to generate PDF summaries of actions, orders, KYC and metrics under `reports/` with install/remove options and updated log scripts, requirements and manuals.
+- Reviewed development tasks, marked completed feasibility integration, added WebSocket reconnection and alert-engine documentation tasks, and updated user manual references.
+- setup_full.cmd now creates and activates a Python virtual environment before installing dependencies.
+- remove_full.cmd now removes the virtual environment during teardown.
+- Documented virtual environment usage in user manuals and bumped script versions.
+- Added interactive prompts for RabbitMQ, API Gateway and API keys in setup_full.cmd with .env updates; remove_full.cmd now purges these credentials.
+- setup_env.cmd and setup_full.cmd now invoke `tools\\log_create_win.cmd` at startup to create log directories.
+- Added IsolationForest-based anomaly detection persisting anomalies in `risk_anomalies` and emitting `risk_anomaly` events to alert-engine with migration, schema checks, log script and documentation updates.
+- Hardened randomness and subprocess usage in orchestrator, reporting and strategy-marketplace to satisfy Bandit security checks.
+- setup_full.cmd now creates or updates `.env` immediately after prompts, replacing database placeholders, and remove_full.cmd clears these `.env` entries; versions bumped.
+- setup_full.cmd now installs UI dependencies and builds the Next.js frontend while remove_full.cmd deletes `ui` node_modules and `.next` directories.
+- setup_full.cmd now verifies database schema with `php admin\\db_check.php` after migrations and aborts on failure.
+- setup_full.cmd adds error-checked sections with rollback to drop the database, uninstall dependencies and stop containers; errors are logged to `logs\\setup_full.log`, and remove_full.cmd drops the database.
+- setup_full.cmd now applies warehouse migrations from `db/migrations/warehouse/*.sql` after core migrations.
+- Introduced `DB_SCHEMA_VERSION` (`v0.1.7`) in `.env.example`, propagated by `setup_full.cmd`, with documentation updates.
+- Added SQL seed files `001_admin_user_2025-08-20.sql` and `002_demo_data_2025-08-20.sql`.
+- setup_full.cmd gains an optional `--seed` flag to execute seed files after migrations.
+- admin/db_check.php now verifies the admin user and seed tables.
+- log creation scripts create the `db/seeds` directory.
+- user manual and changelog updated accordingly.
 ## 2025-08-21
 - `setup_full.cmd` now detects missing `psql` or TimescaleDB and launches a `timescale/timescaledb` container with the provided credentials.
 - `remove_full.cmd` stops and removes this TimescaleDB container during cleanup.
 - Documented container usage in the user manual and bumped script and documentation versions.
 - Replaced plaintext database password prompts with a PowerShell secure input in `setup_full.cmd` and `remove_full.cmd`.
 - `setup_full.cmd` now dumps the existing database to `backups/` before applying migrations.
-- Setup scripts now wait for Docker containers to become healthy and roll back on failure.
-- `setup_full.cmd` now ensures the database role exists and grants it privileges on the target database; `admin/db_check.php` verifies the role and permissions.
+- `setup_full.cmd` writes DB connection settings and `DB_SCHEMA_VERSION` to `.env`, `.env.example` includes this version, `remove_full.cmd` restores the sample `.env` and clears `DB_SCHEMA_VERSION`, and `admin/db_check.php` now expects schema `v0.1.7`.
+- `setup_full.cmd` verifies Chocolatey, PowerShell, PHP, Node.js, npm, `psql` and `pg_dump` with `where`, installing missing tools via Chocolatey or exiting with guidance; documentation updated and versions bumped.
+- `remove_full.cmd` now removes the Python virtual environment directory using a script-relative path; user manual updated.
+
+- `setup_full.cmd` now writes output to `logs\\setup_full.log`, validates database backup success, and aborts with cleanup on failure.
+- `remove_full.cmd` deletes the `backups` directory during teardown.
+- Log creation scripts updated for the new log location.
+- Refined setup_env scripts to monitor container status via `docker compose ps --format '{{.Service}} {{.Status}}'` and roll back if containers fail to reach `running (healthy)`.
+
+## 2025-08-22
+- `install_db.sh` now applies warehouse schema migrations from `db/migrations/warehouse/*.sql` after core migrations.
+- `install_db.sh` now runs `php admin\db_check.php` after migrations and aborts on failure.
+- Updated script versions and user manual for warehouse migration support.
+- `setup_full.cmd` now runs `npm install` then `npm run build` within the `ui` directory to build the frontend.
+- `remove_full.cmd` now cleans up `ui\\node_modules` and `ui\\.next` during teardown.
+- Renamed seed SQL files for admin and demo data to 2025-08-22 versions and improved admin verification; setup_full.cmd usage updated and optional seeding documented.
