@@ -1,6 +1,6 @@
 @echo off
-rem setup_full.cmd v0.1.28 (2025-08-21)
-rem Usage: setup_full.cmd [--silent] [--config <file>] [--seed]
+rem setup_full.cmd v0.1.29 (2025-08-21)
+rem Usage: setup_full.cmd [--silent] [--config=<file>] [--seed]
 
 set LOG_FILE=logs\setup_full.log
 call tools\log_create_win.cmd
@@ -25,12 +25,17 @@ net session >nul 2>&1 || (echo Administrator privileges required. Please run as 
 
 :parse_args
 if "%~1"=="" goto after_parse
-if /I "%~1"=="--silent" set "SILENT=1"
-if /I "%~1"=="--config" (
+set "ARG=%~1"
+if /I "%ARG%"=="--silent" (
+  set "SILENT=1"
+) else if /I "%ARG%"=="--seed" (
+  set "RUN_SEEDS=Y"
+) else if /I "%ARG:~0,9%"=="--config=" (
+  set "CONFIG_FILE=%ARG:~9%"
+) else if /I "%ARG%"=="--config" (
   shift
   set "CONFIG_FILE=%~1"
 )
-if /I "%~1"=="--seed" set "RUN_SEEDS=Y"
 shift
 goto parse_args
 :after_parse
