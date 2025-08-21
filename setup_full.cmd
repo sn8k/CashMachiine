@@ -1,5 +1,6 @@
 @echo off
-rem setup_full.cmd v0.1.29 (2025-08-21)
+if "%1"==":main" goto main
+rem setup_full.cmd v0.1.30 (2025-08-21)
 rem Usage: setup_full.cmd [--silent] [--config=<file>] [--seed]
 
 set LOG_FILE=logs\setup_full.log
@@ -8,10 +9,11 @@ if %ERRORLEVEL% neq 0 (
   echo Log directory setup failed.
   exit /b 1
 )
-call :main %* > "%LOG_FILE%" 2>&1
+powershell -NoProfile -Command "& { & '%~f0' :main %* } 2>&1 | Tee-Object -FilePath '%LOG_FILE%' -Append; exit $LASTEXITCODE"
 exit /b %ERRORLEVEL%
 
 :main
+shift
 setlocal
 set "EXIT_CODE=0"
 set "ERROR_MSG="

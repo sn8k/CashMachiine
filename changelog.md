@@ -1,4 +1,4 @@
-# Changelog v0.6.97
+# Changelog v0.6.98
 =======
 
 
@@ -291,6 +291,7 @@
 - Refined setup_env scripts to monitor container status via `docker compose ps --format '{{.Service}} {{.Status}}'` and roll back if containers fail to reach `running (healthy)`.
 
 - `setup_full.cmd` and `remove_full.cmd` now parse `--config=<file>` and suppress prompts with `--silent`; versions bumped and documentation updated.
+- `setup_full.cmd` now mirrors output to the console while logging to `logs\\setup_full.log` using PowerShell `Tee-Object`.
 
 ## 2025-08-22
 - `install_db.sh` now applies warehouse schema migrations from `db/migrations/warehouse/*.sql` after core migrations.
