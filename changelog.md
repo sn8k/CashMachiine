@@ -1,4 +1,4 @@
-# Changelog v0.6.88
+# Changelog v0.6.89
 =======
 
 
@@ -134,6 +134,7 @@
 - Reviewed development tasks, marking feasibility calculator, action UI export and backtester HTML reports as complete with cross-references in user manuals.
 - Reconciled `development_tasks` with dated logs, adding deliverables for feasibility calculator documentation and backtester benchmarking.
 - Updated user manuals with notes on feasibility calculator integration and backtester performance plans.
+- Replaced `set /p` database password prompts in Windows setup scripts with a PowerShell secure prompt.
 
 ## 2025-08-18
 - Added initial development tasks outline.
