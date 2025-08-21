@@ -1,4 +1,4 @@
-# User Manual v0.6.84
+# User Manual v0.6.85
 =======
 
 
@@ -16,7 +16,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
   - PostgreSQL `psql`
   - Docker
   - Node.js
-- `setup_full.cmd` checks for these tools, prompts for database, RabbitMQ, API Gateway and API keys, writing values to `.env`, and opens download pages if any are missing. If `psql` or TimescaleDB is unavailable, it pulls and starts a `timescale/timescaledb` container with your credentials. The script writes all output to `logs\\setup_full.log` and accepts a `--silent` flag or `--config <file>` to skip prompts. After prompts it creates `.env` if missing, replaces database placeholders with the provided values, creates the database role if needed and grants it privileges on the target database.
+- `setup_full.cmd` checks for these tools, prompts for database, RabbitMQ, API Gateway and API keys, writing values to `.env`, and opens download pages if any are missing. If `psql` or TimescaleDB is unavailable, it pulls and starts a `timescale/timescaledb` container with your credentials. Before applying migrations it dumps the current database to `backups/`. The script writes all output to `logs\\setup_full.log` and accepts a `--silent` flag or `--config <file>` to skip prompts. After prompts it creates `.env` if missing, replaces database placeholders with the provided values, creates the database role if needed and grants it privileges on the target database.
 - Copy `.env.example` to `.env` and adjust values as needed, including `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `RATE_LIMIT_PER_MINUTE`, `ALPHA_VANTAGE_KEY`, `BINANCE_API_KEY`, `BINANCE_API_SECRET`, `IBKR_API_KEY` and `FRED_API_KEY`.
 - `DB_SCHEMA_VERSION` records the expected database schema revision (`v0.1.7`) checked by `admin/db_check.php`.
 - Configure OAuth token endpoints via `GOOGLE_TOKEN_URL` and `GITHUB_TOKEN_URL` if overriding defaults.

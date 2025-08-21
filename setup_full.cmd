@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.18 (2025-08-21)
+rem setup_full.cmd v0.1.19 (2025-08-21)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -162,6 +162,8 @@ set PGPASSWORD=
 %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE %DB_NAME% TO %DB_USER%;"
 set PGPASSWORD=%DB_PASS%
 %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
+mkdir "%~dp0backups" 2>nul
+pg_dump -h %DB_HOST% -p %DB_PORT% -U %DB_USER% %DB_NAME% > backups\%DB_NAME%_%DATE:~-4%%DATE:~4,2%%DATE:~7,2%.sql
 for %%f in (db\migrations\*.sql) do (
   echo Applying %%f
   %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
