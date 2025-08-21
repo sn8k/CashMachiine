@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.11 (2025-08-21)
+rem remove_full.cmd v0.1.12 (2025-08-21)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -112,7 +112,10 @@ if exist ui (
 if exist .env (
   echo Clearing service credentials from .env...
   powershell -Command ^
-    "$envpath='.env'; $vars = 'DB_HOST','DB_PORT','DB_NAME','DB_USER','DB_PASS','RABBITMQ_URL','API_GATEWAY_URL','ALPHA_VANTAGE_KEY','BINANCE_API_KEY','BINANCE_API_SECRET','IBKR_API_KEY','FRED_API_KEY'; $content = Get-Content $envpath; foreach($k in $vars){$pattern = '^' + [regex]::Escape($k) + '='; if($content -match $pattern){$content = $content -replace $pattern + '.*', $k + '='}}; Set-Content $envpath $content"
+    "$envpath='.env'; $vars = 'DB_HOST','DB_PORT','DB_NAME','DB_USER','DB_PASS','DB_SCHEMA_VERSION','RABBITMQ_URL','API_GATEWAY_URL','ALPHA_VANTAGE_KEY','BINANCE_API_KEY','BINANCE_API_SECRET','IBKR_API_KEY','FRED_API_KEY'; $content = Get-Content $envpath; foreach($k in $vars){$pattern = '^' + [regex]::Escape($k) + '='; if($content -match $pattern){$content = $content -replace $pattern + '.*', $k + '='}}; Set-Content $envpath $content"
+  echo Restoring default .env...
+  del .env
+  if exist .env.example copy .env.example .env >nul
 )
 
 echo Uninstalling system packages...

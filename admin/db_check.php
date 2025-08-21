@@ -1,6 +1,6 @@
 <?php
-// db_check.php v0.1.21 (2025-08-21)
-$expectedVersion = 'v0.1.16';
+// db_check.php v0.1.22 (2025-08-21)
+$expectedVersion = 'v0.1.7';
 $dbname = getenv('DB_NAME') ?: 'cashmachiine';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
