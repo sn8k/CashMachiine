@@ -1,4 +1,4 @@
-# User Manual v0.6.94
+# User Manual v0.6.95
 =======
 
 
@@ -39,7 +39,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
 - Setup scripts wait for Docker containers to report healthy status and roll back if any container fails.
-- Run `./install_db.sh` to apply core migrations and then warehouse migrations from `db/migrations/warehouse/*.sql`; the script enables TimescaleDB and converts `prices` to a hypertable.
+- Run `./install_db.sh` to apply core migrations and then warehouse migrations from `db/migrations/warehouse/*.sql`; the script enables TimescaleDB, converts `prices` to a hypertable, and runs `php admin\db_check.php` to validate the schema, aborting on any failure.
 - Create PostgreSQL dumps with `tools/db_backup.sh --retention <days>` (default 7) which stores files under `backups/` and prunes old ones.
 - Restore a dump via `tools/db_restore.sh <dump_file>`.
 - `npm test` now runs without legacy proxy warnings thanks to a local `.npmrc`.
