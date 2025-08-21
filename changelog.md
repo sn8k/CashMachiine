@@ -1,4 +1,4 @@
-# Changelog v0.6.82
+# Changelog v0.6.83
 =======
 
 
@@ -107,6 +107,8 @@
 - Updated development tasks with new deliverables from the README and bumped README to v0.1.5 with current date linkage.
 - Replaced insecure asserts in execution-engine tests and bound feasibility-calculator to localhost to satisfy Bandit.
 - Added historical and hypothetical stress test endpoint `/risk/stress` with persistence, migrations and documentation.
+
+- `setup_full.cmd` now ensures the database role exists and grants it privileges on the target database; `admin/db_check.php` verifies the role and permissions.
 
 - Scaffolded `notification-service` with `/notify/email` and `/notify/webhook` endpoints, RabbitMQ consumer,
  log directory, installer scripts and `notifications` table migration with schema checks.

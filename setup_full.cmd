@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.17 (2025-08-21)
+rem setup_full.cmd v0.1.18 (2025-08-21)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -127,6 +127,8 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p FRED_API_KEY="Enter FRED AP
 if "%FRED_API_KEY%"=="" set "FRED_API_KEY=demo"
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p RUN_SEEDS="Execute database seeds (db\\seeds\\*.sql)? [y/N]: "
 
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -tc "SELECT 1 FROM pg_roles WHERE rolname='%DB_USER%';" | findstr 1 >nul || %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -c "CREATE ROLE %DB_USER% WITH LOGIN PASSWORD '%DB_PASS%';"
+
 if not exist .env (
   echo Creating .env from sample...
   copy .env.example .env >nul
@@ -155,8 +157,10 @@ if %ERRORLEVEL% neq 0 (
 )
 
 echo Creating and migrating database...
+set PGPASSWORD=
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -tc "SELECT 1 FROM pg_database WHERE datname='%DB_NAME%';" | findstr 1 >nul || %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -c "CREATE DATABASE %DB_NAME%"
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE %DB_NAME% TO %DB_USER%;"
 set PGPASSWORD=%DB_PASS%
-%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -tc "SELECT 1 FROM pg_database WHERE datname='%DB_NAME%';" | findstr 1 >nul || %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "CREATE DATABASE %DB_NAME%"
 %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
 for %%f in (db\migrations\*.sql) do (
   echo Applying %%f
