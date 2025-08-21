@@ -1,7 +1,8 @@
 @echo off
-rem setup_full.cmd v0.1.22 (2025-08-21)
+rem setup_full.cmd v0.1.23 (2025-08-21)
 
-net session >nul 2>&1 || (echo Please run as administrator & exit /b 1)
+echo Checking for administrator privileges...
+net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -56,6 +57,22 @@ if defined CONFIG_FILE (
 echo CashMachiine full interactive setup
 
 echo Checking prerequisites...
+where choco >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Chocolatey not found. Please install it from https://chocolatey.org/install and rerun this script.
+  exit /b 1
+)
+where powershell >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo PowerShell not found. Installing PowerShell via Chocolatey...
+  choco install powershell -y
+  where powershell >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo PowerShell installation failed.
+    exit /b 1
+  )
+  echo PowerShell installed.
+)
 where python >nul 2>nul
 if %ERRORLEVEL% neq 0 (
   echo Python not found. Installing Python via Chocolatey...
@@ -78,6 +95,39 @@ if %ERRORLEVEL% neq 0 (
   )
   echo pip installed.
 )
+where php >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo PHP not found. Installing PHP via Chocolatey...
+  choco install php -y
+  where php >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo PHP installation failed.
+    exit /b 1
+  )
+  echo PHP installed.
+)
+where node >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Node.js not found. Installing Node.js via Chocolatey...
+  choco install nodejs -y
+  where node >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Node.js installation failed.
+    exit /b 1
+  )
+  echo Node.js installed.
+)
+where npm >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo npm not found. Installing Node.js via Chocolatey...
+  choco install nodejs -y
+  where npm >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo npm installation failed.
+    exit /b 1
+  )
+  echo npm installed.
+)
 set "USE_DOCKER_DB=0"
 set "PSQL_CMD=psql"
 where psql >nul 2>nul
@@ -85,6 +135,18 @@ if %ERRORLEVEL% neq 0 (
   echo psql not found. Installing PostgreSQL via Chocolatey...
   choco install postgresql -y
   where psql >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo PostgreSQL installation failed. A TimescaleDB container will be started.
+    set "USE_DOCKER_DB=1"
+  ) else (
+    echo PostgreSQL installed.
+  )
+)
+where pg_dump >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo pg_dump not found. Installing PostgreSQL via Chocolatey...
+  choco install postgresql -y
+  where pg_dump >nul 2>nul
   if %ERRORLEVEL% neq 0 (
     echo PostgreSQL installation failed. A TimescaleDB container will be started.
     set "USE_DOCKER_DB=1"
