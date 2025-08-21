@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.12 (2025-08-21)
+rem remove_full.cmd v0.1.13 (2025-08-21)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -82,12 +82,12 @@ set PGPASSWORD=%DB_PASS%
 set PGPASSWORD=
 
 echo Removing Python environment...
-if exist venv (
-  call venv\Scripts\activate
+if exist "%~dp0venv" (
+  call "%~dp0venv\Scripts\activate"
   echo Uninstalling Python dependencies...
   pip uninstall -r "%~dp0requirements.txt" -y
   deactivate
-  rmdir /s /q venv
+  rmdir /s /q "%~dp0venv"
 ) else (
   echo venv not found. Attempting global uninstall.
   pip uninstall -r "%~dp0requirements.txt" -y
