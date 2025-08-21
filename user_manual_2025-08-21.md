@@ -1,4 +1,4 @@
-# User Manual v0.6.81
+# User Manual v0.6.82
 =======
 
 
@@ -35,6 +35,7 @@ This document will evolve into a comprehensive encyclopedia for the project.
 - Mobile dependencies install with `mobile/install.sh` and remove with `mobile/remove.sh`; build logs output to `logs/mobile/`.
 - Install RabbitMQ with `./install_rabbitmq.sh` and remove it with `./remove_rabbitmq.sh`.
 - Start all services with `docker-compose up -d` and stop them with `docker-compose down`.
+- Setup scripts wait for Docker containers to report healthy status and roll back if any container fails.
 - Run `./install_db.sh` to apply migrations; the script enables TimescaleDB and converts `prices` to a hypertable.
 - Create PostgreSQL dumps with `tools/db_backup.sh --retention <days>` (default 7) which stores files under `backups/` and prunes old ones.
 - Restore a dump via `tools/db_restore.sh <dump_file>`.
