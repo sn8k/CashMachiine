@@ -1,11 +1,11 @@
 @echo off
-rem setup_full.cmd v0.1.24 (2025-08-21)
+rem setup_full.cmd v0.1.25 (2025-08-21)
 
 echo Checking for administrator privileges...
 net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)
 
-if not exist logs mkdir logs
-set LOG_FILE=logs\setup_full.log
+call tools\log_create_win.cmd
+set LOG_FILE=logs\setup\setup_full.log
 call :main %* > "%LOG_FILE%" 2>&1
 exit /b %ERRORLEVEL%
 
@@ -13,7 +13,6 @@ exit /b %ERRORLEVEL%
 setlocal
 set "EXIT_CODE=0"
 set "ERROR_MSG="
-call tools\log_create_win.cmd
 
 set "SILENT=0"
 set "CONFIG_FILE="
