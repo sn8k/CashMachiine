@@ -1,4 +1,4 @@
-# Changelog v0.6.96
+# Changelog v0.6.97
 =======
 
 
@@ -289,6 +289,8 @@
 - `remove_full.cmd` deletes the `backups` directory during teardown.
 - Log creation scripts updated for the new log location.
 - Refined setup_env scripts to monitor container status via `docker compose ps --format '{{.Service}} {{.Status}}'` and roll back if containers fail to reach `running (healthy)`.
+
+- `setup_full.cmd` and `remove_full.cmd` now parse `--config=<file>` and suppress prompts with `--silent`; versions bumped and documentation updated.
 
 ## 2025-08-22
 - `install_db.sh` now applies warehouse schema migrations from `db/migrations/warehouse/*.sql` after core migrations.

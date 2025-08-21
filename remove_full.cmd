@@ -1,13 +1,18 @@
 @echo off
-rem remove_full.cmd v0.1.16 (2025-08-21)
+rem remove_full.cmd v0.1.17 (2025-08-21)
+rem Usage: remove_full.cmd [--silent] [--config=<file>]
 
 set "SILENT=0"
 set "CONFIG_FILE="
 
 :parse_args
 if "%~1"=="" goto after_parse
-if /I "%~1"=="--silent" set "SILENT=1"
-if /I "%~1"=="--config" (
+set "ARG=%~1"
+if /I "%ARG%"=="--silent" (
+  set "SILENT=1"
+) else if /I "%ARG:~0,9%"=="--config=" (
+  set "CONFIG_FILE=%ARG:~9%"
+) else if /I "%ARG%"=="--config" (
   shift
   set "CONFIG_FILE=%~1"
 )
