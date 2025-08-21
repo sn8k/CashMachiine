@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.37 (2025-08-21)
+REM log directory creator v0.6.38 (2025-08-21)
 mkdir logs 2>nul
 mkdir logs\setup 2>nul
 mkdir logs\containers 2>nul
@@ -30,7 +30,7 @@ mkdir logs\whatif-service 2>nul
 mkdir reports 2>nul
 type nul > reports\.gitkeep
 type nul > logs\auth.log
-type nul > logs\setup\setup_full.log
+type nul > logs\setup_full.log
 type nul > logs\orchestrator.log
 type nul > logs\data-ingestion.log
 type nul > logs\strategy-engine.log

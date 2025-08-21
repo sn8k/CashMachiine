@@ -1,4 +1,4 @@
-# Changelog v0.6.94
+# Changelog v0.6.95
 =======
 
 
@@ -284,6 +284,10 @@
 - `setup_full.cmd` writes DB connection settings and `DB_SCHEMA_VERSION` to `.env`, `.env.example` includes this version, `remove_full.cmd` restores the sample `.env` and clears `DB_SCHEMA_VERSION`, and `admin/db_check.php` now expects schema `v0.1.7`.
 - `setup_full.cmd` verifies Chocolatey, PowerShell, PHP, Node.js, npm, `psql` and `pg_dump` with `where`, installing missing tools via Chocolatey or exiting with guidance; documentation updated and versions bumped.
 - `remove_full.cmd` now removes the Python virtual environment directory using a script-relative path; user manual updated.
+
+- `setup_full.cmd` now writes output to `logs\\setup_full.log`, validates database backup success, and aborts with cleanup on failure.
+- `remove_full.cmd` deletes the `backups` directory during teardown.
+- Log creation scripts updated for the new log location.
 
 ## 2025-08-22
 - `install_db.sh` now applies warehouse schema migrations from `db/migrations/warehouse/*.sql` after core migrations.
