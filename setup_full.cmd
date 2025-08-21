@@ -1,5 +1,7 @@
 @echo off
-rem setup_full.cmd v0.1.20 (2025-08-21)
+rem setup_full.cmd v0.1.21 (2025-08-21)
+
+net session >nul 2>&1 || (echo Please run as administrator & exit /b 1)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
