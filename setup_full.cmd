@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.25 (2025-08-21)
+rem setup_full.cmd v0.1.26 (2025-08-22)
 
 echo Checking for administrator privileges...
 net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)
@@ -302,13 +302,13 @@ if %ERRORLEVEL% neq 0 (
 
 echo Installing UI dependencies and building...
 pushd ui
-npm install
+call npm install
 if %ERRORLEVEL% neq 0 (
   popd
   set "ERROR_MSG=UI dependency installation failed."
   goto cleanup
 )
-npm run build
+call npm run build
 if %ERRORLEVEL% neq 0 (
   popd
   set "ERROR_MSG=UI build failed."
