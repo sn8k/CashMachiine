@@ -1,4 +1,4 @@
-# Changelog v0.6.84
+# Changelog v0.6.85
 =======
 
 
@@ -40,6 +40,9 @@
 - Added broker installer scripts and `pika` dependency with configuration.
 
 ## 2025-08-21
+- Setup script automatically installs missing prerequisites via Chocolatey with explanatory messages.
+- `remove_full.cmd` now uninstalls Python, pip, PostgreSQL, Docker Desktop and Node.js.
+- Bumped `setup_full.cmd` to v0.1.20 and `remove_full.cmd` to v0.1.11 with documentation updates.
 - Setup scripts now wait for Docker containers to become healthy and roll back on failure.
 - Added Dockerfiles for all services with version headers.
 - Introduced root docker-compose.yml wiring services, database, cache and message bus.

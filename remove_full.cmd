@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.10 (2025-08-21)
+rem remove_full.cmd v0.1.11 (2025-08-21)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -113,6 +113,43 @@ if exist .env (
   echo Clearing service credentials from .env...
   powershell -Command ^
     "$envpath='.env'; $vars = 'DB_HOST','DB_PORT','DB_NAME','DB_USER','DB_PASS','RABBITMQ_URL','API_GATEWAY_URL','ALPHA_VANTAGE_KEY','BINANCE_API_KEY','BINANCE_API_SECRET','IBKR_API_KEY','FRED_API_KEY'; $content = Get-Content $envpath; foreach($k in $vars){$pattern = '^' + [regex]::Escape($k) + '='; if($content -match $pattern){$content = $content -replace $pattern + '.*', $k + '='}}; Set-Content $envpath $content"
+)
+
+echo Uninstalling system packages...
+where python >nul 2>nul
+if %ERRORLEVEL%==0 (
+  echo Uninstalling Python via Chocolatey...
+  choco uninstall python -y
+) else (
+  echo Python not found, skipping.
+)
+where pip >nul 2>nul
+if %ERRORLEVEL%==0 (
+  echo Uninstalling pip via Chocolatey...
+  choco uninstall pip -y
+) else (
+  echo pip not found, skipping.
+)
+where psql >nul 2>nul
+if %ERRORLEVEL%==0 (
+  echo Uninstalling PostgreSQL via Chocolatey...
+  choco uninstall postgresql -y
+) else (
+  echo PostgreSQL not found, skipping.
+)
+where docker >nul 2>nul
+if %ERRORLEVEL%==0 (
+  echo Uninstalling Docker Desktop via Chocolatey...
+  choco uninstall docker-desktop -y
+) else (
+  echo Docker not found, skipping.
+)
+where node >nul 2>nul
+if %ERRORLEVEL%==0 (
+  echo Uninstalling Node.js via Chocolatey...
+  choco uninstall nodejs -y
+) else (
+  echo Node.js not found, skipping.
 )
 
 echo Removal complete.
