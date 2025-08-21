@@ -1,10 +1,11 @@
 <?php
-// db_check.php v0.1.20 (2025-08-20)
+// db_check.php v0.1.21 (2025-08-21)
 $expectedVersion = 'v0.1.16';
+$dbname = getenv('DB_NAME') ?: 'cashmachiine';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_PORT') ?: '5432',
-    getenv('DB_NAME') ?: 'cashmachiine');
+    $dbname);
 $user = getenv('DB_USER') ?: 'postgres';
 $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
@@ -19,6 +20,16 @@ try {
     $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 } catch (Exception $e) {
     echo "Connection failed: {$e->getMessage()}\n";
+    exit(1);
+}
+$roleStmt = $pdo->query("SELECT 1 FROM pg_roles WHERE rolname='{$user}'");
+if (!$roleStmt->fetchColumn()) {
+    echo "Missing role: {$user}\n";
+    exit(1);
+}
+$privStmt = $pdo->query("SELECT has_database_privilege('{$user}', '{$dbname}', 'CONNECT')");
+if (!$privStmt->fetchColumn()) {
+    echo "User {$user} lacks CONNECT privilege on {$dbname}\n";
     exit(1);
 }
 foreach ($requiredTables as $tbl) {
