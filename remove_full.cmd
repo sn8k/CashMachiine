@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.9 (2025-08-21)
+rem remove_full.cmd v0.1.10 (2025-08-21)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -74,7 +74,7 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_NAME="Enter database nam
 if "%DB_NAME%"=="" set DB_NAME=cashmachiine
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_USER="Enter database user [%DB_USER%]: "
 if "%DB_USER%"=="" set DB_USER=postgres
-if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_PASS="Enter database password: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE for /f "usebackq delims=" %%p in (`powershell -Command "$p = Read-Host 'Enter database password' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($p); [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($BSTR)"`) do set DB_PASS=%%p
 
 echo Dropping database %DB_NAME%...
 set PGPASSWORD=%DB_PASS%
