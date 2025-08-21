@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.13 (2025-08-20)
+rem setup_full.cmd v0.1.14 (2025-08-20)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -14,6 +14,7 @@ call tools\log_create_win.cmd
 
 set "SILENT=0"
 set "CONFIG_FILE="
+set "RUN_SEEDS=N"
 
 :parse_args
 if "%~1"=="" goto after_parse
@@ -22,6 +23,7 @@ if /I "%~1"=="--config" (
   shift
   set "CONFIG_FILE=%~1"
 )
+if /I "%~1"=="--seed" set "RUN_SEEDS=Y"
 shift
 goto parse_args
 :after_parse
@@ -38,7 +40,6 @@ set "BINANCE_API_KEY=demo"
 set "BINANCE_API_SECRET=demo"
 set "IBKR_API_KEY=demo"
 set "FRED_API_KEY=demo"
-set "LOAD_DEMO=N"
 
 if defined CONFIG_FILE (
   if exist "%CONFIG_FILE%" (
@@ -102,7 +103,7 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p IBKR_API_KEY="Enter IBKR AP
 if "%IBKR_API_KEY%"=="" set "IBKR_API_KEY=demo"
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p FRED_API_KEY="Enter FRED API key [%FRED_API_KEY%]: "
 if "%FRED_API_KEY%"=="" set "FRED_API_KEY=demo"
-if "%SILENT%"=="0" if not defined CONFIG_FILE set /p LOAD_DEMO="Load demonstration data (db\\seeds\\*.sql)? [y/N]: "
+if "%SILENT%"=="0" if not defined CONFIG_FILE set /p RUN_SEEDS="Execute database seeds (db\\seeds\\*.sql)? [y/N]: "
 
 if not exist .env (
   echo Creating .env from sample...
@@ -151,13 +152,13 @@ for %%f in (db\migrations\warehouse\*.sql) do (
     goto cleanup
   )
 )
-if /I "%LOAD_DEMO%"=="Y" (
-  echo Inserting demonstration data...
+if /I "%RUN_SEEDS%"=="Y" (
+  echo Executing seed files...
   for %%f in (db\seeds\*.sql) do (
     echo Applying %%f
     psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
     if %ERRORLEVEL% neq 0 (
-      set "ERROR_MSG=Demo data insertion failed (%%f)."
+      set "ERROR_MSG=Seed execution failed (%%f)."
       goto cleanup
     )
   )

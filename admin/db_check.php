@@ -1,5 +1,5 @@
 <?php
-// db_check.php v0.1.19 (2025-08-20)
+// db_check.php v0.1.20 (2025-08-20)
 $expectedVersion = 'v0.1.16';
 $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s',
     getenv('DB_HOST') ?: 'localhost',
@@ -10,9 +10,10 @@ $pass = getenv('DB_PASS') ?: '';
 $requiredTables = [
     'users','goals','accounts','portfolios','positions','orders',
     'executions','prices','signals','actions','risk_limits','metrics_daily',
-    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results','risk_anomalies','macro_indicators','demo_users'
+    'backtests','risk_stress_results','notifications','alerts','strategies','strategy_reviews','audit_events','scenario_results','risk_anomalies','macro_indicators'
 ];
 $warehouseTables = ['dw_orders','dw_positions'];
+$seedTables = ['demo_users','demo_accounts'];
 $priceColumns = ['symbol','venue','ts','o','h','l','c','v'];
 try {
     $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -181,9 +182,26 @@ $cols = $stmt->fetchAll(PDO::FETCH_COLUMN);
           exit(1);
       }
     }
+  foreach ($seedTables as $tbl) {
+      $stmt = $pdo->query("SELECT to_regclass('public.$tbl')");
+      if (!$stmt->fetchColumn()) {
+          echo "Missing seed table: $tbl\n";
+          exit(1);
+      }
+  }
   $demoCount = $pdo->query("SELECT COUNT(*) FROM demo_users")->fetchColumn();
   if ($demoCount == 0) {
       echo "Missing demo data in demo_users\n";
+      exit(1);
+  }
+  $demoAcctCount = $pdo->query("SELECT COUNT(*) FROM demo_accounts")->fetchColumn();
+  if ($demoAcctCount == 0) {
+      echo "Missing demo data in demo_accounts\n";
+      exit(1);
+  }
+  $adminCount = $pdo->query("SELECT COUNT(*) FROM users WHERE role='admin'")->fetchColumn();
+  if ($adminCount == 0) {
+      echo "Missing admin user\n";
       exit(1);
   }
   $schemaVersion = getenv('DB_SCHEMA_VERSION') ?: 'unknown';
