@@ -1,5 +1,6 @@
 @echo off
-rem setup_full.cmd v0.1.26 (2025-08-22)
+rem setup_full.cmd v0.1.27 (2025-08-22)
+rem Usage: setup_full.cmd [--silent] [--config <file>] [--seed]
 
 echo Checking for administrator privileges...
 net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)

@@ -1,4 +1,4 @@
--- 002_demo_data_2025-08-20.sql v0.1.0 (2025-08-20)
+-- 002_demo_data_2025-08-22.sql v0.1.1 (2025-08-22)
 CREATE TABLE IF NOT EXISTS demo_accounts (
     id SERIAL PRIMARY KEY,
     user_email TEXT NOT NULL,
