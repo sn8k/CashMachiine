@@ -1,4 +1,4 @@
-# Changelog v0.6.80
+# Changelog v0.6.81
 =======
 
 
@@ -38,6 +38,9 @@
 - Added RabbitMQ-based messaging package with producers and consumers.
 - Orchestrator now publishes events to the bus; data-ingestion consumes them.
 - Added broker installer scripts and `pika` dependency with configuration.
+
+## 2025-08-21
+- Setup scripts now wait for Docker containers to become healthy and roll back on failure.
 - Added Dockerfiles for all services with version headers.
 - Introduced root docker-compose.yml wiring services, database, cache and message bus.
 - Updated setup/remove scripts to invoke `docker-compose up` and `docker-compose down`.

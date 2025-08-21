@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.15 (2025-08-21)
+rem setup_full.cmd v0.1.16 (2025-08-21)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -216,6 +216,11 @@ if %ERRORLEVEL%==0 (
   docker compose up -d 2>nul || docker-compose up -d
   if %ERRORLEVEL% neq 0 (
     set "ERROR_MSG=Docker startup failed."
+    goto cleanup
+  )
+  powershell -NoProfile -Command "$timeout=120;$interval=5;$elapsed=0;while($elapsed -lt $timeout){$ps=(docker compose ps --format '{{.Service}} {{.State}}' 2>$null);if($LASTEXITCODE -ne 0){$ps=(docker-compose ps --format '{{.Service}} {{.State}}' 2>$null)};if($ps -match 'unhealthy|exited'){exit 1};if($ps -notmatch 'healthy'){Start-Sleep -Seconds $interval;$elapsed+=$interval}else{exit 0}};exit 1"
+  if %ERRORLEVEL% neq 0 (
+    set "ERROR_MSG=Container health check failed."
     goto cleanup
   )
 ) else (
