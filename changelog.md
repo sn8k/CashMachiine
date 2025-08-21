@@ -1,4 +1,4 @@
-# Changelog v0.6.90
+# Changelog v0.6.91
 =======
 
 
@@ -135,6 +135,7 @@
 - Reconciled `development_tasks` with dated logs, adding deliverables for feasibility calculator documentation and backtester benchmarking.
 - Updated user manuals with notes on feasibility calculator integration and backtester performance plans.
 - Replaced `set /p` database password prompts in Windows setup scripts with a PowerShell secure prompt.
+- `setup_full.cmd` now runs `tools\\log_create_win.cmd` at startup and logs to `logs/setup/setup_full.log`; log creation scripts and user manual updated.
 
 ## 2025-08-18
 - Added initial development tasks outline.
