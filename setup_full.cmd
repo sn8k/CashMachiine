@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.19 (2025-08-21)
+rem setup_full.cmd v0.1.20 (2025-08-21)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -55,21 +55,39 @@ echo CashMachiine full interactive setup
 echo Checking prerequisites...
 where python >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo Python not found. Please install from https://www.python.org/downloads/
-  exit /b 1
+  echo Python not found. Installing Python via Chocolatey...
+  choco install python -y
+  where python >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Python installation failed.
+    exit /b 1
+  )
+  echo Python installed.
 )
 where pip >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo pip not found. Downloading installer...
-  start https://bootstrap.pypa.io/get-pip.py
-  exit /b 1
+  echo pip not found. Installing pip via Chocolatey...
+  choco install pip -y
+  where pip >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo pip installation failed.
+    exit /b 1
+  )
+  echo pip installed.
 )
 set "USE_DOCKER_DB=0"
 set "PSQL_CMD=psql"
 where psql >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo psql not found. A TimescaleDB container will be started.
-  set "USE_DOCKER_DB=1"
+  echo psql not found. Installing PostgreSQL via Chocolatey...
+  choco install postgresql -y
+  where psql >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo PostgreSQL installation failed. A TimescaleDB container will be started.
+    set "USE_DOCKER_DB=1"
+  ) else (
+    echo PostgreSQL installed.
+  )
 )
 if "%USE_DOCKER_DB%"=="0" (
   set PGPASSWORD=%DB_PASS%
@@ -80,8 +98,14 @@ if "%USE_DOCKER_DB%"=="0" (
 if "%USE_DOCKER_DB%"=="1" (
   where docker >nul 2>nul
   if %ERRORLEVEL% neq 0 (
-    echo Docker not found. Please install from https://www.docker.com/get-started/
-    exit /b 1
+    echo Docker not found. Installing Docker Desktop via Chocolatey...
+    choco install docker-desktop -y
+    where docker >nul 2>nul
+    if %ERRORLEVEL% neq 0 (
+      echo Docker installation failed.
+      exit /b 1
+    )
+    echo Docker installed.
   )
   docker run -d --name cashmachiine-timescaledb -e POSTGRES_USER=%DB_USER% -e POSTGRES_PASSWORD=%DB_PASS% -e POSTGRES_DB=%DB_NAME% -p %DB_PORT%:5432 timescale/timescaledb
   if %ERRORLEVEL% neq 0 (
@@ -93,13 +117,25 @@ if "%USE_DOCKER_DB%"=="1" (
 )
 where docker >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo Docker not found. Please install from https://www.docker.com/get-started/
-  exit /b 1
+  echo Docker not found. Installing Docker Desktop via Chocolatey...
+  choco install docker-desktop -y
+  where docker >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Docker installation failed.
+    exit /b 1
+  )
+  echo Docker installed.
 )
 where node >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo Node.js not found. Please install from https://nodejs.org/en/download/
-  exit /b 1
+  echo Node.js not found. Installing Node.js via Chocolatey...
+  choco install nodejs -y
+  where node >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Node.js installation failed.
+    exit /b 1
+  )
+  echo Node.js installed.
 )
 
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_HOST="Enter database host [%DB_HOST%]: "
@@ -218,6 +254,16 @@ popd
 
 echo Starting services with Docker...
 where docker >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Docker not found. Installing Docker Desktop via Chocolatey...
+  choco install docker-desktop -y
+  where docker >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Docker installation failed.
+  ) else (
+    echo Docker installed.
+  )
+)
 if %ERRORLEVEL%==0 (
   docker compose up -d 2>nul || docker-compose up -d
   if %ERRORLEVEL% neq 0 (
@@ -249,9 +295,21 @@ if exist venv (
   rmdir /s /q venv
 )
 where docker >nul 2>nul
+if %ERRORLEVEL% neq 0 (
+  echo Docker not found. Installing Docker Desktop via Chocolatey for cleanup...
+  choco install docker-desktop -y
+  where docker >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Docker installation failed.
+  ) else (
+    echo Docker installed.
+  )
+)
 if %ERRORLEVEL%==0 (
   docker compose down 2>nul || docker-compose down 2>nul
   docker rm -f cashmachiine-timescaledb >nul 2>&1
+) else (
+  echo Docker not found, skipping container stop.
 )
 if exist ui\node_modules rmdir /s /q ui\node_modules
 if exist ui\.next rmdir /s /q ui\.next
