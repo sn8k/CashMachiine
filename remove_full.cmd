@@ -1,5 +1,5 @@
 @echo off
-rem remove_full.cmd v0.1.8 (2025-08-20)
+rem remove_full.cmd v0.1.9 (2025-08-21)
 
 set "SILENT=0"
 set "CONFIG_FILE="
@@ -44,10 +44,15 @@ if %ERRORLEVEL% neq 0 (
   start https://bootstrap.pypa.io/get-pip.py
   exit /b 1
 )
+set "PSQL_CMD=psql"
 where psql >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo PostgreSQL not found. Please install from https://www.postgresql.org/download/
-  exit /b 1
+  set "PSQL_CMD=docker exec -e PGPASSWORD=%DB_PASS% -i cashmachiine-timescaledb psql"
+) else (
+  set PGPASSWORD=%DB_PASS%
+  %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "SELECT 1" >nul 2>&1
+  if %ERRORLEVEL% neq 0 set "PSQL_CMD=docker exec -e PGPASSWORD=%DB_PASS% -i cashmachiine-timescaledb psql"
+  set PGPASSWORD=
 )
 where docker >nul 2>nul
 if %ERRORLEVEL% neq 0 (
@@ -73,7 +78,7 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_PASS="Enter database pas
 
 echo Dropping database %DB_NAME%...
 set PGPASSWORD=%DB_PASS%
-psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "DROP DATABASE IF EXISTS %DB_NAME%"
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "DROP DATABASE IF EXISTS %DB_NAME%"
 set PGPASSWORD=
 
 echo Removing Python environment...
@@ -91,6 +96,7 @@ if exist venv (
 where docker >nul 2>nul
 if %ERRORLEVEL%==0 (
   docker compose down 2>nul || docker-compose down
+  docker rm -f cashmachiine-timescaledb >nul 2>&1
 ) else (
   echo Docker not found, skipping container stop.
 )

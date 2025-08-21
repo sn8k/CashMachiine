@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.14 (2025-08-20)
+rem setup_full.cmd v0.1.15 (2025-08-21)
 
 if not exist logs mkdir logs
 set LOG_FILE=logs\setup_full.log
@@ -64,10 +64,32 @@ if %ERRORLEVEL% neq 0 (
   start https://bootstrap.pypa.io/get-pip.py
   exit /b 1
 )
+set "USE_DOCKER_DB=0"
+set "PSQL_CMD=psql"
 where psql >nul 2>nul
 if %ERRORLEVEL% neq 0 (
-  echo PostgreSQL not found. Please install from https://www.postgresql.org/download/
-  exit /b 1
+  echo psql not found. A TimescaleDB container will be started.
+  set "USE_DOCKER_DB=1"
+)
+if "%USE_DOCKER_DB%"=="0" (
+  set PGPASSWORD=%DB_PASS%
+  %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "SELECT 1" >nul 2>&1
+  if %ERRORLEVEL% neq 0 set "USE_DOCKER_DB=1"
+  set PGPASSWORD=
+)
+if "%USE_DOCKER_DB%"=="1" (
+  where docker >nul 2>nul
+  if %ERRORLEVEL% neq 0 (
+    echo Docker not found. Please install from https://www.docker.com/get-started/
+    exit /b 1
+  )
+  docker run -d --name cashmachiine-timescaledb -e POSTGRES_USER=%DB_USER% -e POSTGRES_PASSWORD=%DB_PASS% -e POSTGRES_DB=%DB_NAME% -p %DB_PORT%:5432 timescale/timescaledb
+  if %ERRORLEVEL% neq 0 (
+    echo Failed to start TimescaleDB container.
+    exit /b 1
+  )
+  set "PSQL_CMD=docker exec -e PGPASSWORD=%DB_PASS% -i cashmachiine-timescaledb psql"
+  set "DB_HOST=localhost"
 )
 where docker >nul 2>nul
 if %ERRORLEVEL% neq 0 (
@@ -134,11 +156,11 @@ if %ERRORLEVEL% neq 0 (
 
 echo Creating and migrating database...
 set PGPASSWORD=%DB_PASS%
-psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -tc "SELECT 1 FROM pg_database WHERE datname='%DB_NAME%';" | findstr 1 >nul || psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "CREATE DATABASE %DB_NAME%"
-psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -tc "SELECT 1 FROM pg_database WHERE datname='%DB_NAME%';" | findstr 1 >nul || %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "CREATE DATABASE %DB_NAME%"
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
 for %%f in (db\migrations\*.sql) do (
   echo Applying %%f
-  psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+  %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
   if %ERRORLEVEL% neq 0 (
     set "ERROR_MSG=Database migration failed (%%f)."
     goto cleanup
@@ -146,7 +168,7 @@ for %%f in (db\migrations\*.sql) do (
 )
 for %%f in (db\migrations\warehouse\*.sql) do (
   echo Applying %%f
-  psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+  %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
   if %ERRORLEVEL% neq 0 (
     set "ERROR_MSG=Warehouse migration failed (%%f)."
     goto cleanup
@@ -156,7 +178,7 @@ if /I "%RUN_SEEDS%"=="Y" (
   echo Executing seed files...
   for %%f in (db\seeds\*.sql) do (
     echo Applying %%f
-    psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
+    %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
     if %ERRORLEVEL% neq 0 (
       set "ERROR_MSG=Seed execution failed (%%f)."
       goto cleanup
@@ -207,7 +229,7 @@ goto end
 echo Setup failed: %ERROR_MSG%
 if exist "%LOG_FILE%" echo ERROR: %ERROR_MSG%>>"%LOG_FILE%"
 set PGPASSWORD=%DB_PASS%
-psql -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "DROP DATABASE IF EXISTS %DB_NAME%" >nul 2>&1
+%PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -c "DROP DATABASE IF EXISTS %DB_NAME%" >nul 2>&1
 set PGPASSWORD=
 if exist venv (
   call venv\Scripts\activate
@@ -218,6 +240,7 @@ if exist venv (
 where docker >nul 2>nul
 if %ERRORLEVEL%==0 (
   docker compose down 2>nul || docker-compose down 2>nul
+  docker rm -f cashmachiine-timescaledb >nul 2>&1
 )
 if exist ui\node_modules rmdir /s /q ui\node_modules
 if exist ui\.next rmdir /s /q ui\.next
