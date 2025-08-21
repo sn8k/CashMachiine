@@ -1,12 +1,13 @@
 @echo off
-rem setup_full.cmd v0.1.27 (2025-08-22)
+rem setup_full.cmd v0.1.28 (2025-08-21)
 rem Usage: setup_full.cmd [--silent] [--config <file>] [--seed]
 
-echo Checking for administrator privileges...
-net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)
-
+set LOG_FILE=logs\setup_full.log
 call tools\log_create_win.cmd
-set LOG_FILE=logs\setup\setup_full.log
+if %ERRORLEVEL% neq 0 (
+  echo Log directory setup failed.
+  exit /b 1
+)
 call :main %* > "%LOG_FILE%" 2>&1
 exit /b %ERRORLEVEL%
 
@@ -18,6 +19,9 @@ set "ERROR_MSG="
 set "SILENT=0"
 set "CONFIG_FILE="
 set "RUN_SEEDS=N"
+
+echo Checking for administrator privileges...
+net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)
 
 :parse_args
 if "%~1"=="" goto after_parse
@@ -260,11 +264,27 @@ if %ERRORLEVEL% neq 0 (
 echo Creating and migrating database...
 set PGPASSWORD=
 %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -tc "SELECT 1 FROM pg_database WHERE datname='%DB_NAME%';" | findstr 1 >nul || %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -c "CREATE DATABASE %DB_NAME%"
+if %ERRORLEVEL% neq 0 (
+  set "ERROR_MSG=Database creation failed."
+  goto cleanup
+)
 %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE %DB_NAME% TO %DB_USER%;"
+if %ERRORLEVEL% neq 0 (
+  set "ERROR_MSG=Database grant failed."
+  goto cleanup
+)
 set PGPASSWORD=%DB_PASS%
 %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -c "CREATE EXTENSION IF NOT EXISTS timescaledb;"
+if %ERRORLEVEL% neq 0 (
+  set "ERROR_MSG=TimescaleDB extension creation failed."
+  goto cleanup
+)
 mkdir "%~dp0backups" 2>nul
 pg_dump -h %DB_HOST% -p %DB_PORT% -U %DB_USER% %DB_NAME% > backups\%DB_NAME%_%DATE:~-4%%DATE:~4,2%%DATE:~7,2%.sql
+if %ERRORLEVEL% neq 0 (
+  set "ERROR_MSG=Database backup failed."
+  goto cleanup
+)
 for %%f in (db\migrations\*.sql) do (
   echo Applying %%f
   %PSQL_CMD% -h %DB_HOST% -p %DB_PORT% -U %DB_USER% -d %DB_NAME% -f %%f
