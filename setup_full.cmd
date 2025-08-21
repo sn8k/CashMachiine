@@ -1,5 +1,5 @@
 @echo off
-rem setup_full.cmd v0.1.23 (2025-08-21)
+rem setup_full.cmd v0.1.24 (2025-08-21)
 
 echo Checking for administrator privileges...
 net session >nul 2>&1 || (echo Administrator privileges required. Please run as administrator & exit /b 1)
@@ -211,7 +211,7 @@ if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_NAME="Enter database nam
 if "%DB_NAME%"=="" set "DB_NAME=cashmachiine"
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p DB_USER="Enter database user [%DB_USER%]: "
 if "%DB_USER%"=="" set "DB_USER=postgres"
-if "%SILENT%"=="0" if not defined CONFIG_FILE for /f "usebackq delims=" %%p in (`powershell -Command "$p = Read-Host 'Enter database password' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($p); [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($BSTR)"`) do set DB_PASS=%%p
+if "%SILENT%"=="0" if not defined CONFIG_FILE for /f "usebackq delims=" %%p in (`powershell -Command "$p = Read-Host -Prompt 'Enter database password' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($p); [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)"`) do set DB_PASS=%%p
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p RABBITMQ_URL="Enter RabbitMQ URL [%RABBITMQ_URL%]: "
 if "%RABBITMQ_URL%"=="" set "RABBITMQ_URL=amqp://guest:guest@localhost:5672/"
 if "%SILENT%"=="0" if not defined CONFIG_FILE set /p API_GATEWAY_URL="Enter API Gateway URL [%API_GATEWAY_URL%]: "
