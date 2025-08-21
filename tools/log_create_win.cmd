@@ -1,5 +1,5 @@
 @echo off
-REM log directory creator v0.6.35 (2025-08-20)
+REM log directory creator v0.6.36 (2025-08-20)
 mkdir logs 2>nul
 mkdir logs\containers 2>nul
 mkdir logs\analytics 2>nul
@@ -10,7 +10,7 @@ mkdir perf 2>nul
 mkdir perf\reports 2>nul
 mkdir execution-engine\logs 2>nul
 mkdir infra\terraform\logs 2>nul
-mkdir db\seeds 2>nul
+mkdir db\seeds 2>nul  & REM ensure seed SQL directory exists
 mkdir logs\notification-service 2>nul
 mkdir logs\strategy-marketplace 2>nul
 mkdir logs\fx-service 2>nul

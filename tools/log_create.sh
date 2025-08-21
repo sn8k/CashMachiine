@@ -1,5 +1,5 @@
 #!/bin/bash
-# log directory creator v0.6.35 (2025-08-20)
+# log directory creator v0.6.36 (2025-08-20)
 set -e
 mkdir -p logs
 mkdir -p logs/containers
@@ -11,7 +11,7 @@ mkdir -p perf
 mkdir -p perf/reports
 mkdir -p execution-engine/logs
 mkdir -p infra/terraform/logs
-mkdir -p db/seeds
+mkdir -p db/seeds # ensure seed SQL directory exists
 mkdir -p logs/notification-service
 mkdir -p logs/strategy-marketplace
 mkdir -p logs/fx-service

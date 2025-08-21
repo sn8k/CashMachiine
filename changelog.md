@@ -1,4 +1,4 @@
-# Changelog v0.6.78
+# Changelog v0.6.79
 =======
 
 
@@ -259,3 +259,8 @@
 - setup_full.cmd adds error-checked sections with rollback to drop the database, uninstall dependencies and stop containers; errors are logged to `logs\\setup_full.log`, and remove_full.cmd drops the database.
 - setup_full.cmd now applies warehouse migrations from `db/migrations/warehouse/*.sql` after core migrations.
 - Introduced `DB_SCHEMA_VERSION` (`v0.1.7`) in `.env.example`, propagated by `setup_full.cmd`, with documentation updates.
+- Added SQL seed files `001_admin_user_2025-08-20.sql` and `002_demo_data_2025-08-20.sql`.
+- setup_full.cmd gains an optional `--seed` flag to execute seed files after migrations.
+- admin/db_check.php now verifies the admin user and seed tables.
+- log creation scripts create the `db/seeds` directory.
+- user manual and changelog updated accordingly.
